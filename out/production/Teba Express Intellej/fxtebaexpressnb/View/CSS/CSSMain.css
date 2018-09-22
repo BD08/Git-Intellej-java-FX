@@ -1,0 +1,154 @@
+
+.parent{
+    -fx-background-color: #ffffff;
+    -fx-font-family: Roboto;
+}
+.sideBar{
+    -fx-background-color: #333645;
+}
+
+.material-icons {
+    /*font-family: 'Material Icons';*/
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+}
+
+.Text{
+    -fx-font-size: 18.0px;
+    /*-fx-font-family: 'Roboto';*/
+}
+
+.TextFieldForm{
+    -fx-font-size: 18.0px;
+    /*-fx-font-family: 'Roboto';*/
+    
+    -fx-text-fill: #68707c;
+    -jfx-focus-color: #66afe9;
+    -jfx-unfocus-color: #cccccc;
+}
+.TextFieldForm:disabled{
+     -jfx-focus-color: #eee;
+}
+
+.TextFieldForm:error {
+    -jfx-focus-color: #66afe9;
+    -jfx-unfocus-color: #f2dede;
+}
+
+.ButtonMenuFlat{
+    -fx-font-size: 18.0px;
+    /*-fx-font-family: 'Roboto';*/
+    -fx-font-weight: BOLD;
+    -fx-text-fill: whitesmoke;
+}
+.ButtonActionCss{
+    -fx-font-size: 18.0px;
+    /*-fx-font-family: 'Roboto';*/
+    -fx-font-weight: bold;
+    -fx-background-color:#337ab7;
+    -fx-text-fill: white;
+}
+
+.ButtonActionCss:disabled{
+    -fx-background-color:#4a9ce2;
+}
+
+.ButtonCencelCSS{
+    -fx-font-size: 18.0px;
+    /*-fx-font-family: 'Roboto';*/
+    -fx-font-weight: bold;
+    -fx-background-color: #ac2925;
+    -fx-text-fill: white;
+}
+
+.ButtonCencelCSS:disabled{
+    -fx-background-color: #d9534f;
+}
+
+.WarningButton{
+    -fx-font-size: 18.0px;
+    /*-fx-font-family: 'Roboto';*/
+    -fx-font-weight: bold;
+    -fx-background-color: #ec971f;
+    -fx-text-fill: white;
+}
+
+.TextFieldInsert{
+    -fx-font-size: 18.0px;
+    -fx-background-color: #66afe9;
+}
+
+.LabelDesain{
+    -fx-font-weight: BOLD;
+    -fx-font-size: 18.0px;
+    -fx-fill: #68707c;
+}
+
+.HeaderPanel{
+    -fx-background-color: #5D9CEC;
+}
+
+.VBoxPadding{
+    -fx-border-insets: 2;
+    -fx-border-width: 3;
+    -fx-border-color: #5D9CEC;
+    
+}
+
+.LabelHeader{
+    -fx-font-size: 50.0px;
+    -fx-fill: #393b3f;
+    -fx-font-weight: BOLD;
+}
+
+.TableAnchorePane {
+    -fx-border-insets: 2;
+    -fx-border-width: 3;
+    -fx-border-color: #5D9CEC;
+    -fx-font-size: 18.0px;
+    
+}
+.RowPaneFirst {
+    -fx-alignment: CENTER_LEFT;
+}
+.RowPaneSecond {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.ButtonPaging{
+    -fx-background-color: #d9534f;
+    -fx-font-size: 18.0px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.Paginnation{
+    -fx-text-fill: white;
+    -fx-font-size: 18.0px;
+    -jfx-focus-color: #66afe9;
+    -jfx-unfocus-color: white;
+}
+.PaginnationMax{
+    -fx-fill: whitesmoke;
+    -fx-font-weight: bold;
+    -fx-font-size: 18.0px;
+}
+
+.SearchLabel{
+    -fx-font-weight: BOLD;
+    -fx-font-size: 24.0px;
+    -fx-text-fill: #68707c;
+    -jfx-focus-color: #66afe9;
+    -jfx-unfocus-color: #cccccc;
+}
+
+
+

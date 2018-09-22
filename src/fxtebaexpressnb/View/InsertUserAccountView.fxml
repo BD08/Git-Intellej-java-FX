@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="ParentPane" blendMode="MULTIPLY" styleClass="parent" stylesheets="@CSS/CSSMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.InsertUserAccountController">
+   <children>
+      <BorderPane layoutX="112.0" layoutY="225.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="1000.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnSave" alignment="CENTER" minWidth="150.0" onAction="#btnSaveAction" prefHeight="67.0" prefWidth="150.0" styleClass="ButtonActionCss" text="Save" />
+                  <JFXButton fx:id="btnCancel" alignment="CENTER" minWidth="150.0" onAction="#btnCancelAction" prefHeight="67.0" prefWidth="150.0" styleClass="ButtonCencelCSS" text="Cencel" />
+                  <JFXButton fx:id="btnReset" alignment="CENTER" minWidth="150.0" onAction="#btnResetAction" prefHeight="67.0" prefWidth="150.0" styleClass="WarningButton" text="Reset" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </bottom>
+         <center>
+            <VBox alignment="TOP_CENTER" spacing="2.0" styleClass="VBoxPadding" BorderPane.alignment="TOP_RIGHT">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="145.0" prefWidth="918.0" spacing="10.0" styleClass="HeaderPanel">
+                     <padding>
+                        <Insets left="15.0" right="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelHeader" text="User Account" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="276.0">
+                     <children>
+                        <Text fx:id="labelInsetAwb" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelDesain" text="First Name" wrappingWidth="197.3056640625" />
+                        <JFXTextField fx:id="txtFirstName" styleClass="TextFieldForm" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></JFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="276.0">
+                     <children>
+                        <Text fx:id="labelInsetAwb1" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelDesain" text="Last Name" wrappingWidth="197.3056640625" />
+                        <JFXTextField fx:id="txtLastName" minWidth="470.0" prefHeight="39.0" prefWidth="470.0" styleClass="TextFieldForm" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></JFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="137.0" prefWidth="844.0">
+                     <children>
+                        <Text fx:id="labelInsetAwb11" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelDesain" text="Alamat" wrappingWidth="197.3056640625" />
+                        <JFXTextArea fx:id="txtAlamat" styleClass="TextFieldForm" unFocusColor="#9a9898" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></JFXTextArea>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="276.0">
+                     <children>
+                        <Text fx:id="labelInsetAwb12" fill="#972e2e" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelDesain" text="Email" wrappingWidth="197.3056640625" />
+                        <JFXTextField fx:id="txtEmail" styleClass="TextFieldForm" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></JFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="276.0">
+                     <children>
+                        <Text fx:id="labelInsetAwb122" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelDesain" text="User Name" wrappingWidth="197.3056640625" />
+                        <JFXTextField fx:id="txtUsername" styleClass="TextFieldForm" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></JFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="276.0">
+                     <children>
+                        <Text fx:id="labelInsetAwb121" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelDesain" text="Password" wrappingWidth="197.3056640625" />
+                        <JFXPasswordField fx:id="txtPassword" styleClass="TextFieldForm" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></JFXPasswordField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="276.0">
+                     <children>
+                        <Text fx:id="labelInsetAwb2" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelDesain" text="Nomor Telpon" wrappingWidth="197.3056640625" />
+                        <JFXTextField fx:id="txtPhoneNumber" styleClass="TextFieldForm" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></JFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="914.0">
+                     <children>
+                        <Text fx:id="labelInsetAwb21" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelDesain" text="Kantor Cabang" wrappingWidth="197.3056640625" />
+                        <JFXComboBox fx:id="txtKantorCabang" styleClass="TextFieldForm" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></JFXComboBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </VBox>
+         </center>
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+   </padding>
+   <opaqueInsets>
+      <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+   </opaqueInsets>
+</AnchorPane>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="1006.0" styleClass="parent" stylesheets="@CSS/CSSMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.MainMenuController">
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="250.0" styleClass="sideBar" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <JFXButton fx:id="btnDashboard" onAction="#btnDashboardAction" prefHeight="50.0" prefWidth="250.0" styleClass="ButtonMenuFlat" text="Dashboard">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@IMG/icons8_Real_Estate_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Separator prefWidth="200.0" />
+            <JFXButton fx:id="btnPengiriman" onAction="#btnPengirimanAction" prefHeight="35.0" prefWidth="250.0" styleClass="ButtonMenuFlat" text="Pengiriman">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@IMG/icons8_Send_Hot_List_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </VBox>
+   </left>
+   <center>
+    <AnchorPane fx:id="centerPane" styleClass="parent">
+         <BorderPane.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </BorderPane.margin>
+         <opaqueInsets>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </opaqueInsets>
+      </AnchorPane>
+   </center>
+</BorderPane>
