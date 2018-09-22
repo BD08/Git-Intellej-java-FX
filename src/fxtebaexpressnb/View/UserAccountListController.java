@@ -1,7 +1,3 @@
-/**
- * Sample Skeleton for 'UserAccountList.fxml' Controller Class
- */
-
 package fxtebaexpressnb.View;
 
 import com.jfoenix.controls.*;
@@ -11,31 +7,32 @@ import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
 import fxtebaexpressnb.Utility.StaticValue;
 import fxtebaexpressnb.Utility.ViewMode;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.function.Function;
 
-public class UserAccountListController extends BaseController{
+public class UserAccountListController extends BaseController<TableUserManager> {
     
     //region From FXML Model Table
     @FXML // fx:id="basePane"
     private AnchorPane bodyPane; // Value injected by FXMLLoader
     
     static void LoadUserAccountList (BaseController baseControllerFromParent) {
-        FXMLLoader fXMLLoader=null;
-        fXMLLoader=baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_LIST_VIEW);
-        UserAccountListController controller=fXMLLoader.<UserAccountListController>getController();
-        controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
-        controller.PageFistLoad();
+        FXMLLoader fXMLLoader;
+        try{
+	        fXMLLoader=baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_LIST_VIEW);
+	        UserAccountListController controller=fXMLLoader.<UserAccountListController>getController();
+	        controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
+	        controller.PageFistLoad();
+        }catch (Exception ex){
+	        System.err.println("Tidak Bisa Load Form User Account List "+ex);
+        }
     }
 
     @FXML // fx:id="btnAddUser"
@@ -149,15 +146,6 @@ public class UserAccountListController extends BaseController{
     }
     
     
-    private <T> void setupCellValueFactory(JFXTreeTableColumn<TableUserManager, T> column, Function<TableUserManager, ObservableValue<T>> mapper) {
-        column.setCellValueFactory((TreeTableColumn.CellDataFeatures<TableUserManager, T> param) -> {
-            if (column.validateValue(param)) {
-                return mapper.apply(param.getValue().getValue());
-            } else {
-                return column.getComputedValue(param);
-            }
-        });
-    }
     @FXML
     void searchItemAction(ActionEvent event) {
 

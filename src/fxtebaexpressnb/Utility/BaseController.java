@@ -5,20 +5,30 @@
  */
 package fxtebaexpressnb.Utility;
 
+import com.jfoenix.controls.JFXTreeTableColumn;
 import fxtebaexpressnb.DatabaseManajement.DBContext;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.function.Function;
 
 /**
  *
- * @author AsusX450J
+ * @author bang Dolla
  */
-public abstract class BaseController{
+
+/**
+ * @param <O> Parameter Untuk Table Yang Sedang Di Proses
+ */
+public abstract class BaseController<O> {
+    
+    protected O curentModel;
     
     private BaseControllerModel baseControllerModel;
     
@@ -172,5 +182,22 @@ public abstract class BaseController{
         alert.setContentText(contentText);
         alert.showAndWait();
     }
-
+    
+    /**
+     * Setup Cell Value factory Untuk Membuat colomn Dan datanya
+     *
+     * @param column
+     * @param mapper
+     * @param <T>
+     */
+    protected <T> void setupCellValueFactory (JFXTreeTableColumn<O, T> column, Function<O, ObservableValue<T>> mapper) {
+        column.setCellValueFactory((TreeTableColumn.CellDataFeatures<O, T> param) -> {
+            if(column.validateValue(param)) {
+                return mapper.apply(param.getValue().getValue());
+            } else {
+                return column.getComputedValue(param);
+            }
+        });
+    }
+    
 }

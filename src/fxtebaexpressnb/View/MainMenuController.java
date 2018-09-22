@@ -2,6 +2,7 @@ package fxtebaexpressnb.View;
 
 import com.jfoenix.controls.JFXButton;
 import fxtebaexpressnb.Utility.BaseController;
+import fxtebaexpressnb.Utility.BaseControllerModel;
 import fxtebaexpressnb.Utility.FileFXML;
 import fxtebaexpressnb.Utility.ViewMode;
 import javafx.event.ActionEvent;
@@ -11,7 +12,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
 
-public class MainMenuController extends BaseController{
+public class MainMenuController extends BaseController<BaseControllerModel> {
 
     @Override
     public void PageFistLoad(Object object, ViewMode mode) {

@@ -24,9 +24,8 @@ import java.net.URL;
  *
  * @author AsusX450J
  */
-public class InsertUserAccountController extends BaseController {
+public class InsertUserAccountController extends BaseController<TableUserManager> {
 	
-	private TableUserManager currentTableUserManajer;
 	private ViewMode viewMode;
 	
 	//region From FXML Controller Model
@@ -113,8 +112,8 @@ public class InsertUserAccountController extends BaseController {
     @Override
     public void PageFistLoad() {
 	    setViewMode(ViewMode.NEW);
-	    currentTableUserManajer = new TableUserManager();
-	    MappingData(currentTableUserManajer);
+	    curentModel = new TableUserManager();
+	    MappingData(curentModel);
 //        labelInsetAwb.setText(getLoginData());
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -126,13 +125,13 @@ public class InsertUserAccountController extends BaseController {
 			    setViewMode(ViewMode.EDIT);
 			    return;
 		    } else {
-			    currentTableUserManajer = MappingData();
+			    curentModel = MappingData();
 			    if(viewMode == ViewMode.NEW) {
-				    currentTableUserManajer = this.getDBContext().getUserManagers().addRow(currentTableUserManajer);
+				    curentModel = this.getDBContext().getUserManagers().addRow(curentModel);
 			    } else {
-				    this.getDBContext().getUserManagers().editRow(currentTableUserManajer);
+				    this.getDBContext().getUserManagers().editRow(curentModel);
 			    }
-			    if(currentTableUserManajer == null) {
+			    if(curentModel == null) {
 				    this.setViewMode(ViewMode.VIEW);
 			    }
 			    showInformation(STRING_COLLECTION.TITLE_DATABERHASIL_DISIMPAN, STRING_COLLECTION.DATA_BEBERHASIL_DISIMPAN);
@@ -176,7 +175,7 @@ public class InsertUserAccountController extends BaseController {
 	@Override
 	public void setViewMode (ViewMode mode) {
 		viewMode = mode;
-		if(currentTableUserManajer == null && viewMode == ViewMode.VIEW) {
+		if(curentModel == null && viewMode == ViewMode.VIEW) {
 			setViewMode(ViewMode.NEW);
 		}
 		txtAlamat.setEditable(viewMode != ViewMode.VIEW);
@@ -215,7 +214,7 @@ public class InsertUserAccountController extends BaseController {
 	private TableUserManager MappingData () {
 		TableUserManager res = new TableUserManager();
 		if(viewMode == ViewMode.EDIT) {
-			res.setId(currentTableUserManajer.getId());
+			res.setId(curentModel.getId());
 		}
 		res.setFirstName(txtFirstName.getText());
 		res.setLastName(txtLastName.getText());
@@ -240,7 +239,7 @@ public class InsertUserAccountController extends BaseController {
 		txtPassword.setText(model.getPassword());
 		txtAlamat.setText(model.getAlamat());
 		txtEmail.setText(model.getEmail());
-		currentTableUserManajer = model;
+		this.curentModel = model;
 	}
 	
 }
