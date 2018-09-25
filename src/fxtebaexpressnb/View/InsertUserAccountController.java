@@ -72,7 +72,7 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 	//endregion
 	
 	public static void loadInsertTransactionController (BaseController baseControllerFromParent) {
-		FXMLLoader fXMLLoader = null;
+		FXMLLoader fXMLLoader ;
 		fXMLLoader = baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_CREATE_EDIT_VIEW);
 		InsertUserAccountController controller = fXMLLoader.<InsertUserAccountController>getController();
 		controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
@@ -81,7 +81,7 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 	}
 	
 	public static void loadInsertTransactionController (BaseController baseControllerFromParent, Object primaryKey) {
-		FXMLLoader fXMLLoader = null;
+		FXMLLoader fXMLLoader;
 		fXMLLoader = baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_CREATE_EDIT_VIEW);
 		InsertUserAccountController controller = fXMLLoader.<InsertUserAccountController>getController();
 		controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());

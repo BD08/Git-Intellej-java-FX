@@ -110,20 +110,15 @@ public class UserAccountListController extends BaseController<TableUserManager> 
         treeTableView.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
         treeTableView.setShowRoot(false);
         txtPage.setText(String.valueOf(Page));
-        treeTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle (MouseEvent event) {
-                if(event.getClickCount()==2){
-//                    TableUserManager tableUserManager=treeTableView.getSelectionModel().getTreeTableView()
-                    TreeItem<TableUserManager> tableUserManagerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
-                    TableUserManager tmp=tableUserManagerTreeItem.getValue();
-                    System.out.println(tmp.getFirstName());
-                }
+        treeTableView.setOnMouseClicked(event -> {
+            if(event.getClickCount()==2){
+                TreeItem<TableUserManager> tableUserManagerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
+                TableUserManager tmp=tableUserManagerTreeItem.getValue();
+                InsertUserAccountController.loadInsertTransactionController(this,tmp.getId());
             }
         });
     }
-    
-    // TODO: 9/23/2018 Untuk membuat Click masuk Ke Account Table Manajer 
+    // TODO: 9/23/2018 Untuk membuat Click masuk Ke Account Table Manajer
     @Override
     public AnchorPane getCenterPane() {
         return bodyPane;
