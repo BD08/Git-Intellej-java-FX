@@ -110,19 +110,14 @@ public class UserAccountListController extends BaseController<TableUserManager> 
         treeTableView.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
         treeTableView.setShowRoot(false);
         txtPage.setText(String.valueOf(Page));
-        treeTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<TableUserManager>>() {
-            @Override
-            public void changed (ObservableValue<? extends TreeItem<TableUserManager>> observable, TreeItem<TableUserManager> oldValue, TreeItem<TableUserManager> newValue) {
-                TableUserManager to=newValue.getValue();
-                System.out.println("Id Yang Di select"+to.getId());
-            }
-        });
         treeTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle (MouseEvent event) {
                 if(event.getClickCount()==2){
 //                    TableUserManager tableUserManager=treeTableView.getSelectionModel().getTreeTableView()
                     TreeItem<TableUserManager> tableUserManagerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
+                    TableUserManager tmp=tableUserManagerTreeItem.getValue();
+                    System.out.println(tmp.getFirstName());
                 }
             }
         });
