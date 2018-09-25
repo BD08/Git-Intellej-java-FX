@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f76a1ada-186d-436f-b4cd-f0acace1d656" name="Default" comment="Change Model Controller Data">
-      <change afterPath="$PROJECT_DIR$/.idea/copyright/BangDolla.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/user.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fxtebaexpressnb/Utility/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fxtebaexpressnb/Utility/BaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fxtebaexpressnb/View/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fxtebaexpressnb/View/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fxtebaexpressnb/View/InsertUserAccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fxtebaexpressnb/View/InsertUserAccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fxtebaexpressnb/View/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fxtebaexpressnb/View/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/BD08EntytyFrameWork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/BD08EntytyFrameWork.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fxtebaexpressnb/View/UserAccountListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fxtebaexpressnb/View/UserAccountListController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -20,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Teba Express Intellej.iml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Teba Express Intellej.iml">
           <provider selected="true" editor-type-id="text-editor" />
@@ -38,10 +33,14 @@
       <file leaf-file-name="UserAccountListController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/UserAccountListController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+            <state relative-caret-position="408">
+              <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
               <folding>
-                <element signature="docComment;method#PageFistLoad#2;class#UserAccountListController#0" expanded="true" />
+                <element signature="method#LoadUserAccountList#0;class#UserAccountListController#0" />
+                <element signature="method#PageFistLoad#1;class#UserAccountListController#0" />
+                <element signature="method#PageFistLoad#2;class#UserAccountListController#0" />
+                <element signature="method#setViewMode#0;class#UserAccountListController#0" />
+                <element signature="method#searchItemAction#0;class#UserAccountListController#0" />
               </folding>
             </state>
           </provider>
@@ -50,7 +49,7 @@
       <file leaf-file-name="TableUserManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/TableEntity/TableUserManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-697">
+            <state relative-caret-position="85">
               <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
             </state>
           </provider>
@@ -68,20 +67,10 @@
       <file leaf-file-name="BaseController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/BaseController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="221">
               <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
               <folding>
                 <element signature="docComment;class#BaseController#0" expanded="true" />
-                <element signature="e#1679#1680#0" expanded="true" />
-                <element signature="e#1737#1738#0" expanded="true" />
-                <element signature="e#1801#1802#0" expanded="true" />
-                <element signature="e#1862#1863#0" expanded="true" />
-                <element signature="e#1909#1910#0" expanded="true" />
-                <element signature="e#1965#1966#0" expanded="true" />
-                <element signature="e#2023#2024#0" expanded="true" />
-                <element signature="e#2086#2087#0" expanded="true" />
-                <element signature="e#4636#4637#0" expanded="true" />
-                <element signature="e#4692#4693#0" expanded="true" />
                 <element signature="docComment;method#setupCellValueFactory#0;class#BaseController#0" expanded="true" />
               </folding>
             </state>
@@ -91,7 +80,7 @@
       <file leaf-file-name="InsertUserAccountController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/InsertUserAccountController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
+            <state relative-caret-position="782">
               <caret line="115" column="31" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
               <folding>
                 <element signature="n#!!doc;n#btnSave#0;n#InsertUserAccountController#0" />
@@ -103,11 +92,8 @@
       <file leaf-file-name="DashboardController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/DashboardController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="50" column="32" lean-forward="true" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
-              <folding>
-                <element signature="e#953#974#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="527">
+              <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -139,6 +125,7 @@
         <option value="$PROJECT_DIR$/src/fxtebaexpressnb/Utility/BaseController.java" />
         <option value="$PROJECT_DIR$/src/fxtebaexpressnb/View/InsertUserAccountController.java" />
         <option value="$PROJECT_DIR$/src/fxtebaexpressnb/View/DashboardController.java" />
+        <option value="$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/BD08EntytyFrameWork.java" />
         <option value="$PROJECT_DIR$/src/fxtebaexpressnb/View/UserAccountListController.java" />
       </list>
     </option>
@@ -163,7 +150,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -201,7 +188,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -213,7 +200,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.postfix.templates" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -297,12 +284,16 @@
       <option name="presentableId" value="Default" />
       <updated>1537636170290</updated>
       <workItem from="1537636171442" duration="52000" />
-      <workItem from="1537636248570" duration="4649000" />
+      <workItem from="1537636248570" duration="4866000" />
+      <workItem from="1537642845742" duration="462000" />
+      <workItem from="1537676669990" duration="4209000" />
+      <workItem from="1537702009691" duration="1780000" />
+      <workItem from="1537836224281" duration="656000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4701000" />
+    <option name="totallyTimeSpent" value="12025000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -310,7 +301,6 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.3298969" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
@@ -322,8 +312,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24966443" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24966443" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26308724" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -331,7 +320,9 @@
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24966443" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.3298969" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -360,6 +351,298 @@
     <entry file="file://$PROJECT_DIR$/Teba Express Intellej.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/FXTebaExpressNB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/TableEntity/TableUserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/MainMenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="14" column="74" selection-start-line="14" selection-start-column="74" selection-end-line="14" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+          <folding>
+            <element signature="docComment;class#BaseController#0" expanded="true" />
+            <element signature="docComment;method#setupCellValueFactory#0;class#BaseController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/InsertUserAccountController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="115" column="31" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!doc;n#btnSave#0;n#InsertUserAccountController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/DashboardController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/STRING_COLLECTION.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="67" selection-start-line="7" selection-start-column="67" selection-end-line="7" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/UserAccountListController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2108">
+          <caret line="124" column="29" selection-start-line="124" selection-start-column="29" selection-end-line="124" selection-end-column="29" />
+          <folding>
+            <element signature="method#LoadUserAccountList#0;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#1;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#2;class#UserAccountListController#0" />
+            <element signature="method#setViewMode#0;class#UserAccountListController#0" />
+            <element signature="method#searchItemAction#0;class#UserAccountListController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Teba Express Intellej.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/FXTebaExpressNB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/TableEntity/TableUserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/MainMenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="74" selection-start-line="14" selection-start-column="74" selection-end-line="14" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+          <folding>
+            <element signature="docComment;class#BaseController#0" expanded="true" />
+            <element signature="docComment;method#setupCellValueFactory#0;class#BaseController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/InsertUserAccountController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1955">
+          <caret line="115" column="31" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!doc;n#btnSave#0;n#InsertUserAccountController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/DashboardController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/STRING_COLLECTION.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="67" selection-start-line="7" selection-start-column="67" selection-end-line="7" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/UserAccountListController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2091">
+          <caret line="123" column="71" selection-start-line="123" selection-start-column="71" selection-end-line="123" selection-end-column="71" />
+          <folding>
+            <element signature="method#LoadUserAccountList#0;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#1;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#2;class#UserAccountListController#0" />
+            <element signature="method#setViewMode#0;class#UserAccountListController#0" />
+            <element signature="method#searchItemAction#0;class#UserAccountListController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Teba Express Intellej.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/FXTebaExpressNB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/TableEntity/TableUserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/MainMenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="74" selection-start-line="14" selection-start-column="74" selection-end-line="14" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+          <folding>
+            <element signature="docComment;class#BaseController#0" expanded="true" />
+            <element signature="docComment;method#setupCellValueFactory#0;class#BaseController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/InsertUserAccountController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1955">
+          <caret line="115" column="31" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!doc;n#btnSave#0;n#InsertUserAccountController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/DashboardController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/STRING_COLLECTION.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="67" selection-start-line="7" selection-start-column="67" selection-end-line="7" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/UserAccountListController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1768">
+          <caret line="104" column="41" lean-forward="true" selection-start-line="104" selection-start-column="41" selection-end-line="104" selection-end-column="41" />
+          <folding>
+            <element signature="method#LoadUserAccountList#0;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#1;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#2;class#UserAccountListController#0" />
+            <element signature="method#setViewMode#0;class#UserAccountListController#0" />
+            <element signature="method#searchItemAction#0;class#UserAccountListController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Teba Express Intellej.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/FXTebaExpressNB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/TableEntity/TableUserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/MainMenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="74" selection-start-line="14" selection-start-column="74" selection-end-line="14" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+          <folding>
+            <element signature="docComment;class#BaseController#0" expanded="true" />
+            <element signature="docComment;method#setupCellValueFactory#0;class#BaseController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/InsertUserAccountController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="115" column="31" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!doc;n#btnSave#0;n#InsertUserAccountController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/DashboardController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="50" column="32" lean-forward="true" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/STRING_COLLECTION.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="67" selection-start-line="7" selection-start-column="67" selection-end-line="7" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/UserAccountListController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+          <folding>
+            <element signature="method#LoadUserAccountList#0;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#1;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#2;class#UserAccountListController#0" />
+            <element signature="method#setViewMode#0;class#UserAccountListController#0" />
+            <element signature="method#searchItemAction#0;class#UserAccountListController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Teba Express Intellej.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/STRING_COLLECTION.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -376,7 +659,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/TableEntity/TableUserManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-697">
+        <state relative-caret-position="85">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
@@ -390,20 +673,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/Utility/BaseController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
+        <state relative-caret-position="221">
           <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
           <folding>
             <element signature="docComment;class#BaseController#0" expanded="true" />
-            <element signature="e#1679#1680#0" expanded="true" />
-            <element signature="e#1737#1738#0" expanded="true" />
-            <element signature="e#1801#1802#0" expanded="true" />
-            <element signature="e#1862#1863#0" expanded="true" />
-            <element signature="e#1909#1910#0" expanded="true" />
-            <element signature="e#1965#1966#0" expanded="true" />
-            <element signature="e#2023#2024#0" expanded="true" />
-            <element signature="e#2086#2087#0" expanded="true" />
-            <element signature="e#4636#4637#0" expanded="true" />
-            <element signature="e#4692#4693#0" expanded="true" />
             <element signature="docComment;method#setupCellValueFactory#0;class#BaseController#0" expanded="true" />
           </folding>
         </state>
@@ -411,7 +684,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/InsertUserAccountController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
+        <state relative-caret-position="782">
           <caret line="115" column="31" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
           <folding>
             <element signature="n#!!doc;n#btnSave#0;n#InsertUserAccountController#0" />
@@ -421,20 +694,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/DashboardController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="50" column="32" lean-forward="true" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
-          <folding>
-            <element signature="e#953#974#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="527">
+          <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/DatabaseManajement/BD08EntytyFrameWork.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="202" column="18" selection-start-line="202" selection-start-column="18" selection-end-line="202" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fxtebaexpressnb/View/UserAccountListController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+        <state relative-caret-position="408">
+          <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
           <folding>
-            <element signature="docComment;method#PageFistLoad#2;class#UserAccountListController#0" expanded="true" />
+            <element signature="method#LoadUserAccountList#0;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#1;class#UserAccountListController#0" />
+            <element signature="method#PageFistLoad#2;class#UserAccountListController#0" />
+            <element signature="method#setViewMode#0;class#UserAccountListController#0" />
+            <element signature="method#searchItemAction#0;class#UserAccountListController#0" />
           </folding>
         </state>
       </provider>

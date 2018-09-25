@@ -200,7 +200,7 @@ public abstract class BD08EntytyFrameWork<E>{
     /**
      * Untuk Membuat ObservableList yang di gunakan di java fx 
      * @param page halam keberapa
-     * @param bucketSize t ampilan yang akan di tampilkan 
+     * @param bucketSize tampilan yang akan di tampilkan
      * @return hasil tinggal di tancepin ke fx aja
      */
     public ObservableList<E> generateDummyData(int page,int bucketSize) {

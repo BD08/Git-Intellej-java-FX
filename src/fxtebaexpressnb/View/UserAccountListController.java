@@ -2,26 +2,28 @@ package fxtebaexpressnb.View;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableUserManager;
 import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
 import fxtebaexpressnb.Utility.StaticValue;
 import fxtebaexpressnb.Utility.ViewMode;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TreeItem;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
 
 public class UserAccountListController extends BaseController<TableUserManager> {
-    
-    //region From FXML Model Table
-    @FXML // fx:id="basePane"
-    private AnchorPane bodyPane; // Value injected by FXMLLoader
     
     static void LoadUserAccountList (BaseController baseControllerFromParent) {
         FXMLLoader fXMLLoader;
@@ -35,7 +37,10 @@ public class UserAccountListController extends BaseController<TableUserManager> 
         }
     }
 
-    @FXML // fx:id="btnAddUser"
+	//region Panel Mapping From FXML
+    @FXML // fx:id="basePane"
+    private AnchorPane bodyPane; // Value injected by FXMLLoader
+	@FXML // fx:id="btnAddUser"
     private JFXButton btnAddUser; // Value injected by FXMLLoader
 
     @FXML // fx:id="treeTableView"
@@ -84,11 +89,10 @@ public class UserAccountListController extends BaseController<TableUserManager> 
     private JFXTextField txtSearch;
     @FXML
     private JFXButton btnSeach;
-    //endregion
+	//endregion
 
     @Override
     public void PageFistLoad() {
-        //TODO make load user account
         idColoumn.setVisible(false);
         setupCellValueFactory(idColoumn, (t) -> t.getIpId().asObject()); //To change body of generated lambdas, choose Tools | Templates.
         setupCellValueFactory(firstNameColumn, TableUserManager::getSpFirstName); //To change body of generated lambdas, choose Tools | Templates.
@@ -99,7 +103,6 @@ public class UserAccountListController extends BaseController<TableUserManager> 
         Page = 0;
         bucketSize = StaticValue.bucketSize;
         ChangePage();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     private void ChangePage () {
@@ -107,9 +110,25 @@ public class UserAccountListController extends BaseController<TableUserManager> 
         treeTableView.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
         treeTableView.setShowRoot(false);
         txtPage.setText(String.valueOf(Page));
-        
+        treeTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<TableUserManager>>() {
+            @Override
+            public void changed (ObservableValue<? extends TreeItem<TableUserManager>> observable, TreeItem<TableUserManager> oldValue, TreeItem<TableUserManager> newValue) {
+                TableUserManager to=newValue.getValue();
+                System.out.println("Id Yang Di select"+to.getId());
+            }
+        });
+        treeTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle (MouseEvent event) {
+                if(event.getClickCount()==2){
+//                    TableUserManager tableUserManager=treeTableView.getSelectionModel().getTreeTableView()
+                    TreeItem<TableUserManager> tableUserManagerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
+                }
+            }
+        });
     }
-
+    
+    // TODO: 9/23/2018 Untuk membuat Click masuk Ke Account Table Manajer 
     @Override
     public AnchorPane getCenterPane() {
         return bodyPane;
@@ -124,7 +143,8 @@ public class UserAccountListController extends BaseController<TableUserManager> 
     void addUserOnAction(ActionEvent event) {
         InsertUserAccountController.loadInsertTransactionController(this);
     }
-
+    
+    //region Not Use
     @Override
     public void PageFistLoad(Object object, ViewMode mode) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -136,13 +156,10 @@ public class UserAccountListController extends BaseController<TableUserManager> 
      */
     @Override
     public void PageFistLoad(Object object) {
-        
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void setViewMode (ViewMode mode) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
@@ -155,5 +172,6 @@ public class UserAccountListController extends BaseController<TableUserManager> 
     void searchOnChange(InputMethodEvent event) {
 
     }
+    //endregion
     
 }
