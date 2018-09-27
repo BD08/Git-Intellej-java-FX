@@ -5,6 +5,7 @@
  */
 package fxtebaexpressnb.DatabaseManajement;
 
+import fxtebaexpressnb.Utility.FilterParameter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -29,7 +30,7 @@ public abstract class BD08EntytyFrameWork<E>{
     
     protected List<ColoumnValue> dataRow;
     
-    private List<filterTable> filterRow;
+    protected List<filterTable> filterRow;
     
     public BD08EntytyFrameWork(String tableName,Connection connection) {
         try{
@@ -52,7 +53,16 @@ public abstract class BD08EntytyFrameWork<E>{
     void addDefaultFilter (filterTable coloumnValue) {
         this.filterRow.add(coloumnValue);
     }
-    
+    private String FilterParameterConvert(filterTable filterTable){
+        switch (filterTable.filterParameter){
+            case LIKE:
+                return " "+filterTable.ColoumnName+" "+filterTable.filterParameter.toString()+" % "+filterTable.Value+" % ";
+            case SAMA_DENGAN:
+                return " "+filterTable.ColoumnName+" "+filterTable.filterParameter.toString()+" "+filterTable.Value;
+            default:
+                return "";
+        }
+    }
     public List<E> getListDataFromDB(){
         try{
             if(_isChange){
@@ -61,9 +71,10 @@ public abstract class BD08EntytyFrameWork<E>{
                 if(filterRow.size()>0){
                     for(int i=0;i<filterRow.size();i++){
                         if(i == 0) {
-                            sqlCode+=" WHERE ";
+                            sqlCode+=" WHERE "+FilterParameterConvert(filterRow.get(i));
+                        }else{
+                            sqlCode+=" AND "+FilterParameterConvert(filterRow.get(i));
                         }
-                        sqlCode+=" "+filterRow.get(i).ColoumnName+" "+filterRow.get(i).FilterParameter+" "+filterRow.get(i).Value;
                     }
                 }
                 resultSet=statement.executeQuery(sqlCode);
@@ -205,8 +216,20 @@ public abstract class BD08EntytyFrameWork<E>{
      */
     public ObservableList<E> generateDummyData(int page,int bucketSize) {
         int skipdata=(page-1)*bucketSize;
+        if(skipdata<0)
+            skipdata=0;
         ObservableList<E> dummyData = FXCollections.observableArrayList();
-        getListDataFromDB().stream().skip(0).limit(bucketSize).forEach(listData -> dummyData.add(listData));
+        getListDataFromDB().stream().skip(skipdata).limit(bucketSize).forEach(listData -> dummyData.add(listData));
+        return dummyData;
+    }
+
+    public ObservableList<E> generateDummyData(int page,int bucketSize,String filter){
+        filter="";
+        int skipdata=(page-1)*bucketSize;
+        if(skipdata<0)
+            skipdata=0;
+        ObservableList<E> dummyData = FXCollections.observableArrayList();
+        getListDataFromDB().stream().skip(skipdata).limit(bucketSize).forEach(listData -> dummyData.add(listData));
         return dummyData;
     }
     
@@ -255,38 +278,24 @@ public abstract class BD08EntytyFrameWork<E>{
     
     protected class filterTable{
         private String ColoumnName;
-        private String FilterParameter;
+        private FilterParameter filterParameter;
         private Object Value;
-    
-        filterTable (String ColoumnName, String FilterParameter, Object Value) {
-            this.ColoumnName = ColoumnName;
-            this.FilterParameter = FilterParameter;
-            this.Value = Value;
+
+        public filterTable() {
+        }
+
+        public filterTable(String coloumnName, FilterParameter filterParameter, Object value) {
+            ColoumnName = coloumnName;
+            this.filterParameter = filterParameter;
+            Value = value;
         }
 
         public String getColoumnName() {
             return ColoumnName;
         }
 
-        public void setColoumnName(String ColoumnName) {
-            this.ColoumnName = ColoumnName;
+        public void setColoumnName(String coloumnName) {
+            ColoumnName = coloumnName;
         }
-
-        public String getFilterParameter() {
-            return FilterParameter;
-        }
-
-        public void setFilterParameter(String FilterParameter) {
-            this.FilterParameter = FilterParameter;
-        }
-
-        public Object getValue() {
-            return Value;
-        }
-
-        public void setValue(Object Value) {
-            this.Value = Value;
-        }
-        
     }
 }

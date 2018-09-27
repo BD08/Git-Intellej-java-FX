@@ -4,14 +4,24 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
+import fxtebaexpressnb.DatabaseManajement.Customer;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableCustomer;
+import fxtebaexpressnb.Utility.BaseController;
+import fxtebaexpressnb.Utility.FileFXML;
+import fxtebaexpressnb.Utility.ViewMode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class CustomerListController {
+import java.net.URL;
 
+public class CustomerListController extends BaseController<TableCustomer> {
+
+	public static void LoadCustomerList(BaseController baseController){
+
+	}
 	// TODO: 9/26/2018 Untuk Membut Controller Customer List 
 	//region From FXML
 	@FXML
@@ -87,4 +97,55 @@ public class CustomerListController {
 
 	}
 
+	@Override
+	public void PageFistLoad() {
+
+	}
+
+	//region Not Use In List
+	@Override
+	public void PageFistLoad(Object object, ViewMode mode) {
+
+	}
+
+
+	/**
+	 * untuk Load Data yang sudah ada dan otomatis menjadi View Mode
+	 *
+	 * @param object
+	 */
+	@Override
+	public void PageFistLoad(Object object) {
+
+	}
+
+	@Override
+	public void setViewMode(ViewMode mode) {
+
+	}
+	//endregion
+
+
+	//region Basic Programming
+	/**
+	 * Untuk Mengatur Center AnchorPane Pada setiap Anak BaseController
+	 *
+	 * @return
+	 */
+	@Override
+	public AnchorPane getCenterPane() {
+		return this.bodyPane;
+	}
+
+	/**
+	 * Untuk Mendapatkan membuat URL data yang lebih Sepesifik
+	 *
+	 * @param fXML
+	 * @return
+	 */
+	@Override
+	public URL getFileUrl(FileFXML fXML) {
+		return this.getClass().getResource(fXML.toString());
+	}
+	//endregion
 }

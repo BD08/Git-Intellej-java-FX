@@ -51,6 +51,12 @@ public class UserManagers extends BD08EntytyFrameWork<TableUserManager>{
         }
     }
 
+    public void createFilterAllStringRowData(String filter){
+        filterTable filterTable=new filterTable(ColoumFirstName," LIKE ",filter);
+        this.filterRow.add(filterTable);
+        filterTable=new filterTable(ColoumLastName," LIKE ",filter);
+    }
+
     @Override
     protected void RowPlot(TableUserManager e) {
         dataRow.clear();

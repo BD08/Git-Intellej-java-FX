@@ -118,7 +118,7 @@ public class UserAccountListController extends BaseController<TableUserManager> 
             }
         });
     }
-    // TODO: 9/23/2018 Untuk membuat Click masuk Ke Account Table Manajer
+
     @Override
     public AnchorPane getCenterPane() {
         return bodyPane;
