@@ -11,6 +11,7 @@ import fxtebaexpressnb.Utility.FileFXML;
 import fxtebaexpressnb.Utility.ViewMode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -19,8 +20,16 @@ import java.net.URL;
 
 public class CustomerListController extends BaseController<TableCustomer> {
 
-	public static void LoadCustomerList(BaseController baseController){
-
+	public static void LoadCustomerList(BaseController baseControllerFromParent){
+		FXMLLoader fxmlLoader;
+		try {
+			fxmlLoader=baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_LIST_VIEW);
+			CustomerListController controller=fxmlLoader.<CustomerListController>getController();
+			controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
+			controller.PageFistLoad();
+		}catch (Exception ex){
+			System.err.print("Tidak Dapat Customer List Load "+ex.getMessage());
+		}
 	}
 	// TODO: 9/26/2018 Untuk Membut Controller Customer List 
 	//region From FXML
@@ -99,7 +108,8 @@ public class CustomerListController extends BaseController<TableCustomer> {
 
 	@Override
 	public void PageFistLoad() {
-
+		idColoumn.setVisible(false);
+		setupCellValueFactory(coloumnName,tableCustomer -> tableCustomer);
 	}
 
 	//region Not Use In List

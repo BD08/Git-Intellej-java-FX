@@ -5,13 +5,19 @@
  */
 package fxtebaexpressnb.DatabaseManajement.TableEntity;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author AsusX450J
  */
-public class TableCustomer {
+public class TableCustomer extends RecursiveTreeObject<TableCustomer> {
     private int Id;
     private String Nama;
     private String TypePerusahaan;
@@ -95,6 +101,13 @@ public class TableCustomer {
         this.KotaId=Kota.getId();
         this.Kota = Kota;
     }
+
+    public String getKotaToString(){
+        if(getKota()==null)
+            return "";
+        return getKota().toString();
+    }
+
     public String getPhoneNumber() {
         return PhoneNumber;
     }
@@ -143,8 +156,6 @@ public class TableCustomer {
         this.ModifyDate = ModifyDate;
     }
 
-   
-
     public int getCreateBy() {
         return CreateBy;
     }
@@ -152,8 +163,6 @@ public class TableCustomer {
     public void setCreateBy(int CreateBy) {
         this.CreateBy = CreateBy;
     }
-
-    
 
     public int getModifyBy() {
         return ModifyBy;
@@ -163,9 +172,42 @@ public class TableCustomer {
         this.ModifyBy = ModifyBy;
     }
 
+
+
     @Override
     public String toString() {
         return getNama(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public SimpleIntegerProperty getSimpleIntegerPropertyId(){
+        return new SimpleIntegerProperty(getId());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyName(){
+        return new SimpleStringProperty(this.getNama());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyEmail(){
+        return new SimpleStringProperty(this.getEmail());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyAlamat(){
+        return new SimpleStringProperty(this.getAlamat());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyKota(){
+        return new SimpleStringProperty(this.getKotaToString());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyNamaContactPerson(){
+        return  new SimpleStringProperty(this.getContactPersonInvoice());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyPhoneNumber(){
+        return new SimpleStringProperty(this.getPhoneNumber());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyTypePerusahaan(){
+        return new SimpleStringProperty(this.getTypePerusahaan());
+    }
 }

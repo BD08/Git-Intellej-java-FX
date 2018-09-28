@@ -50,7 +50,7 @@ public abstract class BaseController<O> {
         return baseControllerModel;
     }
     
-    protected void setBaseControllerModel (BaseControllerModel baseControllerModel) {
+    public void setBaseControllerModel(BaseControllerModel baseControllerModel) {
         this.baseControllerModel = baseControllerModel;
 //        loginData=baseControllerModel.getDataCoba();
     }
