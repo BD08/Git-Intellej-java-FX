@@ -1,18 +1,24 @@
 package fxtebaexpressnb.View;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import fxtebaexpressnb.DatabaseManajement.Customer;
+import com.jfoenix.controls.*;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableCustomer;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableUserManager;
 import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
+import fxtebaexpressnb.Utility.StaticValue;
 import fxtebaexpressnb.Utility.ViewMode;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TreeItem;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -67,28 +73,28 @@ public class CustomerListController extends BaseController<TableCustomer> {
 	private JFXButton btnSeach;
 
 	@FXML
-	private JFXTreeTableView<?> treeTableView;
+	private JFXTreeTableView<TableCustomer> treeTableView;
 
 	@FXML
-	private JFXTreeTableColumn<?, ?> idColoumn;
+	private JFXTreeTableColumn<TableCustomer, Integer> idColoumn;
 
 	@FXML
-	private JFXTreeTableColumn<?, ?> coloumnName;
+	private JFXTreeTableColumn<TableCustomer, String> coloumnName;
 
 	@FXML
-	private JFXTreeTableColumn<?, ?> coloumnAdress;
+	private JFXTreeTableColumn<TableCustomer, String> coloumnAdress;
 
 	@FXML
-	private JFXTreeTableColumn<?, ?> colomnContactPerson;
+	private JFXTreeTableColumn<TableCustomer, String> colomnContactPerson;
 
 	@FXML
-	private JFXTreeTableColumn<?, ?> colomnContactPersonAdress;
+	private JFXTreeTableColumn<TableCustomer, String> colomnContactPersonAdress;
 
 	@FXML
-	private JFXTreeTableColumn<?, ?> coloumnTypePerusahaan;
+	private JFXTreeTableColumn<TableCustomer, String> coloumnTypePerusahaan;
 
 	@FXML
-	private JFXTreeTableColumn<?, ?> colomnKotaKecamatan;
+	private JFXTreeTableColumn<TableCustomer, String> colomnKotaKecamatan;
 	//endregion
 
 	@FXML
@@ -105,12 +111,38 @@ public class CustomerListController extends BaseController<TableCustomer> {
 	void searchOnChange(InputMethodEvent event) {
 
 	}
-
+	private int Page;
+	private int BucketSize;
 	@Override
 	public void PageFistLoad() {
 		idColoumn.setVisible(false);
-		setupCellValueFactory(coloumnName,tableCustomer -> tableCustomer);
+		setupCellValueFactory(idColoumn, (t) -> t.getIpId().asObject());
+		setupCellValueFactory(colomnContactPerson,TableCustomer::getSimpleStringPropertyNamaContactPerson);
+		setupCellValueFactory(coloumnName,TableCustomer::getSimpleStringPropertyName);
+		setupCellValueFactory(coloumnAdress,TableCustomer::getSimpleStringPropertyAlamat);
+		setupCellValueFactory(coloumnTypePerusahaan,TableCustomer::getSimpleStringPropertyTypePerusahaan);
+		setupCellValueFactory(colomnContactPersonAdress,TableCustomer::getSimpleStringPropertyPhoneNumber);
+		setupCellValueFactory(colomnKotaKecamatan,TableCustomer::getSimpleStringPropertyKota);
+		Page=0;
+		bucketSize=StaticValue.bucketSize;
+		ChangePage();
 	}
+
+	private void ChangePage(){
+		ObservableList<TableCustomer> dummyData = getDBContext().getCustomer().generateDummyData(Page, bucketSize,txtSearch.getText());
+		treeTableView.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
+		treeTableView.setShowRoot(false);
+		txtPage.setText(String.valueOf(Page));
+		treeTableView.setOnMouseClicked(event -> {
+			if(event.getClickCount()==2){
+				TreeItem<TableCustomer> tableUserManagerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
+				TableCustomer tmp=tableUserManagerTreeItem.getValue();
+				InsertCustomerController.OpenInsertCustomer(this,tmp.getId());
+			}
+		});
+	}
+
+
 
 	//region Not Use In List
 	@Override

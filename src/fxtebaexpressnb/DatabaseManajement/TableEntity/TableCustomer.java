@@ -9,10 +9,6 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  *
  * @author AsusX450J
@@ -179,7 +175,8 @@ public class TableCustomer extends RecursiveTreeObject<TableCustomer> {
         return getNama(); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public SimpleIntegerProperty getSimpleIntegerPropertyId(){
+    //region Simple String Property
+    public SimpleIntegerProperty getIpId() {
         return new SimpleIntegerProperty(getId());
     }
 
@@ -196,7 +193,7 @@ public class TableCustomer extends RecursiveTreeObject<TableCustomer> {
     }
 
     public SimpleStringProperty getSimpleStringPropertyKota(){
-        return new SimpleStringProperty(this.getKotaToString());
+        return new SimpleStringProperty(this.getKotaToString()+" "+this.getKecamatan());
     }
 
     public SimpleStringProperty getSimpleStringPropertyNamaContactPerson(){
@@ -210,4 +207,5 @@ public class TableCustomer extends RecursiveTreeObject<TableCustomer> {
     public SimpleStringProperty getSimpleStringPropertyTypePerusahaan(){
         return new SimpleStringProperty(this.getTypePerusahaan());
     }
+    //endregion
 }

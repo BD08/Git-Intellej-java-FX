@@ -30,7 +30,7 @@ public abstract class BD08EntytyFrameWork<E>{
     
     protected List<ColoumnValue> dataRow;
     
-    protected List<filterTable> filterRow;
+    protected List<FilterTable> filterRow;
     
     public BD08EntytyFrameWork(String tableName,Connection connection) {
         try{
@@ -50,10 +50,11 @@ public abstract class BD08EntytyFrameWork<E>{
     
     protected abstract void newRowsIdPlot(E e,Object o);
     
-    void addDefaultFilter (filterTable coloumnValue) {
+    protected void addDefaultFilter (FilterTable coloumnValue) {
         this.filterRow.add(coloumnValue);
     }
-    private String FilterParameterConvert(filterTable filterTable){
+
+    private String FilterParameterConvert(FilterTable filterTable){
         switch (filterTable.filterParameter){
             case LIKE:
                 return " "+filterTable.ColoumnName+" "+filterTable.filterParameter.toString()+" % "+filterTable.Value+" % ";
@@ -194,7 +195,8 @@ public abstract class BD08EntytyFrameWork<E>{
      * @return item yang dipilih
      */
     protected abstract E getEntityItem(Object id);
-     
+
+    protected abstract void initializationFilterString(String filterString);
     
     /**
      * Apakah List Berubah
@@ -214,7 +216,7 @@ public abstract class BD08EntytyFrameWork<E>{
      * @param bucketSize tampilan yang akan di tampilkan
      * @return hasil tinggal di tancepin ke fx aja
      */
-    public ObservableList<E> generateDummyData(int page,int bucketSize) {
+    private ObservableList<E> generateDummyData(int page,int bucketSize) {
         int skipdata=(page-1)*bucketSize;
         if(skipdata<0)
             skipdata=0;
@@ -223,8 +225,19 @@ public abstract class BD08EntytyFrameWork<E>{
         return dummyData;
     }
 
+    /**
+     * Untuk Membuat ObservableList yang di gunakan di java fx
+     * @param page halam keberapa
+     * @param bucketSize tampilan yang akan di tampilkan
+     * @return hasil tinggal di tancepin ke fx aja
+     */
     public ObservableList<E> generateDummyData(int page,int bucketSize,String filter){
-        filter="";
+        if(filter.isEmpty())
+        {
+            this.filterRow.clear();
+            return generateDummyData(page,bucketSize);
+        }
+        this.initializationFilterString(filter);
         int skipdata=(page-1)*bucketSize;
         if(skipdata<0)
             skipdata=0;
@@ -232,7 +245,7 @@ public abstract class BD08EntytyFrameWork<E>{
         getListDataFromDB().stream().skip(skipdata).limit(bucketSize).forEach(listData -> dummyData.add(listData));
         return dummyData;
     }
-    
+
     public int AvailablePage(int bucketSize){
         int res=Count()/bucketSize;
         res++; 
@@ -249,6 +262,7 @@ public abstract class BD08EntytyFrameWork<E>{
             this.Value = Value;
             this.isPrimary = isPrimary;
         }
+
         public ColoumnValue(String ColoumnName, Object Value) {
             this.ColoumnName = ColoumnName;
             this.Value = Value;
@@ -276,15 +290,15 @@ public abstract class BD08EntytyFrameWork<E>{
         
     }
     
-    protected class filterTable{
+    protected class FilterTable{
         private String ColoumnName;
         private FilterParameter filterParameter;
         private Object Value;
 
-        public filterTable() {
+        public FilterTable() {
         }
 
-        public filterTable(String coloumnName, FilterParameter filterParameter, Object value) {
+        public FilterTable(String coloumnName, FilterParameter filterParameter, Object value) {
             ColoumnName = coloumnName;
             this.filterParameter = filterParameter;
             Value = value;

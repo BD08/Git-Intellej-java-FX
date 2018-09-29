@@ -106,7 +106,7 @@ public class UserAccountListController extends BaseController<TableUserManager> 
     }
     
     private void ChangePage () {
-        ObservableList<TableUserManager> dummyData = getDBContext().getUserManagers().generateDummyData(Page, bucketSize);
+        ObservableList<TableUserManager> dummyData = getDBContext().getUserManagers().generateDummyData(Page, bucketSize,this.txtSearch.getText());
         treeTableView.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
         treeTableView.setShowRoot(false);
         txtPage.setText(String.valueOf(Page));

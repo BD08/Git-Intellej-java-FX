@@ -7,6 +7,7 @@ package fxtebaexpressnb.DatabaseManajement;
 
 import java.sql.Connection;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableCheckPoints;
+import fxtebaexpressnb.Utility.FilterParameter;
 
 
 /**
@@ -65,6 +66,11 @@ public class CheckPoint extends BD08EntytyFrameWork<TableCheckPoints>{
             }
         }
         return checkPoints;
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        this.addDefaultFilter(new FilterTable(ColomnTransaksiId, FilterParameter.LIKE,filterString));
     }
 
     @Override

@@ -6,6 +6,8 @@
 package fxtebaexpressnb.DatabaseManajement;
 
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
+import fxtebaexpressnb.Utility.FilterParameter;
+
 import java.sql.Connection;
 
 /**
@@ -63,6 +65,12 @@ public class Kota extends BD08EntytyFrameWork<TableKota>{
             }
         }
         return kota;        
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        addDefaultFilter(new FilterTable(ColomnName, FilterParameter.LIKE,filterString));
+        addDefaultFilter(new FilterTable(ColomnNicName, FilterParameter.LIKE,filterString));
     }
 
     @Override

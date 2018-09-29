@@ -9,6 +9,8 @@ package fxtebaexpressnb.DatabaseManajement;
 import fxtebaexpressnb.DatabaseManajement.BD08EntytyFrameWork;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableColoumnName;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableUserManager;
+import fxtebaexpressnb.Utility.FilterParameter;
+
 import java.sql.Connection;
 /**
  *
@@ -51,11 +53,11 @@ public class UserManagers extends BD08EntytyFrameWork<TableUserManager>{
         }
     }
 
-    public void createFilterAllStringRowData(String filter){
-        filterTable filterTable=new filterTable(ColoumFirstName," LIKE ",filter);
-        this.filterRow.add(filterTable);
-        filterTable=new filterTable(ColoumLastName," LIKE ",filter);
-    }
+//    public void createFilterAllStringRowData(String filter){
+//        filterTable filterTable=new filterTable(ColoumFirstName, FilterParameter.LIKE,filter);
+//        this.filterRow.add(filterTable);
+//        filterTable=new filterTable(ColoumLastName," LIKE ",filter);
+//    }
 
     @Override
     protected void RowPlot(TableUserManager e) {
@@ -82,6 +84,16 @@ public class UserManagers extends BD08EntytyFrameWork<TableUserManager>{
             }
         }
         return manager;
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        addDefaultFilter(new FilterTable(ColoumFirstName,FilterParameter.LIKE,filterString));
+        addDefaultFilter(new FilterTable(ColoumLastName,FilterParameter.LIKE,filterString));
+        addDefaultFilter(new FilterTable(ColoumUsername,FilterParameter.LIKE,filterString));
+        addDefaultFilter(new FilterTable(ColoumAlamat,FilterParameter.LIKE,filterString));
+        addDefaultFilter(new FilterTable(ColoumEmail,FilterParameter.LIKE,filterString));
+        addDefaultFilter(new FilterTable(ColoumPhoneNumber,FilterParameter.LIKE,filterString));
     }
 
     @Override

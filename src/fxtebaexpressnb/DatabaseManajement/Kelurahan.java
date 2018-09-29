@@ -6,6 +6,8 @@
 package fxtebaexpressnb.DatabaseManajement;
 
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKelurahan;
+import fxtebaexpressnb.Utility.FilterParameter;
+
 import java.sql.Connection;
 
 /**
@@ -68,6 +70,11 @@ public class Kelurahan extends BD08EntytyFrameWork<TableKelurahan>{
             }
         }
         return kelurahan;
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        this.addDefaultFilter(new FilterTable(ColomnName, FilterParameter.LIKE,filterString));
     }
 
     @Override

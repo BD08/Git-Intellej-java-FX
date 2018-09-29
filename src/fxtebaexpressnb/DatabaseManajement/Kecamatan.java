@@ -1,6 +1,8 @@
 package fxtebaexpressnb.DatabaseManajement;
 
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
+import fxtebaexpressnb.Utility.FilterParameter;
+
 import java.sql.Connection;
 
 /**
@@ -59,6 +61,11 @@ public class Kecamatan extends BD08EntytyFrameWork<TableKecamatan>{
              }
         }
         return kecamatan;
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        this.addDefaultFilter(new FilterTable(ColomnName, FilterParameter.LIKE,filterString));
     }
 
     @Override

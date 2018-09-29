@@ -1,8 +1,11 @@
 package fxtebaexpressnb.DatabaseManajement;
 
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableCustomer;
+import fxtebaexpressnb.Utility.FilterParameter;
+
 import java.sql.Connection;
 import java.util.List;
+import java.util.logging.Filter;
 
 
 public class Customer extends BD08EntytyFrameWork<TableCustomer>{
@@ -85,6 +88,15 @@ public class Customer extends BD08EntytyFrameWork<TableCustomer>{
         }
         return customer;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        this.addDefaultFilter(new FilterTable(ColomnAlamat, FilterParameter.LIKE,filterString));
+        this.addDefaultFilter(new FilterTable(ColomnContactPersonInvoice,FilterParameter.LIKE,filterString));
+        this.addDefaultFilter(new FilterTable(ColomnInvoiceMail, FilterParameter.LIKE,filterString));
+        this.addDefaultFilter(new FilterTable(ColomnNama,FilterParameter.LIKE,filterString));
+        this.addDefaultFilter(new FilterTable(ColomnEmail,FilterParameter.LIKE,filterString));
     }
 
     @Override

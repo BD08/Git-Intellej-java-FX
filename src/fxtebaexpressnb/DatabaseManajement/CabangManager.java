@@ -1,6 +1,8 @@
 package fxtebaexpressnb.DatabaseManajement;
 
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableCabangManager;
+import fxtebaexpressnb.Utility.FilterParameter;
+
 import java.sql.Connection;
 import java.util.Iterator;
 
@@ -62,6 +64,11 @@ public class CabangManager extends BD08EntytyFrameWork<TableCabangManager>{
             }
         }
         return item;
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        this.addDefaultFilter(new FilterTable(ColomnNamaCabang, FilterParameter.LIKE,filterString));
     }
 
     @Override

@@ -135,11 +135,11 @@ public class TableUserManager extends RecursiveTreeObject<TableUserManager>{
     public SimpleIntegerProperty getIpCabangId() {
         return new SimpleIntegerProperty(CabangId);
     }
+
     public SimpleStringProperty getSpNamaCabang(){
         return new SimpleStringProperty("Coa");
     }
     //</editor-fold>
 
-   
     //TODO Cabang Belom ada kelasnya
 }

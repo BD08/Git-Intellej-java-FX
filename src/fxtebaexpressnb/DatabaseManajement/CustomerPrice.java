@@ -56,6 +56,11 @@ public class CustomerPrice extends BD08EntytyFrameWork<TableCustomerPrice>{
     }
 
     @Override
+    protected void initializationFilterString(String filterString) {
+//        this.addDefaultFilter(new FilterTable(Colo));
+    }
+
+    @Override
     protected void newRowsIdPlot(TableCustomerPrice e, Object o) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
