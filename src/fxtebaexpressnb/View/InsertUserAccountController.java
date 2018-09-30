@@ -94,10 +94,6 @@ public class InsertUserAccountController extends BaseController<TableUserManager
     void initialize() {
     }
 
-    private void btnAction(ActionEvent event) {
-        btnSave.setDisable(true);
-    }
-
     @Override
     public AnchorPane getCenterPane() {
 	    return ParentPane;
@@ -144,11 +140,12 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 
     @FXML
     private void btnCancelAction(ActionEvent event) {
-	
+
     }
 
     @FXML
     private void btnResetAction(ActionEvent event) {
+
     }
 
     @Override
@@ -163,12 +160,10 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 	 */
 	@Override
 	public void PageFistLoad (Object object) {
-		// TODO buat untuk load data dari data primary key dan membuatnya tampil
 		TableUserManager res = getDBContext()
 				                       .getUserManagers().getStream().filter(tableUserManager ->
 						                                                             tableUserManager.getId() == object.hashCode()).findFirst().get();
 		MappingData(res);
-		//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 	
 	@Override

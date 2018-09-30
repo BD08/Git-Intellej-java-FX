@@ -7,9 +7,11 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableCustomer;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKodeMaster;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
 import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
+import fxtebaexpressnb.Utility.STRING_COLLECTION;
 import fxtebaexpressnb.Utility.ViewMode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,7 +64,7 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 	private Text labelInsetAwb;
 
 	@FXML
-	private JFXComboBox<String> comboBoxTypePerusahaan;
+	private JFXComboBox<TableKodeMaster> comboBoxTypePerusahaan;
 
 	@FXML
 	private Text labelInsetAwb1;
@@ -115,22 +117,73 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 
 	@FXML
 	void btnCancelAction(ActionEvent event) {
-
+		switch (viewMode){
+			case NEW:
+				this.curentModel=TableCustomer.defaultTableCustomer();
+				this.setViewMode(ViewMode.NEW);
+				MappingData(curentModel);
+				break;
+			case EDIT:
+				MappingData(curentModel);
+				this.setViewMode(ViewMode.VIEW);
+				break;
+		}
 	}
 
 	@FXML
 	void btnResetAction(ActionEvent event) {
-
+		switch (viewMode)
+		{
+			case VIEW :
+			case NEW:
+				this.curentModel=TableCustomer.defaultTableCustomer();
+				this.setViewMode(ViewMode.NEW);
+				MappingData(curentModel);
+				break;
+			case EDIT:
+				this.setViewMode(ViewMode.EDIT);
+				MappingData(curentModel);
+				break;
+		}
 	}
 
 	@FXML
 	void btnSaveAction(ActionEvent event) {
-
+		try {
+			if(viewMode == ViewMode.VIEW) {
+				setViewMode(ViewMode.EDIT);
+				return;
+			} else {
+				curentModel = MappingData();
+				if(viewMode == ViewMode.NEW) {
+					curentModel = this.getDBContext().getCustomer().addRow(curentModel);
+				} else {
+					this.getDBContext().getCustomer().editRow(curentModel);
+				}
+				if(curentModel == null) {
+					this.setViewMode(ViewMode.VIEW);
+				}
+				showInformation(STRING_COLLECTION.TITLE_DATABERHASIL_DISIMPAN, STRING_COLLECTION.DATA_BEBERHASIL_DISIMPAN);
+				setViewMode(ViewMode.VIEW);
+			}
+		} catch (Exception ex) {
+			System.out.print("Error Save : " + ex.toString());
+			showAlertWarning(STRING_COLLECTION.TITLE_DATA_GAGAL_DISIMPAN, STRING_COLLECTION.DATA_GAGAL_DISIMPAN);
+		}
 	}
 
 	@Override
 	public void PageFistLoad() {
+		comboBoxPreparation();
 		setViewMode(ViewMode.NEW);
+		this.setButtonActionViewMode(btnSave,btnReset,btnCancel);
+		this.curentModel=TableCustomer.defaultTableCustomer();
+		MappingData(this.curentModel);
+	}
+
+	private void comboBoxPreparation(){
+		this.comboBoxTypePerusahaan.getItems().add(TableKodeMaster.defaultTableKodeMaster());
+		this.comboBoxTypePerusahaan.getItems().addAll(this.getBaseControllerModel().getDBContext().getTypePerusahaan().getAllData());
 		this.setComboBoxKotaKecamatanAsyn(comboboxKota,comboboxKecamatan);
 	}
 
@@ -146,8 +199,13 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 	 */
 	@Override
 	public void PageFistLoad(Object object) {
-		this.curentModel=this.getBaseControllerModel().getDBContext().getCustomer().getEntityItem(object);
+		comboBoxPreparation();
+		this.curentModel=this.getBaseControllerModel().getDBContext().
+				getCustomer().getStream().
+				filter(tableCustomer -> tableCustomer.getId()==object.hashCode()).findFirst().get();
+		this.setButtonActionViewMode(btnSave,btnReset,btnCancel);
 		this.setViewMode(ViewMode.VIEW);
+		MappingData(curentModel);
 	}
 
 	//region Untuk Mapping Data Get menjadi Tbale Customer Ato Dari Table Customer Menjadi View
@@ -161,6 +219,15 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 		if(viewMode == ViewMode.EDIT) {
 			res.setId(curentModel.getId());
 		}
+		res.setNama(txtNamaPerusahaan.getText());
+		res.setPhoneNumber(txtPhoneNumber.getText());
+		res.setAlamat(txtAlamat.getText());
+		res.setInvoiceMail(txtInvoiceEmail.getText());
+		res.setEmail(txtEmail.getText());
+		res.setContactPersonInvoice(txtContactPerson.getText());
+		res.setKota(comboboxKota.getValue());
+		res.setKecamatan(comboboxKecamatan.getValue());
+		res.setTypePerusahanKode(comboBoxTypePerusahaan.getValue());
 //		res.setFirstName(txtFirstName.getText());
 //		res.setLastName(txtLastName.getText());
 //		res.setAlamat(txtAlamat.getText());
@@ -177,6 +244,18 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 	 * @param model
 	 */
 	private void MappingData (TableCustomer model) {
+		if(model.getId()==TableCustomer.defaultTableCustomer().getId()){
+			txtPhoneNumber.setText("");
+			txtNamaPerusahaan.setText("");
+			txtAlamat.setText("");
+			txtInvoiceEmail.setText("");
+			txtEmail.setText("");
+			txtContactPerson.setText("");
+			comboBoxTypePerusahaan.getSelectionModel().select(0);
+			comboboxKota.getSelectionModel().select(0);
+			comboboxKecamatan.getSelectionModel().select(0);
+			return;
+		}
 		txtPhoneNumber.setText(model.getPhoneNumber());
 		txtNamaPerusahaan.setText(model.getNama());
 		txtAlamat.setText(model.getAlamat());
@@ -184,15 +263,18 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 		txtEmail.setText(model.getEmail());
 		txtContactPerson.setText(model.getContactPersonInvoice());
 		if(model.getKotaId()>0)
-			comboboxKota.getSelectionModel().select(0);
-		else
 			comboboxKota.getSelectionModel().select(model.getKota());
-		if(model.getKecamatanId()>0)
-			comboboxKecamatan.getSelectionModel().select(0);
 		else
-			comboboxKecamatan.getSelectionModel().select(model.getKecamatan());
-		// TODO: 9/30/2018 Untuk Membuat Mapping Data
+			comboboxKota.getSelectionModel().select(TableKota.defaultTableKota());
 
+		if(model.getKecamatanId()>0)
+			comboboxKecamatan.getSelectionModel().select(model.getKecamatan());
+		else
+			comboboxKecamatan.getSelectionModel().select(TableKecamatan.defaultTableKecamatan());
+		if(model.getTypePerusahaan().isEmpty())
+			comboBoxTypePerusahaan.getSelectionModel().select(TableKodeMaster.defaultTableKodeMaster());
+		else
+			comboBoxTypePerusahaan.getSelectionModel().select(model.getTypePerusahanKode());
 	}
 	//endregion
 
@@ -211,7 +293,6 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 		setButtonActionViewMode(btnSave,btnCancel,btnReset);
 	}
 
-//	private void mapping
 
 	//region Basic Panel
 	/**

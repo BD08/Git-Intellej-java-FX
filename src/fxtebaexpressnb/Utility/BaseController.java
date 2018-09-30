@@ -226,35 +226,33 @@ public abstract class BaseController<O> {
     /**
      * Untuk Merubah semua tulisan di Button yang Dari View Dan Di panggil dalam sekali
      * @param buttonSave Button Save dari FXML nya
-     * @param buttonEdit Button Edit dari FXML nya
+     * @param buttonCencel Button Edit dari FXML nya
      * @param buttonReset Button Reset Dari FXML
      */
-    protected void setButtonActionViewMode(JFXButton buttonSave,JFXButton buttonEdit,JFXButton buttonReset){
+    protected void setButtonActionViewMode(JFXButton buttonSave,JFXButton buttonCencel,JFXButton buttonReset){
         switch (viewMode){
             case NEW:
                 buttonSave.setText("Save");
-                buttonEdit.setText("Cancel");
+                buttonCencel.setText("Cancel");
                 buttonReset.setText("New Data");
                 break;
             case EDIT:
                 buttonSave.setText("Save");
-                buttonEdit.setText("Cancel");
+                buttonCencel.setText("Cancel");
                 buttonSave.setText("Reset");
                 break;
             case VIEW:
                 buttonSave.setText("Edit");
                 buttonReset.setText("New Data");
-                buttonEdit.setVisible(isNotEditableMode());
+                buttonCencel.setVisible(isNotEditableMode());
                 break;
         }
     }
 
     protected void setComboBoxKota(JFXComboBox comboBoxKota){
-        TableKota defaultTableKota=new TableKota();
-        defaultTableKota.setNicName("--Select--");
-        comboBoxKota.getItems().add(defaultTableKota);
+        comboBoxKota.getItems().add(TableKota.defaultTableKota());
         comboBoxKota.getItems().addAll(this.getBaseControllerModel().getDBContext().getKota().getAllData());
-        comboBoxKota.getSelectionModel().select(defaultTableKota);
+        comboBoxKota.getSelectionModel().select(TableKota.defaultTableKota());
     }
 
     /**
@@ -264,14 +262,12 @@ public abstract class BaseController<O> {
      */
     protected void setComboBoxKecamatan(JFXComboBox comboBoxKecamatan,@Nullable List<TableKecamatan> listTableKecamatans){
         comboBoxKecamatan.getItems().clear();
-        TableKecamatan defaultTableKecamatan=new TableKecamatan();
-        defaultTableKecamatan.setName("--Select--");
-        comboBoxKecamatan.getItems().add(defaultTableKecamatan);
+        comboBoxKecamatan.getItems().add(TableKecamatan.defaultTableKecamatan());
         if(listTableKecamatans==null)
             comboBoxKecamatan.getItems().addAll(this.getBaseControllerModel().getDBContext().getKecamatan().getAllData());
         else
             comboBoxKecamatan.getItems().addAll(listTableKecamatans);
-        comboBoxKecamatan.getSelectionModel().select(defaultTableKecamatan);
+        comboBoxKecamatan.getSelectionModel().select(TableKecamatan.defaultTableKecamatan());
     }
 
     /**
@@ -280,16 +276,13 @@ public abstract class BaseController<O> {
      * @param comboBoxKecamatan Combobox Kecamatan Yang di inginkan
      */
     protected void setComboBoxKotaKecamatanAsyn(JFXComboBox comboboxKota,JFXComboBox comboBoxKecamatan){
-        TableKecamatan defaultTableKecamatan=new TableKecamatan();
-        defaultTableKecamatan.setName("--Select--");
-        TableKota defaultTableKota=new TableKota();
-        defaultTableKota.setNicName("--Select--");
+
         setComboBoxKota(comboboxKota);
         setComboBoxKecamatan(comboBoxKecamatan,null);
         comboBoxKecamatan.showingProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue){
                 TableKecamatan selectTableKecamatan= (TableKecamatan) comboBoxKecamatan.getSelectionModel().getSelectedItem();
-                if(selectTableKecamatan.getId()!=defaultTableKecamatan.getId()){
+                if(selectTableKecamatan.getId()!=TableKecamatan.defaultTableKecamatan().getId()){
                     comboboxKota.getSelectionModel().select(selectTableKecamatan.getTableKota());
                 }
             }
@@ -297,11 +290,12 @@ public abstract class BaseController<O> {
         comboboxKota.showingProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue){
                 TableKota selectedItem= (TableKota) comboboxKota.getSelectionModel().getSelectedItem();
-                if(selectedItem.getId()!=defaultTableKota.getId()){
+                if(selectedItem.getId()!=TableKota.defaultTableKota().getId()){
                     setComboBoxKecamatan(comboBoxKecamatan,selectedItem.getListAvalibleKecamatan());
                 }else{
                     setComboBoxKecamatan(comboBoxKecamatan,null);
                 }
+                comboBoxKecamatan.getSelectionModel().select(0);
             }
         });
     }

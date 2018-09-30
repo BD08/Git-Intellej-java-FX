@@ -26,7 +26,8 @@ public class DBContext{
     private TableUserManager userLogin;
     private AWBCustomer aWBCustomer;
     private Kurir kurir;
-    
+    private TypePerusahaan typePerusahaan;
+
     public String getDate(){
         java.util.Date dt = new java.util.Date();
 
@@ -59,9 +60,11 @@ public class DBContext{
         checkPoint=new CheckPoint(connection);
         kota=new Kota(connection);
         kecamatan=new Kecamatan(connection,getKota());
+        typePerusahaan=new TypePerusahaan(connection);
         getKota().getAllData();
         getKecamatan().getAllData();
-        customer=new Customer(connection, getKota(), getKecamatan());
+        getTypePerusahaan().getAllData();
+        customer=new Customer(connection, getKota(), getKecamatan(),getTypePerusahaan());
         tarif=new Tarif(connection, getKecamatan(), getKota());
         tarifKonvesional=new Tarif(getKecamatan(), connection, getKota());
         customerPrice =new CustomerPrice(connection,getTarif());
@@ -228,7 +231,16 @@ public class DBContext{
     public void setKurir(Kurir kurir) {
         this.kurir = kurir;
     }
-    
-    
-    
+
+    public TypePerusahaan getTypePerusahaan() {
+        return typePerusahaan;
+    }
+
+    public void setTypePerusahaan(TypePerusahaan typePerusahaan) {
+        this.typePerusahaan = typePerusahaan;
+    }
+
+    public void setUserManagers(UserManagers userManagers) {
+        this.userManagers = userManagers;
+    }
 }

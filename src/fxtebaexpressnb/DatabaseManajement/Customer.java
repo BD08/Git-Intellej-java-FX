@@ -4,8 +4,6 @@ import fxtebaexpressnb.DatabaseManajement.TableEntity.TableCustomer;
 import fxtebaexpressnb.Utility.FilterParameter;
 
 import java.sql.Connection;
-import java.util.List;
-import java.util.logging.Filter;
 
 
 public class Customer extends BD08EntytyFrameWork<TableCustomer>{
@@ -26,11 +24,13 @@ public class Customer extends BD08EntytyFrameWork<TableCustomer>{
     private static String ColomnModifyBy="ModifyBy";
     private Kota listKota;
     private Kecamatan listKecamatan;
-    
-    public Customer(Connection connection,Kota listKota,Kecamatan listKecamatan) {
+    private TypePerusahaan listTypePerusahaan;
+
+    public Customer(Connection connection,Kota listKota,Kecamatan listKecamatan,TypePerusahaan listTypePerusahaan) {
         super("Customer", connection);
         this.listKota=listKota;
         this.listKecamatan=listKecamatan;
+        this.listTypePerusahaan=listTypePerusahaan;
     }
 
     @Override
@@ -54,6 +54,7 @@ public class Customer extends BD08EntytyFrameWork<TableCustomer>{
             item.setCreateDate(resultSet.getString(ColomnCreateDate));
             item.setModifyBy(resultSet.getInt(ColomnModifyBy));
             item.setModifyDate(resultSet.getString(ColomnModifyDate));
+            item.setTypePerusahanKode(listTypePerusahaan.getEntityItem(item.getTypePerusahaan()));
             this.DataList.add(item);
         }
     }
@@ -62,7 +63,7 @@ public class Customer extends BD08EntytyFrameWork<TableCustomer>{
     protected void RowPlot(TableCustomer e) {
         this.dataRow.clear();
         dataRow.add(new ColoumnValue(ColomnId, e.getId(), true));
-        dataRow.add(new ColoumnValue(ColomnTypePerusahaan, e.getTypePerusahaan()));
+        dataRow.add(new ColoumnValue(ColomnTypePerusahaan, e.getTypePerusahanKode().getName()));
         dataRow.add(new ColoumnValue(ColomnNama, e.getNama()));
         dataRow.add(new ColoumnValue(ColomnAlamat, e.getAlamat()));
         dataRow.add(new ColoumnValue(ColomnKotaId, e.getKotaId()));
@@ -98,6 +99,7 @@ public class Customer extends BD08EntytyFrameWork<TableCustomer>{
         this.addDefaultFilter(new FilterTable(ColomnNama,FilterParameter.LIKE,filterString));
         this.addDefaultFilter(new FilterTable(ColomnEmail,FilterParameter.LIKE,filterString));
     }
+
 
     @Override
     protected void newRowsIdPlot(TableCustomer e, Object o) {

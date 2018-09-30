@@ -18,6 +18,12 @@ public class TableKecamatan {
     private Date CreateDate;
     private TableKota tableKota;
 
+    public static TableKecamatan defaultTableKecamatan(){
+        TableKecamatan defaultTableKecamatan=new TableKecamatan();
+        defaultTableKecamatan.setName("--Select--");
+        defaultTableKecamatan.setId(-8008);
+        return defaultTableKecamatan;
+    }
 
     public Date getCreateDate() {
         return CreateDate;

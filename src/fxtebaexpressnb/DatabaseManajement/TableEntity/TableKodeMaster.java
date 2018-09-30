@@ -4,6 +4,17 @@ public class TableKodeMaster {
 	private int Id;
 	private String Name;
 
+	/**
+	 * Default Untuk Combobox
+	 * @return Return DefaultCodemaster
+	 */
+	public static TableKodeMaster defaultTableKodeMaster(){
+		TableKodeMaster tableKodeMaster=new TableKodeMaster();
+		tableKodeMaster.setName("--Select--");
+		tableKodeMaster.setId(-8008);
+		return tableKodeMaster;
+	}
+
 	public int getId() {
 		return Id;
 	}

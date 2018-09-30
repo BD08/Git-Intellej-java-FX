@@ -30,6 +30,14 @@ public class TableCustomer extends RecursiveTreeObject<TableCustomer> {
     private int ModifyBy;
     private TableKecamatan kecamatan;
     private int KecamatanId;
+    private TableKodeMaster typePerusahanKode;
+
+    public static TableCustomer defaultTableCustomer(){
+        TableCustomer tableCustomer=new TableCustomer();
+        tableCustomer.setId(-8008);
+        tableCustomer.setNama("--Select--");
+        return tableCustomer;
+    }
 
     public int getKecamatanId() {
         return KecamatanId;
@@ -168,7 +176,15 @@ public class TableCustomer extends RecursiveTreeObject<TableCustomer> {
         this.ModifyBy = ModifyBy;
     }
 
+    public TableKodeMaster getTypePerusahanKode() {
+        return typePerusahanKode;
+    }
 
+    public void setTypePerusahanKode(TableKodeMaster typePerusahanKode) {
+        this.typePerusahanKode = typePerusahanKode;
+        if(typePerusahanKode!=null)
+            setTypePerusahaan(typePerusahanKode.getName());
+    }
 
     @Override
     public String toString() {

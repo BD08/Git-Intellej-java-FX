@@ -24,6 +24,13 @@ public class TableKota {
     private int ModifyBy;
     private List<TableKecamatan> listAvalibleKecamatan;
 
+    public static TableKota defaultTableKota(){
+        TableKota defaultTableKota=new TableKota();
+        defaultTableKota.setNicName("--Select--");
+        defaultTableKota.setId(-8008);
+        return defaultTableKota;
+    }
+
     public String getNama() {
         return Nama;
     }
