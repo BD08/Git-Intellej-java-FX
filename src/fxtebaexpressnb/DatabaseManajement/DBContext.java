@@ -58,7 +58,9 @@ public class DBContext{
         cabangManager=new CabangManager(connection);
         checkPoint=new CheckPoint(connection);
         kota=new Kota(connection);
-        kecamatan=new Kecamatan(connection);
+        kecamatan=new Kecamatan(connection,getKota());
+        getKota().getAllData();
+        getKecamatan().getAllData();
         customer=new Customer(connection, getKota(), getKecamatan());
         tarif=new Tarif(connection, getKecamatan(), getKota());
         tarifKonvesional=new Tarif(getKecamatan(), connection, getKota());

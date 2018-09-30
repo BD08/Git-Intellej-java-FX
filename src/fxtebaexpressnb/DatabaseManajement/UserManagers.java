@@ -74,7 +74,7 @@ public class UserManagers extends BD08EntytyFrameWork<TableUserManager>{
     }
 
     @Override
-    protected TableUserManager getEntityItem(Object id) {
+    public TableUserManager getEntityItem(Object id) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         TableUserManager manager=null;
         for (TableUserManager tableUserManager : getListDataFromDB()) {

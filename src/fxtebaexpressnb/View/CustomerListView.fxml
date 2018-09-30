@@ -27,7 +27,7 @@
                         <Insets right="10.0" />
                      </padding>
                      <children>
-                        <JFXButton fx:id="btnAddUser" onAction="#addUserOnAction" prefHeight="65.0" prefWidth="150.0" styleClass="WarningButton" text="Add Customer">
+                        <JFXButton fx:id="btnAddCustomer" onAction="#addCutomerOnAction" prefHeight="65.0" prefWidth="150.0" styleClass="WarningButton" text="Add Customer">
                            <opaqueInsets>
                               <Insets bottom="10.0" top="10.0" />
                            </opaqueInsets>

@@ -61,7 +61,7 @@ public class Kurir extends BD08EntytyFrameWork<TableKurir>{
     }
 
     @Override
-    protected TableKurir getEntityItem(Object id) {
+    public TableKurir getEntityItem(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

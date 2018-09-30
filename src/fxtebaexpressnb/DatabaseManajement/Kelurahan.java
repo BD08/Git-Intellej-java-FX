@@ -60,7 +60,7 @@ public class Kelurahan extends BD08EntytyFrameWork<TableKelurahan>{
     }
 
     @Override
-    protected TableKelurahan getEntityItem(Object id) {
+    public TableKelurahan getEntityItem(Object id) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         TableKelurahan kelurahan=null;
         for (TableKelurahan tableKelurahan : getListDataFromDB()) {

@@ -98,7 +98,7 @@ public class Tarif extends BD08EntytyFrameWork<TableTarif>{
     }
 
     @Override
-    protected TableTarif getEntityItem(Object id) {
+    public TableTarif getEntityItem(Object id) {
         TableTarif tableTarif=null;
         for (TableTarif tableTarif1 : getListDataFromDB()) {
             if(tableTarif1.getId()==(int)id){

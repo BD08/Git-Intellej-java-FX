@@ -5,8 +5,11 @@
  */
 package fxtebaexpressnb.DatabaseManajement;
 
+import com.mysql.cj.xdevapi.Table;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
 import fxtebaexpressnb.Utility.FilterParameter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 
@@ -55,10 +58,10 @@ public class Kota extends BD08EntytyFrameWork<TableKota>{
     }
 
     @Override
-    protected TableKota getEntityItem(Object id) {
+    public TableKota getEntityItem(Object id) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         TableKota kota=null;
-        for (TableKota tableKota : getListDataFromDB()) {
+        for (TableKota tableKota : getAllData()) {
             if(tableKota.getId()==(int)id){
                 kota=tableKota;
                 break;
@@ -78,5 +81,11 @@ public class Kota extends BD08EntytyFrameWork<TableKota>{
         e.setId(o.hashCode());
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public ObservableList<TableKota> getListKota(){
+        ObservableList<TableKota> list;
+        list= FXCollections.observableList(this.getAllData());
+        return list;
+    }
+
 }

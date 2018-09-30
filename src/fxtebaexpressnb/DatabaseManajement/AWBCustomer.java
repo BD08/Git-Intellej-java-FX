@@ -93,7 +93,7 @@ public class AWBCustomer extends BD08EntytyFrameWork<TableTransaksi>{
     }
 
     @Override
-    protected TableTransaksi getEntityItem(Object id) {
+    public TableTransaksi getEntityItem(Object id) {
         TableTransaksi result=null;
         for (TableTransaksi tableAWBCus : getListDataFromDB()) {
             if(tableAWBCus.getId()==(int)id){

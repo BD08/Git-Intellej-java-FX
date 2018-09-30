@@ -29,7 +29,7 @@ public class CustomerListController extends BaseController<TableCustomer> {
 	public static void LoadCustomerList(BaseController baseControllerFromParent){
 		FXMLLoader fxmlLoader;
 		try {
-			fxmlLoader=baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_LIST_VIEW);
+			fxmlLoader=baseControllerFromParent.changeCenter(FileFXML.CUSTOMER_LIST_VIEW);
 			CustomerListController controller=fxmlLoader.<CustomerListController>getController();
 			controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
 			controller.PageFistLoad();
@@ -43,7 +43,7 @@ public class CustomerListController extends BaseController<TableCustomer> {
 	private AnchorPane bodyPane;
 
 	@FXML
-	private JFXButton btnAddUser;
+	private JFXButton btnAddCustomer;
 
 	@FXML
 	private JFXButton btnFirst;
@@ -98,8 +98,8 @@ public class CustomerListController extends BaseController<TableCustomer> {
 	//endregion
 
 	@FXML
-	void addUserOnAction(ActionEvent event) {
-
+	void addCutomerOnAction(ActionEvent event) {
+		InsertCustomerController.OpenInsertCustomer(this);
 	}
 
 	@FXML
@@ -112,7 +112,6 @@ public class CustomerListController extends BaseController<TableCustomer> {
 
 	}
 	private int Page;
-	private int BucketSize;
 	@Override
 	public void PageFistLoad() {
 		idColoumn.setVisible(false);
@@ -125,6 +124,13 @@ public class CustomerListController extends BaseController<TableCustomer> {
 		setupCellValueFactory(colomnKotaKecamatan,TableCustomer::getSimpleStringPropertyKota);
 		Page=0;
 		bucketSize=StaticValue.bucketSize;
+		treeTableView.setOnMouseClicked(event -> {
+			if(event.getClickCount()==2){
+				TreeItem<TableCustomer> tableUserManagerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
+				TableCustomer tmp=tableUserManagerTreeItem.getValue();
+				InsertCustomerController.OpenInsertCustomer(this,tmp.getId());
+			}
+		});
 		ChangePage();
 	}
 
@@ -133,16 +139,8 @@ public class CustomerListController extends BaseController<TableCustomer> {
 		treeTableView.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
 		treeTableView.setShowRoot(false);
 		txtPage.setText(String.valueOf(Page));
-		treeTableView.setOnMouseClicked(event -> {
-			if(event.getClickCount()==2){
-				TreeItem<TableCustomer> tableUserManagerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
-				TableCustomer tmp=tableUserManagerTreeItem.getValue();
-				InsertCustomerController.OpenInsertCustomer(this,tmp.getId());
-			}
-		});
+
 	}
-
-
 
 	//region Not Use In List
 	@Override

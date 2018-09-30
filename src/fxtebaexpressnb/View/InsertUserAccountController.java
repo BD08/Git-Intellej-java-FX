@@ -26,8 +26,7 @@ import java.net.URL;
  */
 public class InsertUserAccountController extends BaseController<TableUserManager> {
 	
-	private ViewMode viewMode;
-	
+
 	//region From FXML Controller Model
     @FXML
     private JFXButton btnSave;
@@ -187,23 +186,7 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 		txtPhoneNumber.setEditable(viewMode != ViewMode.VIEW);
 		txtUsername.setEditable(viewMode != ViewMode.VIEW);
 		btnCancel.setVisible(viewMode != ViewMode.VIEW);
-		switch (viewMode) {
-			case NEW:
-				btnSave.setText("Save");
-				btnCancel.setText("Cancel");
-				btnReset.setText("New Data");
-				break;
-			case EDIT:
-				btnSave.setText("Save");
-				btnCancel.setText("Cancel");
-				btnReset.setText("Reset");
-				break;
-			case VIEW:
-				btnSave.setText("Edit");
-				btnReset.setText("New Data");
-				break;
-		}
-		//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		setButtonActionViewMode(btnSave,btnCancel,btnReset);
 	}
 	
 	/**

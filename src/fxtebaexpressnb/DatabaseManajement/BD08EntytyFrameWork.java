@@ -64,6 +64,11 @@ public abstract class BD08EntytyFrameWork<E>{
                 return "";
         }
     }
+
+    /**
+     * Get Data dengan Filter yang sudah di apply
+     * @return
+     */
     public List<E> getListDataFromDB(){
         try{
             if(_isChange){
@@ -87,7 +92,19 @@ public abstract class BD08EntytyFrameWork<E>{
         }
         return DataList;
     }
-    
+
+    /**
+     * Mendapatkan Semua Data yang ada di database tanpa ada filter dan menghapus semua filter yang sudah di apply
+     * @return
+     */
+    public List<E> getAllData(){
+        if(filterRow.size()>0) {
+            _isChange = true;
+            filterRow.clear();
+        }
+        return getListDataFromDB();
+    }
+
     public Stream<E> getStream () {
         return this.getListDataFromDB().stream();
     }
@@ -194,7 +211,7 @@ public abstract class BD08EntytyFrameWork<E>{
      * @param id
      * @return item yang dipilih
      */
-    protected abstract E getEntityItem(Object id);
+    public abstract E getEntityItem(Object id);
 
     protected abstract void initializationFilterString(String filterString);
     

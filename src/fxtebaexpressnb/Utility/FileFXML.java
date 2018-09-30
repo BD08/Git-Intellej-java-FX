@@ -19,6 +19,18 @@ public enum FileFXML {
 	        return "UserAccountList.fxml"; //To change body of generated methods, choose Tools | Templates.
         }
         
+    },
+    CUSTOMER_LIST_VIEW{
+        @Override
+        public String toString() {
+            return "CustomerListView.fxml";
+        }
+    },
+    CUSTOMER_UPDATE_VIEW{
+        @Override
+        public String toString() {
+            return "InsertCustomerView.fxml";
+        }
     }
 //    private static String fileData="../View/";
 //    public static String DASHBOARDFILE=fileData+"dashBoard.fxml";

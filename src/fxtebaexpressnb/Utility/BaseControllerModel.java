@@ -34,7 +34,7 @@ public class BaseControllerModel {
         this.borderPane = borderPane;
     }
 
-    public DBContext getbContext() {
+    public DBContext getDBContext() {
         if(bContext==null){
             bContext=new DBContext();
         }

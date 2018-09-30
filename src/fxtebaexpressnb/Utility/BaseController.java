@@ -5,8 +5,13 @@
  */
 package fxtebaexpressnb.Utility;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTreeTableColumn;
+import com.sun.istack.internal.Nullable;
 import fxtebaexpressnb.DatabaseManajement.DBContext;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -16,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -29,9 +35,11 @@ import java.util.function.Function;
 public abstract class BaseController<O> {
     
     protected O curentModel;
-    
+
+    protected ViewMode viewMode;
+
     private BaseControllerModel baseControllerModel;
-    
+
     public abstract void PageFistLoad();
     
     public abstract void PageFistLoad(Object object,ViewMode mode);
@@ -136,7 +144,7 @@ public abstract class BaseController<O> {
     }
     
     protected DBContext getDBContext(){
-        return baseControllerModel.getbContext();
+        return baseControllerModel.getDBContext();
     }
     
     protected int Page=0;
@@ -199,5 +207,103 @@ public abstract class BaseController<O> {
             }
         });
     }
-    
+
+    protected boolean isEditableMode(){
+        if(viewMode!=null){
+            return viewMode!=ViewMode.VIEW;
+        }
+        return false;
+    }
+
+    protected boolean isNotEditableMode(){
+        if(viewMode!=null)
+        {
+            return viewMode==ViewMode.VIEW;
+        }
+        return false;
+    }
+// TODO: 9/30/2018 Membuat Dan Mencari Tahu Cara Membuat ComboBox  
+    /**
+     * Untuk Merubah semua tulisan di Button yang Dari View Dan Di panggil dalam sekali
+     * @param buttonSave Button Save dari FXML nya
+     * @param buttonEdit Button Edit dari FXML nya
+     * @param buttonReset Button Reset Dari FXML
+     */
+    protected void setButtonActionViewMode(JFXButton buttonSave,JFXButton buttonEdit,JFXButton buttonReset){
+        switch (viewMode){
+            case NEW:
+                buttonSave.setText("Save");
+                buttonEdit.setText("Cancel");
+                buttonReset.setText("New Data");
+                break;
+            case EDIT:
+                buttonSave.setText("Save");
+                buttonEdit.setText("Cancel");
+                buttonSave.setText("Reset");
+                break;
+            case VIEW:
+                buttonSave.setText("Edit");
+                buttonReset.setText("New Data");
+                buttonEdit.setVisible(isNotEditableMode());
+                break;
+        }
+    }
+
+    protected void setComboBoxKota(JFXComboBox comboBoxKota){
+        TableKota defaultTableKota=new TableKota();
+        defaultTableKota.setNicName("--Select--");
+        comboBoxKota.getItems().add(defaultTableKota);
+        comboBoxKota.getItems().addAll(this.getBaseControllerModel().getDBContext().getKota().getAllData());
+        comboBoxKota.getSelectionModel().select(defaultTableKota);
+    }
+
+    /**
+     * set Cild Combobox dengan List yang Sudah Di sediakan parent ato dia buat sendiri
+     * @param comboBoxKecamatan
+     * @param listTableKecamatans boleh null
+     */
+    protected void setComboBoxKecamatan(JFXComboBox comboBoxKecamatan,@Nullable List<TableKecamatan> listTableKecamatans){
+        comboBoxKecamatan.getItems().clear();
+        TableKecamatan defaultTableKecamatan=new TableKecamatan();
+        defaultTableKecamatan.setName("--Select--");
+        comboBoxKecamatan.getItems().add(defaultTableKecamatan);
+        if(listTableKecamatans==null)
+            comboBoxKecamatan.getItems().addAll(this.getBaseControllerModel().getDBContext().getKecamatan().getAllData());
+        else
+            comboBoxKecamatan.getItems().addAll(listTableKecamatans);
+        comboBoxKecamatan.getSelectionModel().select(defaultTableKecamatan);
+    }
+
+    /**
+     * untuk memberikan sebuah Kota Kecamatan yang tersync dengan baik
+     * @param comboboxKota Combo Box Kota Yang Di Inginkan
+     * @param comboBoxKecamatan Combobox Kecamatan Yang di inginkan
+     */
+    protected void setComboBoxKotaKecamatanAsyn(JFXComboBox comboboxKota,JFXComboBox comboBoxKecamatan){
+        TableKecamatan defaultTableKecamatan=new TableKecamatan();
+        defaultTableKecamatan.setName("--Select--");
+        TableKota defaultTableKota=new TableKota();
+        defaultTableKota.setNicName("--Select--");
+        setComboBoxKota(comboboxKota);
+        setComboBoxKecamatan(comboBoxKecamatan,null);
+        comboBoxKecamatan.showingProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                TableKecamatan selectTableKecamatan= (TableKecamatan) comboBoxKecamatan.getSelectionModel().getSelectedItem();
+                if(selectTableKecamatan.getId()!=defaultTableKecamatan.getId()){
+                    comboboxKota.getSelectionModel().select(selectTableKecamatan.getTableKota());
+                }
+            }
+        });
+        comboboxKota.showingProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                TableKota selectedItem= (TableKota) comboboxKota.getSelectionModel().getSelectedItem();
+                if(selectedItem.getId()!=defaultTableKota.getId()){
+                    setComboBoxKecamatan(comboBoxKecamatan,selectedItem.getListAvalibleKecamatan());
+                }else{
+                    setComboBoxKecamatan(comboBoxKecamatan,null);
+                }
+            }
+        });
+    }
+
 }

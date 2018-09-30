@@ -32,7 +32,8 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
     
     private enum selectedMenu{
         Dashboard,
-        Pengirim
+        Pengirim,
+        Customer
     }
     private selectedMenu menuSelect;
     
@@ -40,10 +41,11 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
         menuSelect=m;
         btnDashboard.setDisable(menuSelect==selectedMenu.Dashboard);
         btnPengiriman.setDisable(menuSelect==selectedMenu.Pengirim);
-
+        btnCustomer.setDisable(menuSelect==selectedMenu.Customer);
     }
-    
 
+
+    //region From FXML Desain
     @FXML
     private BorderPane borderPane;
 
@@ -55,6 +57,10 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
 
     @FXML
     public AnchorPane centerPane;
+
+    @FXML
+    private JFXButton btnCustomer;
+    //endregion
 
     @FXML
     void btnDashboardAction(ActionEvent event) {
@@ -90,7 +96,11 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
     public void PageFistLoad() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    @FXML
+    void btnCustomer(ActionEvent event) {
+        loadData(selectedMenu.Customer);
+        CustomerListController.LoadCustomerList(this);
+    }
     
 }
 
