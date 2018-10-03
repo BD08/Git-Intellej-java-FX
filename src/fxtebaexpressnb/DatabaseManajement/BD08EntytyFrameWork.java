@@ -19,10 +19,11 @@ import java.util.stream.Stream;
  * @author AsusX450J
  */
 public abstract class BD08EntytyFrameWork<E>{
+
     private String tableName;
     private Connection connection;
     private Statement statement;
-    
+
     private boolean _isChange;
     
     protected List<E> DataList;
@@ -268,7 +269,17 @@ public abstract class BD08EntytyFrameWork<E>{
         res++; 
         return res;
     }
-    
+
+    public int getMaximumPage(){
+        int size=getListDataFromDB().size();
+        int hasilModulus=size%10;
+        int hasilBagi=size/10;
+        if(hasilModulus>0)
+            return hasilBagi+1;
+        else
+            return  hasilBagi;
+    }
+
     protected class ColoumnValue{
         private String ColoumnName;
         private Object Value;

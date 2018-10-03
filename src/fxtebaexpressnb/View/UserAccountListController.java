@@ -2,22 +2,17 @@ package fxtebaexpressnb.View;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableUserManager;
 import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
 import fxtebaexpressnb.Utility.StaticValue;
 import fxtebaexpressnb.Utility.ViewMode;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -133,16 +128,62 @@ public class UserAccountListController extends BaseController<TableUserManager> 
     void addUserOnAction(ActionEvent event) {
         InsertUserAccountController.loadInsertTransactionController(this);
     }
-    
+
+    @FXML
+    void searchItemAction(ActionEvent event) {
+        this.ChangePage();
+    }
+
+    @FXML
+    void searchOnChange(InputMethodEvent event) {
+        this.ChangePage();
+    }
+
+    //region Buttonn Bawah
+    @FXML
+    void btnBeforeOnAction(ActionEvent event) {
+        if(Page>0)
+            Page--;
+        this.txtPage.setText((Page+1)+"");
+    }
+
+    @FXML
+    void btnFirstButton(ActionEvent event) {
+        Page=0;
+        this.txtPage.setText((Page+1)+"");
+    }
+
+    @FXML
+    void onChangeLast(ActionEvent event) {
+        Page=this.getDBContext().getUserManagers().getMaximumPage();
+        this.txtPage.setText((Page+1)+"");
+    }
+
+    @FXML
+    void onNextPage(ActionEvent event) {
+        if(Page!=this.getDBContext().getUserManagers().getMaximumPage())
+            Page++;
+        this.txtPage.setText((Page+1)+"");
+    }
+
+    @FXML
+    void onPageChange(InputMethodEvent event) {
+        this.ChangePage();
+    }
+    //endregion
+
     //region Not Use
     @Override
     public void PageFistLoad(Object object, ViewMode mode) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
+
+    //region Not Use in List
     /**
      * Untuk Load Dengan ID User Yang Sudah Ada
-     * @param object 
+     * @param object
      */
     @Override
     public void PageFistLoad(Object object) {
@@ -150,18 +191,9 @@ public class UserAccountListController extends BaseController<TableUserManager> 
 
     @Override
     public void setViewMode (ViewMode mode) {
-    }
-    
-    
-    @FXML
-    void searchItemAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void searchOnChange(InputMethodEvent event) {
 
     }
     //endregion
-    
+    //endregion
+
 }

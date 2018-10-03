@@ -8,7 +8,6 @@ package fxtebaexpressnb.Utility;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTreeTableColumn;
-import com.sun.istack.internal.Nullable;
 import fxtebaexpressnb.DatabaseManajement.DBContext;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
@@ -248,6 +247,9 @@ public abstract class BaseController<O> {
                 break;
         }
     }
+    protected DBContext getDDContext(){
+        return this.baseControllerModel.getDBContext();
+    }
 
     protected void setComboBoxKota(JFXComboBox comboBoxKota){
         comboBoxKota.getItems().add(TableKota.defaultTableKota());
@@ -260,7 +262,7 @@ public abstract class BaseController<O> {
      * @param comboBoxKecamatan
      * @param listTableKecamatans boleh null
      */
-    protected void setComboBoxKecamatan(JFXComboBox comboBoxKecamatan,@Nullable List<TableKecamatan> listTableKecamatans){
+    protected void setComboBoxKecamatan(JFXComboBox comboBoxKecamatan,List<TableKecamatan> listTableKecamatans){
         comboBoxKecamatan.getItems().clear();
         comboBoxKecamatan.getItems().add(TableKecamatan.defaultTableKecamatan());
         if(listTableKecamatans==null)
