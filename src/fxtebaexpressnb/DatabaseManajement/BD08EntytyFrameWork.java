@@ -6,6 +6,7 @@
 package fxtebaexpressnb.DatabaseManajement;
 
 import fxtebaexpressnb.Utility.FilterParameter;
+import fxtebaexpressnb.Utility.StaticValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -272,8 +273,8 @@ public abstract class BD08EntytyFrameWork<E>{
 
     public int getMaximumPage(){
         int size=getListDataFromDB().size();
-        int hasilModulus=size%10;
-        int hasilBagi=size/10;
+        int hasilModulus=size% StaticValue.bucketSize;
+        int hasilBagi=size/StaticValue.bucketSize;
         if(hasilModulus>0)
             return hasilBagi+1;
         else

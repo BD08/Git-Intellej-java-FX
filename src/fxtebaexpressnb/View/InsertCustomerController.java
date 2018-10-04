@@ -198,14 +198,22 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 	 * @param object
 	 */
 	@Override
-	public void PageFistLoad(Object object) {
-		comboBoxPreparation();
-		this.curentModel=this.getBaseControllerModel().getDBContext().
-				getCustomer().getStream().
-				filter(tableCustomer -> tableCustomer.getId()==object.hashCode()).findFirst().get();
-		this.setButtonActionViewMode(btnSave,btnReset,btnCancel);
-		this.setViewMode(ViewMode.VIEW);
-		MappingData(curentModel);
+	public void PageFistLoad(Object object){
+		try {
+			setViewMode(ViewMode.VIEW);
+			comboBoxPreparation();
+			this.curentModel = this.getBaseControllerModel().getDBContext().
+					getCustomer().getStream().
+					filter(tableCustomer -> tableCustomer.getId() == object.hashCode()).findFirst().get();
+			if(curentModel.getId()==TableCustomer.defaultTableCustomer().getId()) {
+				PageFistLoad();
+			}
+			this.setButtonActionViewMode(btnSave, btnReset, btnCancel);
+			MappingData(curentModel);
+		}catch (Exception ex)
+		{
+			System.err.print("Error Load PageFirstLoad"+ex);
+		}
 	}
 
 	//region Untuk Mapping Data Get menjadi Tbale Customer Ato Dari Table Customer Menjadi View
@@ -284,7 +292,7 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 		txtNamaPerusahaan.setDisable(isNotEditableMode());
 		comboBoxTypePerusahaan.setDisable(isNotEditableMode());
 		comboboxKota.setDisable(isNotEditableMode());
-		comboboxKecamatan.setEditable(isNotEditableMode());
+		comboboxKecamatan.setDisable(isNotEditableMode());
 		txtInvoiceEmail.setDisable(isNotEditableMode());
 		txtEmail.setDisable(isNotEditableMode());
 		txtContactPerson.setDisable(isNotEditableMode());

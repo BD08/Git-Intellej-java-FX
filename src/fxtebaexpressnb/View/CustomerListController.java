@@ -3,6 +3,7 @@ package fxtebaexpressnb.View;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableCustomer;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableUserManager;
 import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
 import fxtebaexpressnb.Utility.StaticValue;
@@ -118,13 +119,6 @@ public class CustomerListController extends BaseController<TableCustomer> {
 		setupCellValueFactory(colomnKotaKecamatan,TableCustomer::getSimpleStringPropertyKota);
 		Page=0;
 		bucketSize=StaticValue.bucketSize;
-		treeTableView.setOnMouseClicked(event -> {
-			if(event.getClickCount()==2){
-				TreeItem<TableCustomer> tableUserManagerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
-				TableCustomer tmp=tableUserManagerTreeItem.getValue();
-				InsertCustomerController.OpenInsertCustomer(this,tmp.getId());
-			}
-		});
 		ChangePage();
 	}
 
@@ -133,7 +127,13 @@ public class CustomerListController extends BaseController<TableCustomer> {
 		treeTableView.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
 		treeTableView.setShowRoot(false);
 		txtPage.setText(String.valueOf(Page));
-
+		treeTableView.setOnMouseClicked(event -> {
+			if(event.getClickCount()==2){
+				TreeItem<TableCustomer> tableCustomerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
+				TableCustomer tmp=tableCustomerTreeItem.getValue();
+				InsertCustomerController.OpenInsertCustomer(this,tmp.getId());
+			}
+		});
 	}
 
 	//region Not Use In List
