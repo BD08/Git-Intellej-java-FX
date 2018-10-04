@@ -39,7 +39,7 @@ public class CustomerPrice extends BD08EntytyFrameWork<TableCustomerPrice>{
      * kota sebelum
      */
     @Override
-    protected TableCustomerPrice getEntityItem(Object id) {
+    public TableCustomerPrice getEntityItem(Object id) {
         TableCustomerPrice customerPrice=null;
         TableCustomerPrice tcp=(TableCustomerPrice)id;
         for (TableCustomerPrice tableCustomerPrice : getListDataFromDB()) {
@@ -53,6 +53,11 @@ public class CustomerPrice extends BD08EntytyFrameWork<TableCustomerPrice>{
             }
         }
         return customerPrice;
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+//        this.addDefaultFilter(new FilterTable(Colo));
     }
 
     @Override

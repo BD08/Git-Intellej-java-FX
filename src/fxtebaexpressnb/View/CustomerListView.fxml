@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="bodyPane" prefHeight="749.0" prefWidth="965.0" styleClass="parent" stylesheets="@CSS/CSSMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.UserAccountListController">
+<AnchorPane id="AnchorPane" fx:id="bodyPane" prefHeight="749.0" prefWidth="965.0" styleClass="parent" stylesheets="@CSS/CSSMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.CustomerListController">
    <children>
       <BorderPane layoutX="329.0" layoutY="66.0" prefHeight="750.0" prefWidth="1074.0" styleClass="parent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="CENTER_LEFT" prefHeight="145.0" prefWidth="200.0" styleClass="HeaderPanel" BorderPane.alignment="CENTER">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelHeader" text="User Controll" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelHeader" text="Customer Controller" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets />
@@ -27,7 +27,7 @@
                         <Insets right="10.0" />
                      </padding>
                      <children>
-                        <JFXButton fx:id="btnAddUser" onAction="#addUserOnAction" prefHeight="65.0" prefWidth="150.0" styleClass="WarningButton" text="Add User">
+                        <JFXButton fx:id="btnAddCustomer" onAction="#addCutomerOnAction" prefHeight="65.0" prefWidth="150.0" styleClass="WarningButton" text="Add Customer">
                            <opaqueInsets>
                               <Insets bottom="10.0" top="10.0" />
                            </opaqueInsets>
@@ -49,24 +49,24 @@
          <bottom>
             <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="965.0" spacing="10.0" styleClass="HeaderPanel" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnFirst" onAction="#btnFirstButton" prefHeight="46.0" prefWidth="145.0" styleClass="ButtonPaging" text="First">
+                  <JFXButton fx:id="btnFirst" prefHeight="46.0" prefWidth="145.0" styleClass="ButtonPaging" text="First">
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnBefore" onAction="#btnBeforeOnAction" prefHeight="46.0" prefWidth="57.0" styleClass="ButtonPaging" text="&lt;">
+                  <JFXButton fx:id="btnBefore" prefHeight="46.0" prefWidth="57.0" styleClass="ButtonPaging" text="&lt;">
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </JFXButton>
-                  <JFXTextField fx:id="txtPage" alignment="CENTER" onInputMethodTextChanged="#onPageChange" prefHeight="46.0" prefWidth="73.0" styleClass="Paginnation" />
+                  <JFXTextField fx:id="txtPage" alignment="CENTER" prefHeight="46.0" prefWidth="73.0" styleClass="Paginnation" />
                   <Text fx:id="txtMaxPage" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="PaginnationMax" text="Text" />
-                  <JFXButton fx:id="btnNext" onAction="#onNextPage" prefHeight="46.0" prefWidth="57.0" styleClass="ButtonPaging" text="&gt;">
+                  <JFXButton fx:id="btnNext" prefHeight="46.0" prefWidth="57.0" styleClass="ButtonPaging" text="&gt;">
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </JFXButton>
-                  <JFXButton fx:id="btnLast" onAction="#onChangeLast" prefHeight="46.0" prefWidth="145.0" styleClass="ButtonPaging" text="Last">
+                  <JFXButton fx:id="btnLast" prefHeight="46.0" prefWidth="145.0" styleClass="ButtonPaging" text="Last">
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding>
@@ -103,18 +103,18 @@
                            </padding>
                         </HBox>
                         <ScrollPane prefHeight="407.0" prefWidth="965.0" styleClass="parent" VBox.vgrow="ALWAYS">
-                          <content>
-                            <AnchorPane prefHeight="591.0" prefWidth="1471.0">
+                           <content>
+                              <AnchorPane prefHeight="591.0" prefWidth="1471.0">
                                  <children>
                                     <JFXTreeTableView fx:id="treeTableView" layoutX="20.0" prefHeight="400.0" prefWidth="1431.0" styleClass="TableAnchorePane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                        <columns>
                                           <JFXTreeTableColumn fx:id="idColoumn" editable="false" minWidth="73.0" prefWidth="73.0" sortable="false" styleClass="RowPaneFirst" text="Id" />
-                                          <JFXTreeTableColumn fx:id="firstNameColumn" minWidth="133" prefWidth="455.0" styleClass="RowPaneFirst" text="Fist Name" />
-                                          <JFXTreeTableColumn fx:id="lastNameColumn" minWidth="35.0" prefWidth="251.0" styleClass="RowPaneSecond" text="Last Name" />
-                                          <JFXTreeTableColumn fx:id="emailColumn" minWidth="133.0" prefWidth="218.0" styleClass="RowPaneFirst" text="Email" />
-                                          <JFXTreeTableColumn fx:id="usernameColumn" minWidth="-1.0" prefWidth="223.0" styleClass="RowPaneSecond" text="Username" />
-                                          <JFXTreeTableColumn fx:id="statusColumn" minWidth="-1.0" prefWidth="223.0" styleClass="RowPaneFirst" text="Status" />
-                                          <JFXTreeTableColumn fx:id="actionColumn" minWidth="-1.0" prefWidth="223.0" styleClass="RowPaneSecond" text="Action" />
+                                          <JFXTreeTableColumn fx:id="coloumnName" minWidth="35.0" prefWidth="290.0" styleClass="RowPaneSecond" text="Nama" />
+                                          <JFXTreeTableColumn fx:id="colomnContactPerson" minWidth="-1.0" prefWidth="223.0" styleClass="RowPaneFirst" text="Nama Contact Person" />
+                                          <JFXTreeTableColumn fx:id="colomnContactPersonAdress" minWidth="-1.0" prefWidth="223.0" styleClass="RowPaneSecond" text="Phone Number" />
+                                          <JFXTreeTableColumn fx:id="coloumnAdress" minWidth="133.0" prefWidth="380.0" styleClass="RowPaneFirst" text="Alamat" />
+                                          <JFXTreeTableColumn fx:id="colomnKotaKecamatan" minWidth="-1.0" prefWidth="223.0" styleClass="RowPaneSecond" text="Kecamatan Dan Kota" />
+                                          <JFXTreeTableColumn fx:id="coloumnTypePerusahaan" minWidth="133" prefWidth="254.0" styleClass="RowPaneFirst" text="Type Perusahaan" />
                                        </columns>
                                     </JFXTreeTableView>
                                  </children>
@@ -122,7 +122,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </padding>
                               </AnchorPane>
-                          </content>
+                           </content>
                         </ScrollPane>
                      </children>
                   </VBox>

@@ -5,6 +5,8 @@
  */
 package fxtebaexpressnb.DatabaseManajement;
 
+import fxtebaexpressnb.Utility.FilterParameter;
+import fxtebaexpressnb.Utility.StaticValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -18,10 +20,11 @@ import java.util.stream.Stream;
  * @author AsusX450J
  */
 public abstract class BD08EntytyFrameWork<E>{
+
     private String tableName;
     private Connection connection;
     private Statement statement;
-    
+
     private boolean _isChange;
     
     protected List<E> DataList;
@@ -29,7 +32,7 @@ public abstract class BD08EntytyFrameWork<E>{
     
     protected List<ColoumnValue> dataRow;
     
-    private List<filterTable> filterRow;
+    protected List<FilterTable> filterRow;
     
     public BD08EntytyFrameWork(String tableName,Connection connection) {
         try{
@@ -49,10 +52,25 @@ public abstract class BD08EntytyFrameWork<E>{
     
     protected abstract void newRowsIdPlot(E e,Object o);
     
-    void addDefaultFilter (filterTable coloumnValue) {
+    protected void addDefaultFilter (FilterTable coloumnValue) {
         this.filterRow.add(coloumnValue);
     }
-    
+
+    private String FilterParameterConvert(FilterTable filterTable){
+        switch (filterTable.filterParameter){
+            case LIKE:
+                return " "+filterTable.ColoumnName+" "+filterTable.filterParameter.toString()+" % "+filterTable.Value+" % ";
+            case SAMA_DENGAN:
+                return " "+filterTable.ColoumnName+" "+filterTable.filterParameter.toString()+" "+filterTable.Value;
+            default:
+                return "";
+        }
+    }
+
+    /**
+     * Get Data dengan Filter yang sudah di apply
+     * @return
+     */
     public List<E> getListDataFromDB(){
         try{
             if(_isChange){
@@ -61,9 +79,10 @@ public abstract class BD08EntytyFrameWork<E>{
                 if(filterRow.size()>0){
                     for(int i=0;i<filterRow.size();i++){
                         if(i == 0) {
-                            sqlCode+=" WHERE ";
+                            sqlCode+=" WHERE "+FilterParameterConvert(filterRow.get(i));
+                        }else{
+                            sqlCode+=" AND "+FilterParameterConvert(filterRow.get(i));
                         }
-                        sqlCode+=" "+filterRow.get(i).ColoumnName+" "+filterRow.get(i).FilterParameter+" "+filterRow.get(i).Value;
                     }
                 }
                 resultSet=statement.executeQuery(sqlCode);
@@ -75,7 +94,19 @@ public abstract class BD08EntytyFrameWork<E>{
         }
         return DataList;
     }
-    
+
+    /**
+     * Mendapatkan Semua Data yang ada di database tanpa ada filter dan menghapus semua filter yang sudah di apply
+     * @return
+     */
+    public List<E> getAllData(){
+        if(filterRow.size()>0) {
+            _isChange = true;
+            filterRow.clear();
+        }
+        return getListDataFromDB();
+    }
+
     public Stream<E> getStream () {
         return this.getListDataFromDB().stream();
     }
@@ -182,8 +213,9 @@ public abstract class BD08EntytyFrameWork<E>{
      * @param id
      * @return item yang dipilih
      */
-    protected abstract E getEntityItem(Object id);
-     
+    public abstract E getEntityItem(Object id);
+
+    protected abstract void initializationFilterString(String filterString);
     
     /**
      * Apakah List Berubah
@@ -200,22 +232,55 @@ public abstract class BD08EntytyFrameWork<E>{
     /**
      * Untuk Membuat ObservableList yang di gunakan di java fx 
      * @param page halam keberapa
-     * @param bucketSize t ampilan yang akan di tampilkan 
+     * @param bucketSize tampilan yang akan di tampilkan
      * @return hasil tinggal di tancepin ke fx aja
      */
-    public ObservableList<E> generateDummyData(int page,int bucketSize) {
+    private ObservableList<E> generateDummyData(int page,int bucketSize) {
         int skipdata=(page-1)*bucketSize;
+        if(skipdata<0)
+            skipdata=0;
         ObservableList<E> dummyData = FXCollections.observableArrayList();
-        getListDataFromDB().stream().skip(0).limit(bucketSize).forEach(listData -> dummyData.add(listData));
+        getListDataFromDB().stream().skip(skipdata).limit(bucketSize).forEach(listData -> dummyData.add(listData));
         return dummyData;
     }
-    
+
+    /**
+     * Untuk Membuat ObservableList yang di gunakan di java fx
+     * @param page halam keberapa
+     * @param bucketSize tampilan yang akan di tampilkan
+     * @return hasil tinggal di tancepin ke fx aja
+     */
+    public ObservableList<E> generateDummyData(int page,int bucketSize,String filter){
+        if(filter.isEmpty())
+        {
+            this.filterRow.clear();
+            return generateDummyData(page,bucketSize);
+        }
+        this.initializationFilterString(filter);
+        int skipdata=(page-1)*bucketSize;
+        if(skipdata<0)
+            skipdata=0;
+        ObservableList<E> dummyData = FXCollections.observableArrayList();
+        getListDataFromDB().stream().skip(skipdata).limit(bucketSize).forEach(listData -> dummyData.add(listData));
+        return dummyData;
+    }
+
     public int AvailablePage(int bucketSize){
         int res=Count()/bucketSize;
         res++; 
         return res;
     }
-    
+
+    public int getMaximumPage(){
+        int size=getListDataFromDB().size();
+        int hasilModulus=size% StaticValue.bucketSize;
+        int hasilBagi=size/StaticValue.bucketSize;
+        if(hasilModulus>0)
+            return hasilBagi+1;
+        else
+            return  hasilBagi;
+    }
+
     protected class ColoumnValue{
         private String ColoumnName;
         private Object Value;
@@ -226,6 +291,7 @@ public abstract class BD08EntytyFrameWork<E>{
             this.Value = Value;
             this.isPrimary = isPrimary;
         }
+
         public ColoumnValue(String ColoumnName, Object Value) {
             this.ColoumnName = ColoumnName;
             this.Value = Value;
@@ -253,40 +319,26 @@ public abstract class BD08EntytyFrameWork<E>{
         
     }
     
-    protected class filterTable{
+    protected class FilterTable{
         private String ColoumnName;
-        private String FilterParameter;
+        private FilterParameter filterParameter;
         private Object Value;
-    
-        filterTable (String ColoumnName, String FilterParameter, Object Value) {
-            this.ColoumnName = ColoumnName;
-            this.FilterParameter = FilterParameter;
-            this.Value = Value;
+
+        public FilterTable() {
+        }
+
+        public FilterTable(String coloumnName, FilterParameter filterParameter, Object value) {
+            ColoumnName = coloumnName;
+            this.filterParameter = filterParameter;
+            Value = value;
         }
 
         public String getColoumnName() {
             return ColoumnName;
         }
 
-        public void setColoumnName(String ColoumnName) {
-            this.ColoumnName = ColoumnName;
+        public void setColoumnName(String coloumnName) {
+            ColoumnName = coloumnName;
         }
-
-        public String getFilterParameter() {
-            return FilterParameter;
-        }
-
-        public void setFilterParameter(String FilterParameter) {
-            this.FilterParameter = FilterParameter;
-        }
-
-        public Object getValue() {
-            return Value;
-        }
-
-        public void setValue(Object Value) {
-            this.Value = Value;
-        }
-        
     }
 }

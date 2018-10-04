@@ -7,6 +7,8 @@ package fxtebaexpressnb.DatabaseManajement;
 
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableColoumnName;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableTransaksi;
+import fxtebaexpressnb.Utility.FilterParameter;
+
 import java.sql.Connection;
 import java.util.Optional;
 
@@ -40,7 +42,6 @@ public class AWBCustomer extends BD08EntytyFrameWork<TableTransaksi>{
     public AWBCustomer(Connection connection,Customer customer) {
         super("Transaksi", connection);
         this.customerData=customer;
-        this.addDefaultFilter(new filterTable(ColomnCustomerId, ">", "0"));
     }
 
     @Override
@@ -92,7 +93,7 @@ public class AWBCustomer extends BD08EntytyFrameWork<TableTransaksi>{
     }
 
     @Override
-    protected TableTransaksi getEntityItem(Object id) {
+    public TableTransaksi getEntityItem(Object id) {
         TableTransaksi result=null;
         for (TableTransaksi tableAWBCus : getListDataFromDB()) {
             if(tableAWBCus.getId()==(int)id){
@@ -101,6 +102,13 @@ public class AWBCustomer extends BD08EntytyFrameWork<TableTransaksi>{
             }
         }
         return result;
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        this.addDefaultFilter(new FilterTable(ColomnAirwaybill, FilterParameter.LIKE,filterString));
+        this.addDefaultFilter(new FilterTable(ColomnToNama,FilterParameter.LIKE,filterString));
+        this.addDefaultFilter(new FilterTable(ColomnToAlamat,FilterParameter.LIKE,filterString));
     }
 
     @Override

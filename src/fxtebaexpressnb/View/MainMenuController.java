@@ -2,6 +2,7 @@ package fxtebaexpressnb.View;
 
 import com.jfoenix.controls.JFXButton;
 import fxtebaexpressnb.Utility.BaseController;
+import fxtebaexpressnb.Utility.BaseControllerModel;
 import fxtebaexpressnb.Utility.FileFXML;
 import fxtebaexpressnb.Utility.ViewMode;
 import javafx.event.ActionEvent;
@@ -11,7 +12,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
 
-public class MainMenuController extends BaseController{
+public class MainMenuController extends BaseController<BaseControllerModel> {
 
     @Override
     public void PageFistLoad(Object object, ViewMode mode) {
@@ -31,7 +32,8 @@ public class MainMenuController extends BaseController{
     
     private enum selectedMenu{
         Dashboard,
-        Pengirim
+        Pengirim,
+        Customer
     }
     private selectedMenu menuSelect;
     
@@ -39,10 +41,11 @@ public class MainMenuController extends BaseController{
         menuSelect=m;
         btnDashboard.setDisable(menuSelect==selectedMenu.Dashboard);
         btnPengiriman.setDisable(menuSelect==selectedMenu.Pengirim);
-
+        btnCustomer.setDisable(menuSelect==selectedMenu.Customer);
     }
-    
 
+
+    //region From FXML Desain
     @FXML
     private BorderPane borderPane;
 
@@ -54,6 +57,10 @@ public class MainMenuController extends BaseController{
 
     @FXML
     public AnchorPane centerPane;
+
+    @FXML
+    private JFXButton btnCustomer;
+    //endregion
 
     @FXML
     void btnDashboardAction(ActionEvent event) {
@@ -89,7 +96,11 @@ public class MainMenuController extends BaseController{
     public void PageFistLoad() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    @FXML
+    void btnCustomer(ActionEvent event) {
+        loadData(selectedMenu.Customer);
+        CustomerListController.LoadCustomerList(this);
+    }
     
 }
 

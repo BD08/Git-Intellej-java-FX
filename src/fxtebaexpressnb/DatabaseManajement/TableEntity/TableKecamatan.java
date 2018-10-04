@@ -16,6 +16,14 @@ public class TableKecamatan {
     private String Name;
     private int Kota_Id;
     private Date CreateDate;
+    private TableKota tableKota;
+
+    public static TableKecamatan defaultTableKecamatan(){
+        TableKecamatan defaultTableKecamatan=new TableKecamatan();
+        defaultTableKecamatan.setName("--Select--");
+        defaultTableKecamatan.setId(-8008);
+        return defaultTableKecamatan;
+    }
 
     public Date getCreateDate() {
         return CreateDate;
@@ -74,6 +82,15 @@ public class TableKecamatan {
 
     public void setId(int Id) {
         this.Id = Id;
+    }
+
+    public TableKota getTableKota() {
+        return tableKota;
+    }
+
+    public void setTableKota(TableKota tableKota) {
+        this.setKota_Id(tableKota.getId());
+        this.tableKota = tableKota;
     }
 
     @Override

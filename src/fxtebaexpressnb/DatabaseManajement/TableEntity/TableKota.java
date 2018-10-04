@@ -6,7 +6,9 @@
 package fxtebaexpressnb.DatabaseManajement.TableEntity;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -20,15 +22,15 @@ public class TableKota {
     private int CreateBy;
     private Date ModifyDate;
     private int ModifyBy;
-    public TableKota(){
-        Id=-1;
-        Nama="";
-        NicName="";
-        CreateBy=0;
-        ModifyBy=0;
-        CreateDate=new Date();
-        ModifyDate=new Date();
+    private List<TableKecamatan> listAvalibleKecamatan;
+
+    public static TableKota defaultTableKota(){
+        TableKota defaultTableKota=new TableKota();
+        defaultTableKota.setNicName("--Select--");
+        defaultTableKota.setId(-8008);
+        return defaultTableKota;
     }
+
     public String getNama() {
         return Nama;
     }
@@ -85,8 +87,21 @@ public class TableKota {
         this.Id = Id;
     }
 
+    public void addKecamatan(TableKecamatan tableKecamatan){
+        if(this.listAvalibleKecamatan==null)
+            this.listAvalibleKecamatan=new ArrayList<>();
+        this.listAvalibleKecamatan.add(tableKecamatan);
+    }
+
+    public List<TableKecamatan> getListAvalibleKecamatan(){
+        return listAvalibleKecamatan;
+    }
     @Override
     public String toString() {
+        if(getNama()==null)
+            return getNicName();
+        if(getNicName()==null)
+            return getNama();
         return getNama()+" "+getNicName();
     }
     

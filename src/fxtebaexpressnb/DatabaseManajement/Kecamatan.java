@@ -1,6 +1,8 @@
 package fxtebaexpressnb.DatabaseManajement;
 
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
+import fxtebaexpressnb.Utility.FilterParameter;
+
 import java.sql.Connection;
 
 /**
@@ -16,8 +18,10 @@ public class Kecamatan extends BD08EntytyFrameWork<TableKecamatan>{
     private static String ColomnCreateBy="CreateBy";
     private static String ColomnModifyDate="ModifyDate";
     private static String ColomnModifyBy="ModifyBy";
-    public Kecamatan(Connection connection) {
+    private Kota listKota=null;
+    public Kecamatan(Connection connection,Kota kota) {
         super("Kecamatan", connection);
+        listKota=kota;
     }
 
     @Override
@@ -32,6 +36,8 @@ public class Kecamatan extends BD08EntytyFrameWork<TableKecamatan>{
             item.setCreateDate(resultSet.getDate(ColomnCreateDate));
             item.setModifyBy(resultSet.getInt(ColomnModifyBy));
             item.setModifyDate(resultSet.getDate(ColomnModifyDate));
+            item.setTableKota(listKota.getEntityItem(item.getKota_Id()));
+            listKota.getEntityItem(item.getKota_Id()).addKecamatan(item);
             this.DataList.add(item);
         }
     }
@@ -49,7 +55,7 @@ public class Kecamatan extends BD08EntytyFrameWork<TableKecamatan>{
     }
 
     @Override
-    protected TableKecamatan getEntityItem(Object id) {
+    public TableKecamatan getEntityItem(Object id) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         TableKecamatan kecamatan=null;
         for (TableKecamatan tableKecamatan : getListDataFromDB()) {
@@ -59,6 +65,11 @@ public class Kecamatan extends BD08EntytyFrameWork<TableKecamatan>{
              }
         }
         return kecamatan;
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        this.addDefaultFilter(new FilterTable(ColomnName, FilterParameter.LIKE,filterString));
     }
 
     @Override

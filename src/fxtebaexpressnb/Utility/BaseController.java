@@ -5,23 +5,40 @@
  */
 package fxtebaexpressnb.Utility;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTreeTableColumn;
 import fxtebaexpressnb.DatabaseManajement.DBContext;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+import java.util.function.Function;
 
 /**
  *
- * @author AsusX450J
+ * @author bang Dolla
  */
-public abstract class BaseController{
+
+/**
+ * @param <O> Parameter Untuk Table Yang Sedang Di Proses
+ */
+public abstract class BaseController<O> {
     
+    protected O curentModel;
+
+    protected ViewMode viewMode;
+
     private BaseControllerModel baseControllerModel;
-    
+
     public abstract void PageFistLoad();
     
     public abstract void PageFistLoad(Object object,ViewMode mode);
@@ -40,7 +57,7 @@ public abstract class BaseController{
         return baseControllerModel;
     }
     
-    protected void setBaseControllerModel (BaseControllerModel baseControllerModel) {
+    public void setBaseControllerModel(BaseControllerModel baseControllerModel) {
         this.baseControllerModel = baseControllerModel;
 //        loginData=baseControllerModel.getDataCoba();
     }
@@ -126,7 +143,7 @@ public abstract class BaseController{
     }
     
     protected DBContext getDBContext(){
-        return baseControllerModel.getbContext();
+        return baseControllerModel.getDBContext();
     }
     
     protected int Page=0;
@@ -171,6 +188,118 @@ public abstract class BaseController{
         }
         alert.setContentText(contentText);
         alert.showAndWait();
+    }
+    
+    /**
+     * Setup Cell Value factory Untuk Membuat colomn Dan datanya
+     *
+     * @param column
+     * @param mapper
+     * @param <T>
+     */
+    protected <T> void setupCellValueFactory (JFXTreeTableColumn<O, T> column, Function<O, ObservableValue<T>> mapper) {
+        column.setCellValueFactory((TreeTableColumn.CellDataFeatures<O, T> param) -> {
+            if(column.validateValue(param)) {
+                return mapper.apply(param.getValue().getValue());
+            } else {
+                return column.getComputedValue(param);
+            }
+        });
+    }
+
+    protected boolean isEditableMode(){
+        if(viewMode!=null){
+            return viewMode!=ViewMode.VIEW;
+        }
+        return false;
+    }
+
+    protected boolean isNotEditableMode(){
+        if(viewMode!=null)
+        {
+            return viewMode==ViewMode.VIEW;
+        }
+        return false;
+    }
+// TODO: 9/30/2018 Membuat Dan Mencari Tahu Cara Membuat ComboBox  
+    /**
+     * Untuk Merubah semua tulisan di Button yang Dari View Dan Di panggil dalam sekali
+     * @param buttonSave Button Save dari FXML nya
+     * @param buttonCencel Button Edit dari FXML nya
+     * @param buttonReset Button Reset Dari FXML
+     */
+    protected void setButtonActionViewMode(JFXButton buttonSave,JFXButton buttonCencel,JFXButton buttonReset){
+        switch (viewMode){
+            case NEW:
+                buttonSave.setText("Save");
+                buttonCencel.setText("Cancel");
+                buttonReset.setText("New Data");
+                break;
+            case EDIT:
+                buttonSave.setText("Save");
+                buttonCencel.setText("Cancel");
+                buttonSave.setText("Reset");
+                break;
+            case VIEW:
+                buttonSave.setText("Edit");
+                buttonReset.setText("New Data");
+                buttonCencel.setVisible(isNotEditableMode());
+                break;
+        }
+    }
+    protected DBContext getDDContext(){
+        return this.baseControllerModel.getDBContext();
+    }
+
+    protected void setComboBoxKota(JFXComboBox comboBoxKota){
+        comboBoxKota.getItems().add(TableKota.defaultTableKota());
+        comboBoxKota.getItems().addAll(this.getBaseControllerModel().getDBContext().getKota().getAllData());
+        comboBoxKota.getSelectionModel().select(TableKota.defaultTableKota());
+    }
+
+    /**
+     * set Cild Combobox dengan List yang Sudah Di sediakan parent ato dia buat sendiri
+     * @param comboBoxKecamatan
+     * @param listTableKecamatans boleh null
+     */
+    protected void setComboBoxKecamatan(JFXComboBox comboBoxKecamatan,List<TableKecamatan> listTableKecamatans){
+        comboBoxKecamatan.getItems().clear();
+        comboBoxKecamatan.getItems().add(TableKecamatan.defaultTableKecamatan());
+        if(listTableKecamatans==null)
+            comboBoxKecamatan.getItems().addAll(this.getBaseControllerModel().getDBContext().getKecamatan().getAllData());
+        else
+            comboBoxKecamatan.getItems().addAll(listTableKecamatans);
+        comboBoxKecamatan.getSelectionModel().select(TableKecamatan.defaultTableKecamatan());
+    }
+
+    /**
+     * untuk memberikan sebuah Kota Kecamatan yang tersync dengan baik
+     * @param comboboxKota Combo Box Kota Yang Di Inginkan
+     * @param comboBoxKecamatan Combobox Kecamatan Yang di inginkan
+     */
+    protected void setComboBoxKotaKecamatanAsyn(JFXComboBox comboboxKota,JFXComboBox comboBoxKecamatan){
+
+        setComboBoxKota(comboboxKota);
+        setComboBoxKecamatan(comboBoxKecamatan,null);
+        comboBoxKecamatan.showingProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                TableKecamatan selectTableKecamatan= (TableKecamatan) comboBoxKecamatan.getSelectionModel().getSelectedItem();
+                if(selectTableKecamatan.getId()!=TableKecamatan.defaultTableKecamatan().getId()){
+                    comboboxKota.getSelectionModel().select(selectTableKecamatan.getTableKota());
+                }
+            }
+        });
+        comboboxKota.showingProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                TableKota selectedItem= (TableKota) comboboxKota.getSelectionModel().getSelectedItem();
+                if(selectedItem.getId()!=TableKota.defaultTableKota().getId()){
+                    setComboBoxKecamatan(comboBoxKecamatan,selectedItem.getListAvalibleKecamatan());
+                }else{
+                    setComboBoxKecamatan(comboBoxKecamatan,null);
+                }
+                comboBoxKecamatan.getSelectionModel().select(0);
+            }
+        });
     }
 
 }

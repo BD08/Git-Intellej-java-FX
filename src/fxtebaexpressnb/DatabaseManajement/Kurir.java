@@ -7,6 +7,8 @@ package fxtebaexpressnb.DatabaseManajement;
 
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableColoumnName;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKurir;
+import fxtebaexpressnb.Utility.FilterParameter;
+
 import java.sql.Connection;
 
 /**
@@ -59,8 +61,13 @@ public class Kurir extends BD08EntytyFrameWork<TableKurir>{
     }
 
     @Override
-    protected TableKurir getEntityItem(Object id) {
+    public TableKurir getEntityItem(Object id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+        this.addDefaultFilter(new FilterTable(TableColoumnName.KurirTable.NOMOR_POLISI, FilterParameter.LIKE,filterString));
+    }
+
 }

@@ -24,11 +24,9 @@ import java.net.URL;
  *
  * @author AsusX450J
  */
-public class InsertUserAccountController extends BaseController {
+public class InsertUserAccountController extends BaseController<TableUserManager> {
 	
-	private TableUserManager currentTableUserManajer;
-	private ViewMode viewMode;
-	
+
 	//region From FXML Controller Model
     @FXML
     private JFXButton btnSave;
@@ -73,7 +71,7 @@ public class InsertUserAccountController extends BaseController {
 	//endregion
 	
 	public static void loadInsertTransactionController (BaseController baseControllerFromParent) {
-		FXMLLoader fXMLLoader = null;
+		FXMLLoader fXMLLoader ;
 		fXMLLoader = baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_CREATE_EDIT_VIEW);
 		InsertUserAccountController controller = fXMLLoader.<InsertUserAccountController>getController();
 		controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
@@ -82,7 +80,7 @@ public class InsertUserAccountController extends BaseController {
 	}
 	
 	public static void loadInsertTransactionController (BaseController baseControllerFromParent, Object primaryKey) {
-		FXMLLoader fXMLLoader = null;
+		FXMLLoader fXMLLoader;
 		fXMLLoader = baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_CREATE_EDIT_VIEW);
 		InsertUserAccountController controller = fXMLLoader.<InsertUserAccountController>getController();
 		controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
@@ -94,10 +92,6 @@ public class InsertUserAccountController extends BaseController {
      */
     @FXML
     void initialize() {
-    }
-
-    private void btnAction(ActionEvent event) {
-        btnSave.setDisable(true);
     }
 
     @Override
@@ -113,8 +107,8 @@ public class InsertUserAccountController extends BaseController {
     @Override
     public void PageFistLoad() {
 	    setViewMode(ViewMode.NEW);
-	    currentTableUserManajer = new TableUserManager();
-	    MappingData(currentTableUserManajer);
+	    curentModel = new TableUserManager();
+	    MappingData(curentModel);
 //        labelInsetAwb.setText(getLoginData());
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -126,13 +120,13 @@ public class InsertUserAccountController extends BaseController {
 			    setViewMode(ViewMode.EDIT);
 			    return;
 		    } else {
-			    currentTableUserManajer = MappingData();
+			    curentModel = MappingData();
 			    if(viewMode == ViewMode.NEW) {
-				    currentTableUserManajer = this.getDBContext().getUserManagers().addRow(currentTableUserManajer);
+				    curentModel = this.getDBContext().getUserManagers().addRow(curentModel);
 			    } else {
-				    this.getDBContext().getUserManagers().editRow(currentTableUserManajer);
+				    this.getDBContext().getUserManagers().editRow(curentModel);
 			    }
-			    if(currentTableUserManajer == null) {
+			    if(curentModel == null) {
 				    this.setViewMode(ViewMode.VIEW);
 			    }
 			    showInformation(STRING_COLLECTION.TITLE_DATABERHASIL_DISIMPAN, STRING_COLLECTION.DATA_BEBERHASIL_DISIMPAN);
@@ -146,11 +140,12 @@ public class InsertUserAccountController extends BaseController {
 
     @FXML
     private void btnCancelAction(ActionEvent event) {
-	
+
     }
 
     @FXML
     private void btnResetAction(ActionEvent event) {
+
     }
 
     @Override
@@ -165,18 +160,16 @@ public class InsertUserAccountController extends BaseController {
 	 */
 	@Override
 	public void PageFistLoad (Object object) {
-		// TODO buat untuk load data dari data primary key dan membuatnya tampil
 		TableUserManager res = getDBContext()
 				                       .getUserManagers().getStream().filter(tableUserManager ->
 						                                                             tableUserManager.getId() == object.hashCode()).findFirst().get();
 		MappingData(res);
-		//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 	
 	@Override
 	public void setViewMode (ViewMode mode) {
 		viewMode = mode;
-		if(currentTableUserManajer == null && viewMode == ViewMode.VIEW) {
+		if(curentModel == null && viewMode == ViewMode.VIEW) {
 			setViewMode(ViewMode.NEW);
 		}
 		txtAlamat.setEditable(viewMode != ViewMode.VIEW);
@@ -188,23 +181,7 @@ public class InsertUserAccountController extends BaseController {
 		txtPhoneNumber.setEditable(viewMode != ViewMode.VIEW);
 		txtUsername.setEditable(viewMode != ViewMode.VIEW);
 		btnCancel.setVisible(viewMode != ViewMode.VIEW);
-		switch (viewMode) {
-			case NEW:
-				btnSave.setText("Save");
-				btnCancel.setText("Cancel");
-				btnReset.setText("New Data");
-				break;
-			case EDIT:
-				btnSave.setText("Save");
-				btnCancel.setText("Cancel");
-				btnReset.setText("Reset");
-				break;
-			case VIEW:
-				btnSave.setText("Edit");
-				btnReset.setText("New Data");
-				break;
-		}
-		//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		setButtonActionViewMode(btnSave,btnCancel,btnReset);
 	}
 	
 	/**
@@ -215,7 +192,7 @@ public class InsertUserAccountController extends BaseController {
 	private TableUserManager MappingData () {
 		TableUserManager res = new TableUserManager();
 		if(viewMode == ViewMode.EDIT) {
-			res.setId(currentTableUserManajer.getId());
+			res.setId(curentModel.getId());
 		}
 		res.setFirstName(txtFirstName.getText());
 		res.setLastName(txtLastName.getText());
@@ -240,7 +217,7 @@ public class InsertUserAccountController extends BaseController {
 		txtPassword.setText(model.getPassword());
 		txtAlamat.setText(model.getAlamat());
 		txtEmail.setText(model.getEmail());
-		currentTableUserManajer = model;
+		this.curentModel = model;
 	}
 	
 }

@@ -32,6 +32,15 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+            <JFXButton fx:id="btnCustomer" onAction="#btnCustomer" prefHeight="35.0" prefWidth="250.0" styleClass="ButtonMenuFlat" text="Customer">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@IMG/icons8_Send_Hot_List_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
          </children>
       </VBox>
    </left>

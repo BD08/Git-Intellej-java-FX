@@ -5,13 +5,15 @@
  */
 package fxtebaexpressnb.DatabaseManajement.TableEntity;
 
-import java.util.Date;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
  * @author AsusX450J
  */
-public class TableCustomer {
+public class TableCustomer extends RecursiveTreeObject<TableCustomer> {
     private int Id;
     private String Nama;
     private String TypePerusahaan;
@@ -28,6 +30,14 @@ public class TableCustomer {
     private int ModifyBy;
     private TableKecamatan kecamatan;
     private int KecamatanId;
+    private TableKodeMaster typePerusahanKode;
+
+    public static TableCustomer defaultTableCustomer(){
+        TableCustomer tableCustomer=new TableCustomer();
+        tableCustomer.setId(-8008);
+        tableCustomer.setNama("--Select--");
+        return tableCustomer;
+    }
 
     public int getKecamatanId() {
         return KecamatanId;
@@ -95,6 +105,13 @@ public class TableCustomer {
         this.KotaId=Kota.getId();
         this.Kota = Kota;
     }
+
+    public String getKotaToString(){
+        if(getKota()==null)
+            return "";
+        return getKota().toString();
+    }
+
     public String getPhoneNumber() {
         return PhoneNumber;
     }
@@ -143,8 +160,6 @@ public class TableCustomer {
         this.ModifyDate = ModifyDate;
     }
 
-   
-
     public int getCreateBy() {
         return CreateBy;
     }
@@ -152,8 +167,6 @@ public class TableCustomer {
     public void setCreateBy(int CreateBy) {
         this.CreateBy = CreateBy;
     }
-
-    
 
     public int getModifyBy() {
         return ModifyBy;
@@ -163,9 +176,52 @@ public class TableCustomer {
         this.ModifyBy = ModifyBy;
     }
 
+    public TableKodeMaster getTypePerusahanKode() {
+        return typePerusahanKode;
+    }
+
+    public void setTypePerusahanKode(TableKodeMaster typePerusahanKode) {
+        this.typePerusahanKode = typePerusahanKode;
+        if(typePerusahanKode!=null)
+            setTypePerusahaan(typePerusahanKode.getName());
+    }
+
     @Override
     public String toString() {
         return getNama(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    //region Simple String Property
+    public SimpleIntegerProperty getIpId() {
+        return new SimpleIntegerProperty(getId());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyName(){
+        return new SimpleStringProperty(this.getNama());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyEmail(){
+        return new SimpleStringProperty(this.getEmail());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyAlamat(){
+        return new SimpleStringProperty(this.getAlamat());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyKota(){
+        return new SimpleStringProperty(this.getKotaToString()+" "+this.getKecamatan());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyNamaContactPerson(){
+        return  new SimpleStringProperty(this.getContactPersonInvoice());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyPhoneNumber(){
+        return new SimpleStringProperty(this.getPhoneNumber());
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyTypePerusahaan(){
+        return new SimpleStringProperty(this.getTypePerusahaan());
+    }
+    //endregion
 }

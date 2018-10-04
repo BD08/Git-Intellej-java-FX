@@ -1,7 +1,3 @@
-/**
- * Sample Skeleton for 'UserAccountList.fxml' Controller Class
- */
-
 package fxtebaexpressnb.View;
 
 import com.jfoenix.controls.*;
@@ -11,34 +7,35 @@ import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
 import fxtebaexpressnb.Utility.StaticValue;
 import fxtebaexpressnb.Utility.ViewMode;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeItem;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.function.Function;
 
-public class UserAccountListController extends BaseController{
-    
-    //region From FXML Model Table
-    @FXML // fx:id="basePane"
-    private AnchorPane bodyPane; // Value injected by FXMLLoader
+public class UserAccountListController extends BaseController<TableUserManager> {
     
     static void LoadUserAccountList (BaseController baseControllerFromParent) {
-        FXMLLoader fXMLLoader=null;
-        fXMLLoader=baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_LIST_VIEW);
-        UserAccountListController controller=fXMLLoader.<UserAccountListController>getController();
-        controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
-        controller.PageFistLoad();
+        FXMLLoader fXMLLoader;
+        try{
+	        fXMLLoader=baseControllerFromParent.changeCenter(FileFXML.USER_ACCOUNT_LIST_VIEW);
+	        UserAccountListController controller=fXMLLoader.<UserAccountListController>getController();
+	        controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
+	        controller.PageFistLoad();
+        }catch (Exception ex){
+	        System.err.println("Tidak Bisa Load Form User Account List "+ex);
+        }
     }
 
-    @FXML // fx:id="btnAddUser"
+	//region Panel Mapping From FXML
+    @FXML // fx:id="basePane"
+    private AnchorPane bodyPane; // Value injected by FXMLLoader
+	@FXML // fx:id="btnAddUser"
     private JFXButton btnAddUser; // Value injected by FXMLLoader
 
     @FXML // fx:id="treeTableView"
@@ -87,11 +84,10 @@ public class UserAccountListController extends BaseController{
     private JFXTextField txtSearch;
     @FXML
     private JFXButton btnSeach;
-    //endregion
+	//endregion
 
     @Override
     public void PageFistLoad() {
-        //TODO make load user account
         idColoumn.setVisible(false);
         setupCellValueFactory(idColoumn, (t) -> t.getIpId().asObject()); //To change body of generated lambdas, choose Tools | Templates.
         setupCellValueFactory(firstNameColumn, TableUserManager::getSpFirstName); //To change body of generated lambdas, choose Tools | Templates.
@@ -102,15 +98,20 @@ public class UserAccountListController extends BaseController{
         Page = 0;
         bucketSize = StaticValue.bucketSize;
         ChangePage();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     private void ChangePage () {
-        ObservableList<TableUserManager> dummyData = getDBContext().getUserManagers().generateDummyData(Page, bucketSize);
+        ObservableList<TableUserManager> dummyData = getDBContext().getUserManagers().generateDummyData(Page, bucketSize,this.txtSearch.getText());
         treeTableView.setRoot(new RecursiveTreeItem<>(dummyData, RecursiveTreeObject::getChildren));
         treeTableView.setShowRoot(false);
         txtPage.setText(String.valueOf(Page));
-        
+        treeTableView.setOnMouseClicked(event -> {
+            if(event.getClickCount()==2){
+                TreeItem<TableUserManager> tableUserManagerTreeItem=treeTableView.getSelectionModel().getSelectedItem();
+                TableUserManager tmp=tableUserManagerTreeItem.getValue();
+                InsertUserAccountController.loadInsertTransactionController(this,tmp.getId());
+            }
+        });
     }
 
     @Override
@@ -128,44 +129,71 @@ public class UserAccountListController extends BaseController{
         InsertUserAccountController.loadInsertTransactionController(this);
     }
 
+    @FXML
+    void searchItemAction(ActionEvent event) {
+        this.ChangePage();
+    }
+
+    @FXML
+    void searchOnChange(InputMethodEvent event) {
+        this.ChangePage();
+    }
+
+    //region Buttonn Bawah
+    @FXML
+    void btnBeforeOnAction(ActionEvent event) {
+        if(Page>0)
+            Page--;
+        this.txtPage.setText((Page+1)+"");
+    }
+
+    @FXML
+    void btnFirstButton(ActionEvent event) {
+        Page=0;
+        this.txtPage.setText((Page+1)+"");
+    }
+
+    @FXML
+    void onChangeLast(ActionEvent event) {
+        Page=this.getDBContext().getUserManagers().getMaximumPage();
+        this.txtPage.setText((Page+1)+"");
+    }
+
+    @FXML
+    void onNextPage(ActionEvent event) {
+        if(Page!=this.getDBContext().getUserManagers().getMaximumPage())
+            Page++;
+        this.txtPage.setText((Page+1)+"");
+    }
+
+    @FXML
+    void onPageChange(InputMethodEvent event) {
+        this.ChangePage();
+    }
+    //endregion
+
+    //region Not Use
     @Override
     public void PageFistLoad(Object object, ViewMode mode) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
+
+    //region Not Use in List
     /**
      * Untuk Load Dengan ID User Yang Sudah Ada
-     * @param object 
+     * @param object
      */
     @Override
     public void PageFistLoad(Object object) {
-        
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void setViewMode (ViewMode mode) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    private <T> void setupCellValueFactory(JFXTreeTableColumn<TableUserManager, T> column, Function<TableUserManager, ObservableValue<T>> mapper) {
-        column.setCellValueFactory((TreeTableColumn.CellDataFeatures<TableUserManager, T> param) -> {
-            if (column.validateValue(param)) {
-                return mapper.apply(param.getValue().getValue());
-            } else {
-                return column.getComputedValue(param);
-            }
-        });
-    }
-    @FXML
-    void searchItemAction(ActionEvent event) {
 
     }
+    //endregion
+    //endregion
 
-    @FXML
-    void searchOnChange(InputMethodEvent event) {
-
-    }
-    
 }
