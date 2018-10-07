@@ -99,14 +99,7 @@ public class Tarif extends BD08EntytyFrameWork<TableTarif>{
 
     @Override
     public TableTarif getEntityItem(Object id) {
-        TableTarif tableTarif=null;
-        for (TableTarif tableTarif1 : getListDataFromDB()) {
-            if(tableTarif1.getId()==(int)id){
-                tableTarif=tableTarif1;
-                break;
-            }
-        }
-        return tableTarif;
+        return this.getAllData().stream().filter(t->t.getId()==id.hashCode()).findFirst().get();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

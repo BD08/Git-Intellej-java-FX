@@ -14,10 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author AsusX450J
  */
 public class TableTarif extends RecursiveTreeObject<TableTarif> {
-    
-    
-    
-    
+
     private int Id;
     private int KotaFromId;
     private int KecamatanFromId;
@@ -33,6 +30,18 @@ public class TableTarif extends RecursiveTreeObject<TableTarif> {
     private TableKota KotaTo;
     private TableKecamatan kecamatanFrom;
     private TableKecamatan kecamatanTo;
+
+    public static TableTarif NewTableTarif(){
+        TableTarif tableTarif=new TableTarif();
+        tableTarif.setId(-8008);
+        tableTarif.setKotaFrom(TableKota.defaultTableKota());
+        tableTarif.setKecamatanFrom(TableKecamatan.defaultTableKecamatan());
+        tableTarif.setKotaTo(TableKota.defaultTableKota());
+        tableTarif.setKecamatanTo(TableKecamatan.defaultTableKecamatan());
+        tableTarif.setHargaPerKilo(0);
+        tableTarif.setHargaPerKoli(0);
+        return tableTarif;
+    }
 
     public int getId() {
         return Id;

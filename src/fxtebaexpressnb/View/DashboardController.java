@@ -79,6 +79,11 @@ public class DashboardController extends BaseController<BaseControllerModel> {
     }
 
     @Override
+    protected void loadListView() {
+
+    }
+
+    @Override
     public void PageFistLoad() {
         txtCobaDataS.requestFocus();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

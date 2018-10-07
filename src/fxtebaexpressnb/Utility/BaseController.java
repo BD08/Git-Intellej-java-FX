@@ -224,7 +224,6 @@ public abstract class BaseController<O> {
         }
         return false;
     }
-// TODO: 9/30/2018 Membuat Dan Mencari Tahu Cara Membuat ComboBox  
     /**
      * Untuk Merubah semua tulisan di Button yang Dari View Dan Di panggil dalam sekali
      * @param buttonSave Button Save dari FXML nya
