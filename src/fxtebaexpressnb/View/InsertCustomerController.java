@@ -323,5 +323,9 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 	public URL getFileUrl(FileFXML fXML) {
 		return getClass().getResource(fXML.toString());
 	}
+	@Override
+	protected void loadListView() {
+		CustomerListController.LoadCustomerList(this);
+	}
 	//endregion
 }

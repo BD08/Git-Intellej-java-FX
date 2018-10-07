@@ -101,6 +101,9 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
         loadData(selectedMenu.Customer);
         CustomerListController.LoadCustomerList(this);
     }
+    @Override
+    protected void loadListView() {
+    }
     
 }
 

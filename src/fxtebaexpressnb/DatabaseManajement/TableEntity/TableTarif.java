@@ -5,11 +5,15 @@
  */
 package fxtebaexpressnb.DatabaseManajement.TableEntity;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author AsusX450J
  */
-public class TableTarif {
+public class TableTarif extends RecursiveTreeObject<TableTarif> {
     
     
     
@@ -159,5 +163,24 @@ public class TableTarif {
     public String toString() {
         return String.valueOf(getHargaPerKoli());
     }
-    
+
+    public SimpleStringProperty getFrom(){
+        return new SimpleStringProperty(this.getKotaFrom().getNama()+" "+this.getKecamatanFrom().getName());
+    }
+
+    public SimpleStringProperty getTo(){
+        return new SimpleStringProperty(this.getKotaTo().getNama()+" "+this.getKecamatanTo().getName());
+    }
+
+    public SimpleIntegerProperty getSimpleId(){
+        return new SimpleIntegerProperty(this.getId());
+    }
+
+    public SimpleIntegerProperty getSimpleTarifPerKilo(){
+        return new SimpleIntegerProperty(this.getHargaPerKilo());
+    }
+
+    public SimpleIntegerProperty getSimpleIntegerPropertyPerKoli(){
+        return new SimpleIntegerProperty(this.getHargaPerKoli());
+    }
 }

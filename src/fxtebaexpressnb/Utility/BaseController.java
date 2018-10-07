@@ -12,12 +12,15 @@ import fxtebaexpressnb.DatabaseManajement.DBContext;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -243,13 +246,19 @@ public abstract class BaseController<O> {
             case VIEW:
                 buttonSave.setText("Edit");
                 buttonReset.setText("New Data");
-                buttonCencel.setVisible(isNotEditableMode());
+                buttonCencel.setText("Back To List");
+                buttonCencel.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        loadListView();
+                    }
+                });
                 break;
         }
     }
-    protected DBContext getDDContext(){
-        return this.baseControllerModel.getDBContext();
-    }
+
+    protected abstract void loadListView();
+
 
     protected void setComboBoxKota(JFXComboBox comboBoxKota){
         comboBoxKota.getItems().add(TableKota.defaultTableKota());

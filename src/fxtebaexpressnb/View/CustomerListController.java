@@ -3,7 +3,6 @@ package fxtebaexpressnb.View;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableCustomer;
-import fxtebaexpressnb.DatabaseManajement.TableEntity.TableUserManager;
 import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
 import fxtebaexpressnb.Utility.StaticValue;
@@ -32,7 +31,6 @@ public class CustomerListController extends BaseController<TableCustomer> {
 			System.err.print("Tidak Dapat Customer List Load "+ex.getMessage());
 		}
 	}
-	// TODO: 9/26/2018 Untuk Membut Controller Customer List 
 	//region From FXML
 	@FXML
 	private AnchorPane bodyPane;
@@ -180,6 +178,11 @@ public class CustomerListController extends BaseController<TableCustomer> {
 	@Override
 	public URL getFileUrl(FileFXML fXML) {
 		return this.getClass().getResource(fXML.toString());
+	}
+
+	@Override
+	protected void loadListView() {
+			CustomerListController.LoadCustomerList(this);
 	}
 	//endregion
 }

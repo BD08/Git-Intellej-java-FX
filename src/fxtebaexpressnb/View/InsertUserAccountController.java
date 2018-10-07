@@ -219,5 +219,9 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 		txtEmail.setText(model.getEmail());
 		this.curentModel = model;
 	}
+	@Override
+	protected void loadListView() {
+		UserAccountListController.LoadUserAccountList(this);
+	}
 	
 }

@@ -171,7 +171,10 @@ public class UserAccountListController extends BaseController<TableUserManager> 
         this.ChangePage();
     }
     //endregion
-
+    @Override
+    protected void loadListView() {
+        UserAccountListController.LoadUserAccountList(this);
+    }
     //region Not Use
     @Override
     public void PageFistLoad(Object object, ViewMode mode) {
