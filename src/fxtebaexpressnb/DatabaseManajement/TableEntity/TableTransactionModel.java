@@ -145,7 +145,7 @@ public class TableTransactionModel  {
         return SendKecamatan;
     }
 
-    public void setSendKecamatan(int SendKecamatan) {
+    public void setSendKecamatanId(int SendKecamatan) {
         this.SendKecamatan = SendKecamatan;
     }
 
@@ -338,14 +338,17 @@ public class TableTransactionModel  {
     }
 
     public void setSendKota(TableKota sendKota) {
+        this.setSendKotaId(sendKota.getId());
         this.sendKota = sendKota;
     }
 
     public void setSendKecamatan(TableKecamatan sendKecamatan) {
+        this.setSendKecamatanId(sendKecamatan.getId());
         this.sendKecamatan = sendKecamatan;
     }
 
     public TableKecamatan getSendKecamatan(){
+
         return this.sendKecamatan;
     }
 
@@ -354,10 +357,12 @@ public class TableTransactionModel  {
     }
 
     public void setToKota(TableKota toKota) {
+        this.setToKotaId(toKota.getId());
         this.toKota = toKota;
     }
 
     public void setToKecamatan(TableKecamatan toKecamatan) {
+        this.setToKecamatan(toKecamatan.getId());
         this.toKecamatan = toKecamatan;
     }
 

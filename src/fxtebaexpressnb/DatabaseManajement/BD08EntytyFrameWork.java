@@ -151,6 +151,16 @@ public abstract class BD08EntytyFrameWork<E>{
         return null;
         //return null;
     }
+
+    public void addRowWithAsyn(E e) throws Exception{
+        this.addRow(e);
+        getAllData();
+    }
+
+    public void editRowWithAsync(E e) throws Exception{
+    	this.editRow(e);
+    	getAllData();
+    }
     
     public void editRow (E e) throws Exception {
         try{

@@ -27,7 +27,7 @@ public class DBContext{
     private AWBCustomer aWBCustomer;
     private Kurir kurir;
     private TypePerusahaan typePerusahaan;
-
+    private TableTransaction tableTransaction;
     public String getDate(){
         java.util.Date dt = new java.util.Date();
 
@@ -70,6 +70,7 @@ public class DBContext{
         customerPrice =new CustomerPrice(connection,getTarif());
         aWBCustomer=new AWBCustomer(connection,customer);
         kurir=new Kurir(connection, userManagers);
+        setTableTransaction(new TableTransaction(connection, getKota(), getKecamatan()));
     }
     
     private UserManagers userManagers;
@@ -238,6 +239,14 @@ public class DBContext{
 
     public void setTypePerusahaan(TypePerusahaan typePerusahaan) {
         this.typePerusahaan = typePerusahaan;
+    }
+
+    public TableTransaction getTableTransaction() {
+        return tableTransaction;
+    }
+
+    public void setTableTransaction(TableTransaction tableTransaction) {
+        this.tableTransaction = tableTransaction;
     }
 
     public void setUserManagers(UserManagers userManagers) {
