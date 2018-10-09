@@ -43,6 +43,12 @@ public enum FileFXML {
         public String toString() {
             return "TarifInsertView.fxml";
         }
+    },
+    TRANSACTION_LIST_VIEW{
+        @Override
+        public String toString() {
+            return "TransactionListView.fxml";
+        }
     }
 //    private static String fileData="../View/";
 //    public static String DASHBOARDFILE=fileData+"dashBoard.fxml";

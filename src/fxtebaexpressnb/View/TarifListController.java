@@ -114,7 +114,7 @@ public class TarifListController extends BaseController<TableTarif> {
 	}
 	@FXML
 	private void addTarifOnAction(ActionEvent event) {
-		// TODO: 10/7/2018 UNtuk Manggil View Create
+		TarifInsertController.LoadNewTarifInsertController(this);
 	}
 
 	@FXML

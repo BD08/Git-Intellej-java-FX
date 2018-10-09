@@ -33,7 +33,8 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
     private enum selectedMenu{
         Dashboard,
         Pengirim,
-        Customer
+        Customer,
+        Tarif
     }
     private selectedMenu menuSelect;
     
@@ -42,6 +43,7 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
         btnDashboard.setDisable(menuSelect==selectedMenu.Dashboard);
         btnPengiriman.setDisable(menuSelect==selectedMenu.Pengirim);
         btnCustomer.setDisable(menuSelect==selectedMenu.Customer);
+        btnTarif.setDisable(menuSelect==selectedMenu.Tarif);
     }
 
 
@@ -60,6 +62,9 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
 
     @FXML
     private JFXButton btnCustomer;
+
+    @FXML
+    private JFXButton btnTarif;
     //endregion
 
     @FXML
@@ -101,6 +106,13 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
         loadData(selectedMenu.Customer);
         CustomerListController.LoadCustomerList(this);
     }
+
+    @FXML
+    void btnTarifOnclick(ActionEvent event) {
+        loadData(selectedMenu.Tarif);
+        TarifListController.LoadTarifListController(this);
+    }
+
     @Override
     protected void loadListView() {
     }

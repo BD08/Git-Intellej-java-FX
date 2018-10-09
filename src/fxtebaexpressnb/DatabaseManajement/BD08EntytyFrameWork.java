@@ -142,6 +142,7 @@ public abstract class BD08EntytyFrameWork<E>{
                 newRowsIdPlot(e,newRow.getObject(1));
                 return e;
             }
+            this.DataList.add(e);
             //return newRow.getObject(1);
         }catch (SQLException sQLException){
             System.out.print(tableName+" Insert Error : "+sQLException +" \n "+SqlAddRow);

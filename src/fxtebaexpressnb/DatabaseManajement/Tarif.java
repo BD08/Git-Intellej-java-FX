@@ -41,9 +41,13 @@ public class Tarif extends BD08EntytyFrameWork<TableTarif>{
         this.kecamatans=kecamatan;
         this.kotas=kota;
     }
+
+    public Tarif(Connection connection){
+        super("Tarif",connection);
+    }
     
     public Tarif(Kecamatan kecamatan,Connection connection,Kota kota) {
-        super("TarifKonfesional", connection);
+        super("Tarif", connection);
         this.kecamatans=kecamatan;
         this.kotas=kota;
     }

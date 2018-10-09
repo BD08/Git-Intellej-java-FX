@@ -5,9 +5,13 @@
  */
 package fxtebaexpressnb.DatabaseManajement;
 
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKodeMaster;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableTarif;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableTransactionModel;
 import fxtebaexpressnb.Utility.DatabaseConnection;
 import fxtebaexpressnb.Utility.TableManajemen;
+
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,48 +28,58 @@ import java.util.logging.Logger;
      * class untuk Table Transaksi dimasukkan kedalam class biar keren
      */
 
-public class TableTransaction extends TableManajemen<TableTransactionModel>{
-    private TableTransactionModel tableTransactionModel;
-    private ArrayList<TableTransactionModel> listTableTransaction;
+public class TableTransaction extends BD08EntytyFrameWork<TableTransactionModel>{
 
-    public TableTransaction(DatabaseConnection connection) {
-        super(connection);
-    }
+    private Kota kota;
+    private Kecamatan kecamatan;
 
-
-    @Override
-    protected void MappingTable(String coloumnName, Object data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public TableTransaction(Connection connection,Kota kota,Kecamatan kecamatan) {
+        super("Transaksi", connection);
+        this.kota=kota;
+        this.kecamatan=kecamatan;
     }
 
     @Override
-    protected boolean isSame(String coloumnString, Object data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void setDataList() throws Exception {
+        TableTransactionModel item;
+        while (resultSet.next()){
+            item=new TableTransactionModel();
+            item.setAIRWAYBILL(resultSet.getString(TableTransactionModel.COLOUMN_AIRWAYBILL));
+            item.setSendNama(resultSet.getString(TableTransactionModel.COLOUMN_SendNama));
+
+            this.DataList.add(item);
+        }
     }
 
     @Override
-    protected void MappingTable(ResultSet resultSet) throws SQLException{
-        tableTransactionModel=new TableTransactionModel();
-        tableTransactionModel.setAIRWAYBILL(resultSet.getString(TableTransactionModel.COLOUMN_AIRWAYBILL));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
-        
-        tableTransactionModel.setCreateBy(resultSet.getInt(TableTransactionModel.COLOUMN_CreateBy));
-        tableTransactionModel.setCreateDate(resultSet.getDate(TableTransactionModel.COLOUMN_CreateDate));
-        tableTransactionModel.setDiscon(resultSet.getInt(TableTransactionModel.COLOUMN_Discon));
-        tableTransactionModel.setHargaPerKilo(resultSet.getInt(TableTransactionModel.COLOUMN_HargaPerKilo));
-        tableTransactionModel.setHargaPerKoli(resultSet.getInt(TableTransactionModel.COLOUMN_HargaPerKoli));
-        tableTransactionModel.setID(resultSet.getInt(TableTransactionModel.COLOUMN_ID));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
-        tableTransactionModel.setAsuransi(resultSet.getInt(TableTransactionModel.COLOUMN_Asuransi));
+    protected void newRowsIdPlot(TableTransactionModel tableTransactionModel, Object o) {
+
     }
-    
-    
+
+    /**
+     * Plot Untuk Row Yang akan di mappring ke database
+     *
+     * @param tableTransactionModel
+     */
+    @Override
+    protected void RowPlot(TableTransactionModel tableTransactionModel) {
+
+    }
+
+    /**
+     * Pencarian dengan Primary Key
+     *
+     * @param id
+     * @return item yang dipilih
+     */
+    @Override
+    public TableTransactionModel getEntityItem(Object id) {
+        return null;
+    }
+
+    @Override
+    protected void initializationFilterString(String filterString) {
+
+    }
 }
 

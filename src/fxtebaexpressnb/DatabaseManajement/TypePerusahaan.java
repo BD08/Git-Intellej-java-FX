@@ -24,6 +24,7 @@ public class TypePerusahaan extends BD08EntytyFrameWork<TableKodeMaster> {
 			item=new TableKodeMaster();
 			item.setId(resultSet.getInt(this.Id));
 			item.setName(resultSet.getString(this.Name));
+			this.DataList.add(item);
 		}
 	}
 

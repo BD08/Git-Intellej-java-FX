@@ -65,8 +65,8 @@ public class DBContext{
         getKecamatan().getAllData();
         getTypePerusahaan().getAllData();
         customer=new Customer(connection, getKota(), getKecamatan(),getTypePerusahaan());
-        tarif=new Tarif(connection, getKecamatan(), getKota());
-        tarifKonvesional=new Tarif(getKecamatan(), connection, getKota());
+        tarif=new Tarif(connection,getKecamatan(),getKota());
+        tarifKonvesional=new Tarif(connection,getKecamatan(),getKota());
         customerPrice =new CustomerPrice(connection,getTarif());
         aWBCustomer=new AWBCustomer(connection,customer);
         kurir=new Kurir(connection, userManagers);

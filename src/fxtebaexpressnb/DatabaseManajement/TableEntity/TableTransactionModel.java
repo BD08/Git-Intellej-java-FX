@@ -1,5 +1,8 @@
 package fxtebaexpressnb.DatabaseManajement.TableEntity;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.sql.Date;
 
 /**
@@ -77,94 +80,17 @@ public class TableTransactionModel  {
     private int Asuransi;
     private int PPN;
     private int Discon;
+    private TableKota sendKota;
+    private TableKecamatan sendKecamatan;
+    private TableKota toKota;
+    private TableKecamatan toKecamatan;
     private String NOTES;
     private Date CreateDate;
     private int CreateBy;
     private Date ModifyDate;
     private int ModifyBy;
     //</editor-fold>
-    public  TableTransactionModel(){
-        
-    }
-    /**
-     * Untuk Mencari didalam database dengan id yang sudah ada
-     * @param Id dari database
-     */
-    public TableTransactionModel(int Id){
-        
-    }
-    
-    /**
-     * Untuk Mengisi semua data Table untuk membuat baru
-     * @param ID Transaction ID
-     * @param ID_CUSTOMER ID Customer Nya
-     * @param AIRWAYBILL
-     * @param SendNama
-     * @param SendAlamat
-     * @param SendKelurahanId
-     * @param SendKecamatan
-     * @param SendKotaId
-     * @param SendTelp1
-     * @param SendTelp2
-     * @param ToNama
-     * @param ToAlamat
-     * @param ToKelurahanId
-     * @param ToKecamatan
-     * @param ToKotaId
-     * @param ToTelp1
-     * @param ToTelp2
-     * @param TotalKoli
-     * @param TotalBerat
-     * @param NilaiBarang
-     * @param HargaPerKoli
-     * @param HargaPerKilo
-     * @param TOTAL
-     * @param isKoli
-     * @param Packing
-     * @param Asuransi
-     * @param PPN
-     * @param Discon
-     * @param NOTES
-     * @param CreateDate
-     * @param CreateBy
-     * @param ModifyDate
-     * @param ModifyBy 
-     */
-       
-    public TableTransactionModel(int ID, int ID_CUSTOMER, String AIRWAYBILL, String SendNama, String SendAlamat, int SendKelurahanId, int SendKecamatan, int SendKotaId, String SendTelp1, String SendTelp2, String ToNama, int ToKelurahanId, int ToKecamatan, int ToKotaId, String ToTelp1, String ToTelp2, int TotalKoli, int TotalBerat, int NilaiBarang, int HargaPerKoli, int HargaPerKilo, int TOTAL, boolean isKoli, int Packing, int Asuransi, int PPN, int Discon, String NOTES, Date CreateDate, int CreateBy, Date ModifyDate, int ModifyBy) {
-        this.ID = ID;
-        this.ID_CUSTOMER = ID_CUSTOMER;
-        this.AIRWAYBILL = AIRWAYBILL;
-        this.SendNama = SendNama;
-        this.SendAlamat = SendAlamat;
-        this.SendKelurahanId = SendKelurahanId;
-        this.SendKecamatan = SendKecamatan;
-        this.SendKotaId = SendKotaId;
-        this.SendTelp1 = SendTelp1;
-        this.SendTelp2 = SendTelp2;
-        this.ToNama = ToNama;
-        this.ToKelurahanId = ToKelurahanId;
-        this.ToKecamatan = ToKecamatan;
-        this.ToKotaId = ToKotaId;
-        this.ToTelp1 = ToTelp1;
-        this.ToTelp2 = ToTelp2;
-        this.TotalKoli = TotalKoli;
-        this.TotalBerat = TotalBerat;
-        this.NilaiBarang = NilaiBarang;
-        this.HargaPerKoli = HargaPerKoli;
-        this.HargaPerKilo = HargaPerKilo;
-        this.TOTAL = TOTAL;
-        this.isKoli = isKoli;
-        this.Packing = Packing;
-        this.Asuransi = Asuransi;
-        this.PPN = PPN;
-        this.Discon = Discon;
-        this.NOTES = NOTES;
-        this.CreateDate = CreateDate;
-        this.CreateBy = CreateBy;
-        this.ModifyDate = ModifyDate;
-        this.ModifyBy = ModifyBy;
-    }
+
     
     //<editor-fold defaultstate="collapsed" desc="Untuk Setter dan Getter Data">
     public int getID() {
@@ -215,7 +141,7 @@ public class TableTransactionModel  {
         this.SendKelurahanId = SendKelurahanId;
     }
 
-    public int getSendKecamatan() {
+    public int getSendKecamatanId() {
         return SendKecamatan;
     }
 
@@ -271,7 +197,7 @@ public class TableTransactionModel  {
         this.ToKelurahanId = ToKelurahanId;
     }
 
-    public int getToKecamatan() {
+    public int getToKecamatanId() {
         return ToKecamatan;
     }
 
@@ -399,6 +325,46 @@ public class TableTransactionModel  {
         this.NOTES = NOTES;
     }
 
+    public boolean isKoli() {
+        return isKoli;
+    }
+
+    public void setKoli(boolean koli) {
+        isKoli = koli;
+    }
+
+    public TableKota getSendKota() {
+        return sendKota;
+    }
+
+    public void setSendKota(TableKota sendKota) {
+        this.sendKota = sendKota;
+    }
+
+    public void setSendKecamatan(TableKecamatan sendKecamatan) {
+        this.sendKecamatan = sendKecamatan;
+    }
+
+    public TableKecamatan getSendKecamatan(){
+        return this.sendKecamatan;
+    }
+
+    public TableKota getToKota() {
+        return toKota;
+    }
+
+    public void setToKota(TableKota toKota) {
+        this.toKota = toKota;
+    }
+
+    public void setToKecamatan(TableKecamatan toKecamatan) {
+        this.toKecamatan = toKecamatan;
+    }
+
+    public TableKecamatan getToKecamatan(){
+        return toKecamatan;
+    }
+
     public Date getCreateDate() {
         return CreateDate;
     }
@@ -431,4 +397,29 @@ public class TableTransactionModel  {
         this.ModifyBy = ModifyBy;
     }
     //</editor-fold>
+
+    public SimpleIntegerProperty getIdSimple(){
+        return new SimpleIntegerProperty(getID());
+    }
+
+    public SimpleStringProperty getNamaPengirim(){
+        return new SimpleStringProperty(getSendNama());
+    }
+
+    public SimpleStringProperty getAlamatPengirim(){
+        return new SimpleStringProperty(getSendKota().getNama()+" "+getSendKecamatan().getName()+" "+getSendAlamat());
+    }
+
+    public SimpleStringProperty getNamaPenerima(){
+        return new SimpleStringProperty(getToNama());
+    }
+
+    public SimpleStringProperty getAlamatPenerima(){
+        return new SimpleStringProperty(getToKota().getNama()+" "+getToKecamatan().getName()+" "+getToAlamat());
+    }
+
+    public SimpleIntegerProperty getBanyakKoli(){
+        return new SimpleIntegerProperty(getTotalKoli());
+    }
+
 }

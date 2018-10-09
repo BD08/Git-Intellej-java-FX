@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+import java.awt.desktop.SystemEventListener;
 import java.net.URL;
 
 public class TarifInsertController  extends BaseController<TableTarif> {
@@ -27,7 +28,19 @@ public class TarifInsertController  extends BaseController<TableTarif> {
 			tarifInsertController.setBaseControllerModel(baseController.getBaseControllerModel());
 			tarifInsertController.PageFistLoad();
 		}catch (Exception ex){
-			System.err.print("Cannot Load new tarif Insert Controller"+ex);
+			System.err.print("Cannot Load new tarif Insert Controller "+ex);
+		}
+	}
+
+	public static void LoadNewTarifInsertController(BaseController baseController,int TarifId){
+		FXMLLoader fxmlLoader;
+		try{
+			fxmlLoader=baseController.changeCenter(FileFXML.TARIF_EDIT_VIEW);
+			TarifInsertController tarifInsertController=fxmlLoader.<TarifInsertController>getController();
+			tarifInsertController.setBaseControllerModel(baseController.getBaseControllerModel());
+			tarifInsertController.PageFistLoad(TarifId);
+		}catch (Exception ex){
+			System.err.print("Canot Load Edit Tarif Update Controller "+ex);
 		}
 	}
 
@@ -99,7 +112,27 @@ public class TarifInsertController  extends BaseController<TableTarif> {
 
 	@FXML
 	private void btnSaveAction(ActionEvent event) {
-
+		try{
+			if(this.viewMode==ViewMode.VIEW){
+				setViewMode(ViewMode.EDIT);
+				return;
+			}
+			this.curentModel.setKotaTo(comboBoxToKota.getValue());
+			this.curentModel.setKotaFrom(comboBoxFromKota.getValue());
+			this.curentModel.setKecamatanTo(comboBoxToKecamatan.getValue());
+			this.curentModel.setKecamatanFrom(comboBoxFromKecamatan1.getValue());
+			this.curentModel.setHargaPerKoli(Integer.parseInt(txtPricePerKoli.getText()));
+			this.curentModel.setHargaPerKilo(Integer.parseInt(txtHargaPerKilo.getText()));
+			if(this.viewMode==ViewMode.EDIT){
+				this.getDBContext().getTarif().editRow(curentModel);
+			}
+			if(this.viewMode==ViewMode.NEW){
+				this.getDBContext().getTarif().addRow(curentModel);
+			}
+			setViewMode(ViewMode.VIEW);
+		}catch (Exception ex){
+			System.err.print("Terdapat error Saat Save");
+		}
 	}
 
 	@Override
