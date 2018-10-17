@@ -1,10 +1,18 @@
 
+
+*{
+    -fx-primary:#015f92;
+    -fx-second:#0288d1;
+    -fx-tirt:#349fda;
+    -fx-Baground:#FFFFFF;
+}
+
 .parent{
-    -fx-background-color: #ffffff;
+    -fx-background-color: -fx-Baground;
     -fx-font-family: Roboto;
 }
 .sideBar{
-    -fx-background-color: #333645;
+    -fx-background-color: -fx-primary;
 }
 
 .material-icons {
@@ -27,21 +35,30 @@
 }
 
 .TextFieldForm{
-    -fx-font-size: 18.0px;
-    /*-fx-font-family: 'Roboto';*/
-    
+    -fx-font-size: 14.0px;
+    -fx-prompt-text-fill: #68707c;
+    -fx-prompt-size: 14.0px;
     -fx-text-fill: #68707c;
     -jfx-focus-color: #66afe9;
-    -jfx-unfocus-color: #cccccc;
+    -jfx-unfocus-color: #66afe8;
 }
 .TextFieldForm:disabled{
      -jfx-focus-color: #eee;
 }
 
-.TextFieldForm:error {
-    -jfx-focus-color: #66afe9;
-    -jfx-unfocus-color: #f2dede;
+.TextFieldForm:error{
+    -jfx-focus-color: #D34336;
+    -jfx-unfocus-color: #D34336;
 }
+
+
+
+.error-label {
+    -fx-text-fill: #D34336;
+    -fx-font-size: 9.0px;
+    -fx-font-weight: bold;
+}
+
 
 .ButtonMenuFlat{
     -fx-font-size: 18.0px;
@@ -149,6 +166,75 @@
     -jfx-focus-color: #66afe9;
     -jfx-unfocus-color: #cccccc;
 }
+
+.tss{
+    -fx-background-color: #333645;
+}
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Scroll Bar			                                                       *
+ *                                                                             *
+ ******************************************************************************/
+
+.scroll-bar:vertical > .track-background, .scroll-bar:horizontal > .track-background {
+    -fx-background-color: #F1F1F1;
+    -fx-background-insets: 0.0;
+}
+
+.scroll-bar:vertical > .thumb, .scroll-bar:horizontal > .thumb {
+    -fx-background-color: #BCBCBC;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 1.0;
+}
+
+.scroll-bar > .increment-button, .scroll-bar > .decrement-button {
+    -fx-padding: 5 2 5 2;
+}
+
+.scroll-bar > .increment-button, .scroll-bar > .decrement-button, .scroll-bar:hover > .increment-button, .scroll-bar:hover > .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar > .increment-button > .increment-arrow, .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: #d9534f;
+
+}
+
+.scroll-bar > .increment-button > .increment-arrow {
+    /*-fx-shape: "M298 426h428l-214 214z";*/
+    -fx-background-color: #d9534f;
+
+}
+
+.scroll-bar > .decrement-button > .decrement-arrow {
+    /*-fx-shape: "M298 598l214-214 214 214h-428z";*/
+    -fx-background-color: #d9534f;
+
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Scroll Pane			                                                       *
+ *                                                                             *
+ ******************************************************************************/
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane:focused {
+    -fx-background-color: #d9534f;
+
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .corner {
+    -fx-background-insets: 0;
+}
+
 
 
 

@@ -7,7 +7,9 @@ package fxtebaexpressnb.Utility;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
+import com.jfoenix.validation.RequiredFieldValidator;
 import fxtebaexpressnb.DatabaseManajement.DBContext;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
@@ -17,10 +19,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -42,6 +45,10 @@ public abstract class BaseController<O> {
 
     private BaseControllerModel baseControllerModel;
 
+    private JFXButton buttonSave;
+    private JFXButton buttonCencel;
+    private JFXButton buttonReset;
+
     public abstract void PageFistLoad();
     
     public abstract void PageFistLoad(Object object,ViewMode mode);
@@ -59,9 +66,10 @@ public abstract class BaseController<O> {
         }
         return baseControllerModel;
     }
-    
+    private boolean isFirstLoad;
     public void setBaseControllerModel(BaseControllerModel baseControllerModel) {
         this.baseControllerModel = baseControllerModel;
+        this.isFirstLoad=true;
 //        loginData=baseControllerModel.getDataCoba();
     }
     
@@ -123,9 +131,9 @@ public abstract class BaseController<O> {
             //getCenterPane().getChildren().setAll(anchorPane);
             getBorderPane().setCenter(anchorPane);
         }catch (IOException ioEx){
-            System.out.print("File Data Tidak ada "+ioEx.getMessage());
+            System.err.print("File Data Tidak ada "+ioEx.getMessage());
         }catch (Exception ioEx){
-            System.out.print("Exeption "+ioEx.getMessage());
+            System.err.print("Exeption "+ioEx.getMessage());
         }
         return fXMLLoader;
     }
@@ -231,21 +239,32 @@ public abstract class BaseController<O> {
      * @param buttonReset Button Reset Dari FXML
      */
     protected void setButtonActionViewMode(JFXButton buttonSave,JFXButton buttonCencel,JFXButton buttonReset){
+
+        this.buttonSave=buttonSave;
+        this.buttonCencel=buttonCencel;
+        this.buttonReset=buttonReset;
+
+        if(isFirstLoad){
+            buttonSave.setMnemonicParsing(true);
+            buttonCencel.setMnemonicParsing(true);
+            buttonReset.setMnemonicParsing(true);
+            isFirstLoad=false;
+        }
         switch (viewMode){
             case NEW:
-                buttonSave.setText("Save");
-                buttonCencel.setText("Cancel");
-                buttonReset.setText("New Data");
+                buttonSave.setText("_Save");
+                buttonCencel.setText("_Cancel");
+                buttonReset.setText("_New Data");
                 break;
             case EDIT:
-                buttonSave.setText("Save");
-                buttonCencel.setText("Cancel");
-                buttonSave.setText("Reset");
+                buttonSave.setText("_Save");
+                buttonCencel.setText("_Cancel");
+                buttonSave.setText("_Reset");
                 break;
             case VIEW:
-                buttonSave.setText("Edit");
-                buttonReset.setText("New Data");
-                buttonCencel.setText("Back To List");
+                buttonSave.setText("_Edit");
+                buttonReset.setText("_New Data");
+                buttonCencel.setText("_Back To List");
                 buttonCencel.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -308,6 +327,41 @@ public abstract class BaseController<O> {
                 comboBoxKecamatan.getSelectionModel().select(0);
             }
         });
+    }
+
+    protected void setNextFocusObject(javafx.scene.control.Control FirstObject,javafx.scene.control.Control NextObject){
+    	FirstObject.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		    @Override
+		    public void handle(KeyEvent event) {
+			    if(event.getCode()== KeyCode.ENTER||event.getCode()==KeyCode.TAB){
+			    	NextObject.requestFocus();
+			    }
+		    }
+	    });
+    }
+    private boolean isFormValid;
+    protected void setValidatingForm(){
+        if(this.viewMode==ViewMode.NEW||this.viewMode==ViewMode.EDIT){
+            this.buttonSave.setDisable(!isFormValid);
+        }
+    }
+
+    protected void addValidationString(JFXTextField jfxTextField){
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        validator.setMessage("Input Required");
+//        validator.setStyle();
+        jfxTextField.getValidators().add(validator);
+
+        jfxTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                jfxTextField.validate();
+            }
+        });
+    }
+
+
+    protected void isFormFalidation(){
+
     }
 
 }

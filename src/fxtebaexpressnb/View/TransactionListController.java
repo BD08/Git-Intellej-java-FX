@@ -8,14 +8,33 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableTransactionModel;
+import fxtebaexpressnb.Utility.BaseController;
+import fxtebaexpressnb.Utility.FileFXML;
+import fxtebaexpressnb.Utility.ViewMode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class TransactionListController {
+import java.net.URL;
 
+public class TransactionListController extends BaseController<TableTransactionModel> {
+
+	public static void TransactionListControllerLoad(BaseController baseController){
+		FXMLLoader fxmlLoader;
+		try {
+			fxmlLoader=baseController.changeCenter(FileFXML.TRANSACTION_LIST_VIEW);
+			TransactionListController transactionListController=fxmlLoader.<TransactionListController>getController();
+			transactionListController.setBaseControllerModel(baseController.getBaseControllerModel());
+			transactionListController.PageFistLoad();
+		}catch (Exception e){
+			System.err.println("Terdapat Error Saat Load Transaction List Controller Load \n"+e);
+		}
+
+	}
 
 	//region Transaction From FXML
 	@FXML // fx:id="bodyPane"
@@ -91,4 +110,54 @@ public class TransactionListController {
 
 	}
 
+	@Override
+	public void PageFistLoad() {
+
+	}
+
+	@Override
+	public void PageFistLoad(Object object, ViewMode mode) {
+
+	}
+
+	/**
+	 * untuk Load Data yang sudah ada dan otomatis menjadi View Mode
+	 *
+	 * @param object
+	 */
+	@Override
+	public void PageFistLoad(Object object) {
+
+	}
+
+	@Override
+	public void setViewMode(ViewMode mode) {
+
+	}
+
+	/**
+	 * Untuk Mengatur Center AnchorPane Pada setiap Anak BaseController
+	 *
+	 * @return
+	 */
+	@Override
+	public AnchorPane getCenterPane() {
+		return null;
+	}
+
+	/**
+	 * Untuk Mendapatkan membuat URL data yang lebih Sepesifik
+	 *
+	 * @param fXML
+	 * @return
+	 */
+	@Override
+	public URL getFileUrl(FileFXML fXML) {
+		return null;
+	}
+
+	@Override
+	protected void loadListView() {
+
+	}
 }

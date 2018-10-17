@@ -92,6 +92,14 @@ public class InsertUserAccountController extends BaseController<TableUserManager
      */
     @FXML
     void initialize() {
+    	this.txtFirstName.requestFocus();
+    	this.setNextFocusObject(this.txtFirstName,this.txtLastName);
+    	this.setNextFocusObject(this.txtLastName,this.txtAlamat);
+    	this.setNextFocusObject(this.txtAlamat,this.txtEmail);
+    	this.setNextFocusObject(this.txtEmail,this.txtUsername);
+    	this.setNextFocusObject(this.txtUsername,this.txtPassword);
+    	this.setNextFocusObject(this.txtPassword,this.txtPhoneNumber);
+    	this.setNextFocusObject(this.txtPhoneNumber,this.txtKantorCabang);
     }
 
     @Override
@@ -219,6 +227,7 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 		txtEmail.setText(model.getEmail());
 		this.curentModel = model;
 	}
+
 	@Override
 	protected void loadListView() {
 		UserAccountListController.LoadUserAccountList(this);

@@ -111,6 +111,16 @@ public class TarifInsertController  extends BaseController<TableTarif> {
 	}
 
 	@FXML
+	private void initialize(){
+		comboBoxFromKota.requestFocus();
+		this.setNextFocusObject(comboBoxFromKota,comboBoxFromKecamatan1);
+		this.setNextFocusObject(comboBoxFromKecamatan1,comboBoxToKota);
+		this.setNextFocusObject(comboBoxToKota,comboBoxToKecamatan);
+		this.setNextFocusObject(comboBoxToKecamatan,txtHargaPerKilo);
+		this.setNextFocusObject(txtHargaPerKilo,txtPricePerKoli);
+	}
+
+	@FXML
 	private void btnSaveAction(ActionEvent event) {
 		try{
 			if(this.viewMode==ViewMode.VIEW){
