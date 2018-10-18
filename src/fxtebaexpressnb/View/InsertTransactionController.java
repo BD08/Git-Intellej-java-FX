@@ -263,9 +263,13 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		this.comboboxKecamatanPenerima.getSelectionModel().select(curentModel.getToKecamatan());
 		this.txtPhoneNumberPenerima.setText(curentModel.getToTelp1());
 		this.txtPhoneNumberPengirim21.setText(curentModel.getToTelp2());
-		
+
 		this.txtHargaPerkoli.setText(curentModel.getHargaPerKoli()+" ");
 		this.txtHargaPerkilo.setText(curentModel.getHargaPerKilo()+" ");
+		this.txtPPN.setText(curentModel.getPPN()+" ");
+		this.txtDiscount.setText(curentModel.getDiscon()+"");
+		txtNote.setText(curentModel.getNOTES());
+		
 
 	}
 
