@@ -11,6 +11,9 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import fxtebaexpressnb.DatabaseManajement.Kota;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
+import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableTransactionModel;
 import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
@@ -28,6 +31,7 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		try{
 			fxmlLoader=baseController.changeCenter(FileFXML.INSERT_TRANSACTION);
 			InsertTransactionController insertTransactionController=fxmlLoader.<InsertTransactionController>getController();
+			insertTransactionController.setBaseControllerModel(baseController.getBaseControllerModel());
 			insertTransactionController.PageFistLoad();
 		}catch (Exception e){
 			System.err.println("Tidak Bisa Load Insert Transaction \n"+e);
@@ -36,7 +40,15 @@ public class InsertTransactionController extends BaseController<TableTransaction
 
 
 	public static void InsertTransactionControllerLoad(BaseController baseController,int idTransaction){
-
+		FXMLLoader fxmlLoader;
+		try {
+			fxmlLoader=baseController.changeCenter(FileFXML.INSERT_TRANSACTION);
+			InsertTransactionController insertTransactionController=fxmlLoader.<InsertTransactionController>getController();
+			insertTransactionController.setBaseControllerModel(baseController.getBaseControllerModel());
+			insertTransactionController.PageFistLoad(idTransaction);
+		}catch (Exception e){
+			System.err.println("Tidak Bisa Load Insert Transaction");
+		}
 	}
 
 
@@ -69,10 +81,10 @@ public class InsertTransactionController extends BaseController<TableTransaction
 	private JFXTextArea txtAlamatPengirim; // Value injected by FXMLLoader
 
 	@FXML // fx:id="comboboxKotaPengirim"
-	private JFXComboBox<?> comboboxKotaPengirim; // Value injected by FXMLLoader
+	private JFXComboBox<TableKota> comboboxKotaPengirim; // Value injected by FXMLLoader
 
 	@FXML // fx:id="comboboxKecamatanPengirim"
-	private JFXComboBox<?> comboboxKecamatanPengirim; // Value injected by FXMLLoader
+	private JFXComboBox<TableKecamatan> comboboxKecamatanPengirim; // Value injected by FXMLLoader
 
 	@FXML // fx:id="txtPhoneNumberPengirim"
 	private JFXTextField txtPhoneNumberPengirim; // Value injected by FXMLLoader
@@ -87,10 +99,10 @@ public class InsertTransactionController extends BaseController<TableTransaction
 	private JFXTextArea txtAlamatPenerima; // Value injected by FXMLLoader
 
 	@FXML // fx:id="comboboxKotaPenerima"
-	private JFXComboBox<?> comboboxKotaPenerima; // Value injected by FXMLLoader
+	private JFXComboBox<TableKota> comboboxKotaPenerima; // Value injected by FXMLLoader
 
 	@FXML // fx:id="comboboxKecamatanPenerima"
-	private JFXComboBox<?> comboboxKecamatanPenerima; // Value injected by FXMLLoader
+	private JFXComboBox<TableKecamatan> comboboxKecamatanPenerima; // Value injected by FXMLLoader
 
 	@FXML // fx:id="txtPhoneNumberPenerima"
 	private JFXTextField txtPhoneNumberPenerima; // Value injected by FXMLLoader
@@ -155,14 +167,14 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		this.setNextFocusObject(txtDiscount,txtPPN);
 		this.setNextFocusObject(txtPPN,txtNote);
 	}
+	@Override
+	public void PageFistLoad(Object object, ViewMode mode) {
+
+	}
 
 	@Override
 	public void PageFistLoad() {
 		this.setViewMode(ViewMode.NEW);
-	}
-
-	@Override
-	public void PageFistLoad(Object object, ViewMode mode) {
 
 	}
 
@@ -174,6 +186,7 @@ public class InsertTransactionController extends BaseController<TableTransaction
 	@Override
 	public void PageFistLoad(Object object) {
 		this.setViewMode(ViewMode.VIEW);
+		curentModel=this.getBaseControllerModel().getDBContext().getTableTransaction().getEntityItem(object);
 	}
 
 	@Override
@@ -227,4 +240,33 @@ public class InsertTransactionController extends BaseController<TableTransaction
 	protected void loadListView() {
 		TransactionListController.TransactionListControllerLoad(this);
 	}
+
+	private void MappingInsertTrans(){
+		if(this.viewMode==ViewMode.EDIT){
+			if(curentModel==null){
+				this.setViewMode(ViewMode.NEW);
+			}
+		}else if(this.viewMode==ViewMode.NEW){
+			this.curentModel=new TableTransactionModel();
+		}else {
+			return;
+		}
+		this.txtAWB.setText(curentModel.getAIRWAYBILL());
+		this.txtNamaPengirim.setText(curentModel.getSendNama());
+		this.comboboxKotaPengirim.getSelectionModel().select(curentModel.getSendKota());
+		this.comboboxKecamatanPengirim.getSelectionModel().select(curentModel.getSendKecamatan());
+		this.txtPhoneNumberPengirim.setText(curentModel.getSendTelp1());
+		this.txtPhoneNumberPengirim2.setText(curentModel.getSendTelp2());
+		this.txtAlamatPengirim.setText(curentModel.getSendAlamat());
+		this.txtNamaPenerima.setText(curentModel.getToNama());
+		this.comboboxKotaPenerima.getSelectionModel().select((curentModel.getToKota()));
+		this.comboboxKecamatanPenerima.getSelectionModel().select(curentModel.getToKecamatan());
+		this.txtPhoneNumberPenerima.setText(curentModel.getToTelp1());
+		this.txtPhoneNumberPengirim21.setText(curentModel.getToTelp2());
+		
+		this.txtHargaPerkoli.setText(curentModel.getHargaPerKoli()+" ");
+		this.txtHargaPerkilo.setText(curentModel.getHargaPerKilo()+" ");
+
+	}
+
 }
