@@ -117,10 +117,10 @@ public class InsertTransactionController extends BaseController<TableTransaction
 	private JFXTextField txtHargaPerkilo; // Value injected by FXMLLoader
 
 	@FXML // fx:id="spinerKoli"
-	private Spinner<?> spinerKoli; // Value injected by FXMLLoader
+	private Spinner<Integer> spinerKoli; // Value injected by FXMLLoader
 
 	@FXML // fx:id="spinerKilo"
-	private Spinner<?> spinerKilo; // Value injected by FXMLLoader
+	private Spinner<Integer> spinerKilo; // Value injected by FXMLLoader
 
 	@FXML // fx:id="txtDiscount"
 	private JFXTextField txtDiscount; // Value injected by FXMLLoader
@@ -263,14 +263,39 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		this.comboboxKecamatanPenerima.getSelectionModel().select(curentModel.getToKecamatan());
 		this.txtPhoneNumberPenerima.setText(curentModel.getToTelp1());
 		this.txtPhoneNumberPengirim21.setText(curentModel.getToTelp2());
-
+		this.txtAlamatPenerima.setText(curentModel.getToAlamat());
 		this.txtHargaPerkoli.setText(curentModel.getHargaPerKoli()+" ");
 		this.txtHargaPerkilo.setText(curentModel.getHargaPerKilo()+" ");
 		this.txtPPN.setText(curentModel.getPPN()+" ");
 		this.txtDiscount.setText(curentModel.getDiscon()+"");
+//		this.spinerKoli.setValueFactory();
+//		this.spinerKilo.setValueFactory();
 		txtNote.setText(curentModel.getNOTES());
-		
+	}
 
+	private TableTransactionModel MappingTrans(){
+		curentModel.setAIRWAYBILL(txtAWB.getText());
+		curentModel.setSendNama(txtNamaPengirim.getText());
+		curentModel.setSendKecamatan(this.comboboxKecamatanPengirim.getSelectionModel().getSelectedItem());
+		curentModel.setSendKota(this.comboboxKotaPengirim.getSelectionModel().getSelectedItem());
+		curentModel.setSendAlamat(this.txtAlamatPengirim.getText());
+		curentModel.setSendTelp1(this.txtPhoneNumberPengirim.getText());
+		curentModel.setSendTelp2(this.txtPhoneNumberPengirim2.getText());
+		curentModel.setToNama(this.txtNamaPenerima.getText());
+		curentModel.setToKecamatan(this.comboboxKecamatanPenerima.getSelectionModel().getSelectedIndex());
+		curentModel.setToKota(this.comboboxKotaPenerima.getSelectionModel().getSelectedItem());
+		curentModel.setToAlamat(this.txtAlamatPenerima.getText());
+		curentModel.setToTelp1(this.txtPhoneNumberPenerima.getText());
+		curentModel.setToTelp2(this.txtPhoneNumberPengirim21.getText());
+		curentModel.setHargaPerKoli(Integer.getInteger(this.txtHargaPerkoli.getText()));
+		curentModel.setHargaPerKilo(Integer.getInteger(this.txtHargaPerkoli.getText()));
+//		curentModel.setTotalKoli(this.spinerKoli.setValueFactory();
+		curentModel.setTotalKoli(0);
+		curentModel.setTotalBerat(0);
+		curentModel.setPPN(Integer.getInteger(txtPPN.getText()));
+		curentModel.setDiscon(Integer.getInteger(txtDiscount.getText()));
+		curentModel.setNOTES(txtNote.getText());
+		return curentModel;
 	}
 
 }
