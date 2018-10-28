@@ -5,13 +5,11 @@
  */
 package fxtebaexpressnb.DatabaseManajement.TableEntity;
 
-import java.util.Date;
-
 /**
  *
  * @author AsusX450J
  */
-public class TableAWBCus  {
+public class TableAWBCus {
     //<editor-fold defaultstate="collapsed" desc="Parameter Data">
 
     //</editor-fold>
@@ -203,5 +201,4 @@ public class TableAWBCus  {
     public void setTotalKoli(int TotalKoli) {
         this.TotalKoli = TotalKoli;
     }
-        
 }

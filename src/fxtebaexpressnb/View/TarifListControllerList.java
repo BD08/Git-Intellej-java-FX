@@ -3,14 +3,10 @@ package fxtebaexpressnb.View;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableTarif;
-import fxtebaexpressnb.Utility.BaseController;
-import fxtebaexpressnb.Utility.FileFXML;
-import fxtebaexpressnb.Utility.StaticValue;
-import fxtebaexpressnb.Utility.ViewMode;
+import fxtebaexpressnb.Utility.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,13 +15,14 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 
-public class TarifListController extends BaseController<TableTarif> {
+public class TarifListControllerList extends BaseController<TableTarif> implements IControllerViewList<TableTarif> {
 
 	public static void LoadTarifListController(BaseController base){
 		FXMLLoader fxmlLoader;
 		try{
 			fxmlLoader=base.changeCenter(FileFXML.TARIF_LIST_VIEW);
-			TarifListController tarifListController=fxmlLoader.<TarifListController>getController();
+			TarifListControllerList tarifListController=fxmlLoader.<TarifListControllerList>getController();
+			tarifListController.disableMainMenu(selectedMenu.Tarif);
 			tarifListController.setBaseControllerModel(base.getBaseControllerModel());
 			tarifListController.PageFistLoad();
 		}catch (Exception ex){
@@ -163,11 +160,6 @@ public class TarifListController extends BaseController<TableTarif> {
 		}
 	}
 
-	@Override
-	public void PageFistLoad(Object object, ViewMode mode) {
-
-	}
-
 	/**
 	 * untuk Load Data yang sudah ada dan otomatis menjadi View Mode
 	 *
@@ -207,5 +199,25 @@ public class TarifListController extends BaseController<TableTarif> {
 	@Override
 	protected void loadListView() {
 
+	}
+
+	/**
+	 * Untuk Load Data Dan harus Memanggil List yang harus di buat di Controller
+	 * seperti load database dan di plot pada list
+	 */
+	@Override
+	public void getDataForTable() {
+
+	}
+
+	/**
+	 * untuk memuat select data yang di ambil langsung dari list saja jangan dari database
+	 *
+	 * @param rowSelect
+	 * @return Item yang di pilih
+	 */
+	@Override
+	public TableTarif getSinggleSelectData(int rowSelect) {
+		return null;
 	}
 }

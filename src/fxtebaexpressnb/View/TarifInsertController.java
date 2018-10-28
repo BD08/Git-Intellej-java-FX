@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-import java.awt.desktop.SystemEventListener;
 import java.net.URL;
 
 public class TarifInsertController  extends BaseController<TableTarif> {
@@ -151,10 +150,7 @@ public class TarifInsertController  extends BaseController<TableTarif> {
 		this.setViewMode(ViewMode.NEW);
 	}
 
-	@Override
-	public void PageFistLoad(Object object, ViewMode mode) {
 
-	}
 
 	/**
 	 * untuk Load Data yang sudah ada dan otomatis menjadi View Mode
@@ -220,6 +216,6 @@ public class TarifInsertController  extends BaseController<TableTarif> {
 
 	@Override
 	protected void loadListView() {
-		TarifListController.LoadTarifListController(this);
+		TarifListControllerList.LoadTarifListController(this);
 	}
 }

@@ -176,11 +176,6 @@ public class UserAccountListController extends BaseController<TableUserManager> 
         UserAccountListController.LoadUserAccountList(this);
     }
     //region Not Use
-    @Override
-    public void PageFistLoad(Object object, ViewMode mode) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 
 
     //region Not Use in List

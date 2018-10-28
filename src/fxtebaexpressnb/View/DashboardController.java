@@ -89,10 +89,7 @@ public class DashboardController extends BaseController<BaseControllerModel> {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    @Override
-    public void PageFistLoad(Object object, ViewMode mode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public void PageFistLoad(Object object) {

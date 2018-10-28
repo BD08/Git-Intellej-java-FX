@@ -135,10 +135,7 @@ public class CustomerListController extends BaseController<TableCustomer> {
 	}
 
 	//region Not Use In List
-	@Override
-	public void PageFistLoad(Object object, ViewMode mode) {
 
-	}
 
 
 	/**

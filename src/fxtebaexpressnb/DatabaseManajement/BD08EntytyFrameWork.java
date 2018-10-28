@@ -5,6 +5,7 @@
  */
 package fxtebaexpressnb.DatabaseManajement;
 
+import fxtebaexpressnb.Utility.DataTableResult;
 import fxtebaexpressnb.Utility.FilterParameter;
 import fxtebaexpressnb.Utility.StaticValue;
 import javafx.collections.FXCollections;
@@ -13,17 +14,18 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
  *
  * @author AsusX450J
  */
-public abstract class BD08EntytyFrameWork<E>{
+public abstract class BD08EntytyFrameWork<E> {
 
     private String tableName;
     private Connection connection;
-    private Statement statement;
+    protected Statement statement;
 
     private boolean _isChange;
     
@@ -290,6 +292,46 @@ public abstract class BD08EntytyFrameWork<E>{
             return hasilBagi+1;
         else
             return  hasilBagi;
+    }
+
+    /**
+     * Get Data Untuk membuat sesuai dengan SQL yang di minta dan outomatis untuk tampilan yang mendapatkan semua datanya
+     * @param SQL SQL yang ingin di tampilkan
+     * @param Page Page yang ingin di dituju
+     * @return DataTable Result Yang ada di dalam DataTable Nya
+     */
+    public DataTableResult getDataSQL(String SQL, Optional<Integer> Page){
+        int page=Page.isPresent() ? Page.get()-1 : 0;
+        //harus buat select semua data untuk di hitung
+        DataTableResult res=new DataTableResult<E>();
+        try{
+            //untuk datanya harus di kasih pagging
+            resultSet=statement.executeQuery(SQL);
+            setDataList();
+        }catch (Exception ex){
+
+        }
+        return res;
+    }
+
+
+    /**
+     * Untuk Mendapatkan Semua data yang dibutuhkan di tampilkan di controller
+     * @param SQL SQL yang di ingginkan
+     * @return dataTableResult
+     */
+    public DataTableResult getDataSQLAll(String SQL){
+        DataTableResult res=new DataTableResult<E>();
+        try{
+            resultSet=statement.executeQuery(SQL);
+            setDataList();
+            res.setDataResult(DataList);
+            res.setCurrentPage(0);
+            res.setDataTotalPage(DataList.size());
+        }catch (Exception ex){
+            System.err.println(tableName+" Tidak Bisa Load Data get Data SQL ALL "+ex);
+        }
+        return res;
     }
 
     protected class ColoumnValue{

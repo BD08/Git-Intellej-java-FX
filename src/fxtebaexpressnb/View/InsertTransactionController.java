@@ -11,12 +11,12 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import fxtebaexpressnb.DatabaseManajement.Kota;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKecamatan;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableKota;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableTransactionModel;
 import fxtebaexpressnb.Utility.BaseController;
 import fxtebaexpressnb.Utility.FileFXML;
+import fxtebaexpressnb.Utility.IControllerViewInput;
 import fxtebaexpressnb.Utility.ViewMode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,13 +24,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
 
-public class InsertTransactionController extends BaseController<TableTransactionModel> {
+public class InsertTransactionController extends BaseController<TableTransactionModel> implements IControllerViewInput<TableTransactionModel> {
 
 	public static void InsertTransactionControllerLoad(BaseController baseController){
 		FXMLLoader fxmlLoader;
 		try{
 			fxmlLoader=baseController.changeCenter(FileFXML.INSERT_TRANSACTION);
 			InsertTransactionController insertTransactionController=fxmlLoader.<InsertTransactionController>getController();
+			insertTransactionController.disableMainMenu(selectedMenu.Transaction);
 			insertTransactionController.setBaseControllerModel(baseController.getBaseControllerModel());
 			insertTransactionController.PageFistLoad();
 		}catch (Exception e){
@@ -44,6 +45,7 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		try {
 			fxmlLoader=baseController.changeCenter(FileFXML.INSERT_TRANSACTION);
 			InsertTransactionController insertTransactionController=fxmlLoader.<InsertTransactionController>getController();
+			insertTransactionController.disableMainMenu(selectedMenu.Transaction);
 			insertTransactionController.setBaseControllerModel(baseController.getBaseControllerModel());
 			insertTransactionController.PageFistLoad(idTransaction);
 		}catch (Exception e){
@@ -134,17 +136,27 @@ public class InsertTransactionController extends BaseController<TableTransaction
 
 	@FXML
 	void btnCancelAction(ActionEvent event) {
-
+		if(viewMode==ViewMode.EDIT)
+			setViewMode(ViewMode.VIEW);
+		else
+			this.mappingView();
 	}
 
 	@FXML
 	void btnResetAction(ActionEvent event) {
+		this.mappingView();
 
 	}
 
 	@FXML
 	void btnSaveAction(ActionEvent event) {
-
+		if(viewMode==ViewMode.VIEW){
+			this.mappingView();
+		}else if(viewMode==ViewMode.EDIT){
+			// TODO: 10/20/2018 Untuk Membuat  Edit Methode
+		}else if(viewMode== ViewMode.NEW){
+			// TODO: 10/20/2018 Untuk Membuat edit Methode
+		}
 	}
 
 	// Load Initialize
@@ -167,15 +179,11 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		this.setNextFocusObject(txtDiscount,txtPPN);
 		this.setNextFocusObject(txtPPN,txtNote);
 	}
-	@Override
-	public void PageFistLoad(Object object, ViewMode mode) {
 
-	}
 
 	@Override
 	public void PageFistLoad() {
 		this.setViewMode(ViewMode.NEW);
-
 	}
 
 	/**
@@ -185,8 +193,8 @@ public class InsertTransactionController extends BaseController<TableTransaction
 	 */
 	@Override
 	public void PageFistLoad(Object object) {
-		this.setViewMode(ViewMode.VIEW);
 		curentModel=this.getBaseControllerModel().getDBContext().getTableTransaction().getEntityItem(object);
+		this.setViewMode(ViewMode.VIEW);
 	}
 
 	@Override
@@ -212,7 +220,7 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		txtPPN.setDisable(isNotEditableMode());
 		txtHargaPerkilo.setDisable(isNotEditableMode());
 		txtHargaPerkoli.setDisable(isNotEditableMode());
-
+		mappingView();
 	}
 
 	/**
@@ -241,7 +249,8 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		TransactionListController.TransactionListControllerLoad(this);
 	}
 
-	private void MappingInsertTrans(){
+	@Override
+	public void mappingView() {
 		if(this.viewMode==ViewMode.EDIT){
 			if(curentModel==null){
 				this.setViewMode(ViewMode.NEW);
@@ -268,12 +277,13 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		this.txtHargaPerkilo.setText(curentModel.getHargaPerKilo()+" ");
 		this.txtPPN.setText(curentModel.getPPN()+" ");
 		this.txtDiscount.setText(curentModel.getDiscon()+"");
-//		this.spinerKoli.setValueFactory();
-//		this.spinerKilo.setValueFactory();
+		this.spinerKoli.getValueFactory().setValue(curentModel.getTotalKoli());
+		this.spinerKilo.getValueFactory().setValue(curentModel.getTotalBerat());
 		txtNote.setText(curentModel.getNOTES());
 	}
 
-	private TableTransactionModel MappingTrans(){
+	@Override
+	public TableTransactionModel mappingData() {
 		curentModel.setAIRWAYBILL(txtAWB.getText());
 		curentModel.setSendNama(txtNamaPengirim.getText());
 		curentModel.setSendKecamatan(this.comboboxKecamatanPengirim.getSelectionModel().getSelectedItem());
@@ -289,13 +299,11 @@ public class InsertTransactionController extends BaseController<TableTransaction
 		curentModel.setToTelp2(this.txtPhoneNumberPengirim21.getText());
 		curentModel.setHargaPerKoli(Integer.getInteger(this.txtHargaPerkoli.getText()));
 		curentModel.setHargaPerKilo(Integer.getInteger(this.txtHargaPerkoli.getText()));
-//		curentModel.setTotalKoli(this.spinerKoli.setValueFactory();
-		curentModel.setTotalKoli(0);
-		curentModel.setTotalBerat(0);
+		curentModel.setTotalKoli(this.spinerKoli.getValue());
+		curentModel.setTotalBerat(this.spinerKilo.getValue());
 		curentModel.setPPN(Integer.getInteger(txtPPN.getText()));
 		curentModel.setDiscon(Integer.getInteger(txtDiscount.getText()));
 		curentModel.setNOTES(txtNote.getText());
 		return curentModel;
 	}
-
 }

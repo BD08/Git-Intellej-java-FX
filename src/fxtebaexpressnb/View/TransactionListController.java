@@ -28,6 +28,7 @@ public class TransactionListController extends BaseController<TableTransactionMo
 		try {
 			fxmlLoader=baseController.changeCenter(FileFXML.TRANSACTION_LIST_VIEW);
 			TransactionListController transactionListController=fxmlLoader.<TransactionListController>getController();
+			transactionListController.disableMainMenu(selectedMenu.Transaction);
 			transactionListController.setBaseControllerModel(baseController.getBaseControllerModel());
 			transactionListController.PageFistLoad();
 		}catch (Exception e){
@@ -115,10 +116,7 @@ public class TransactionListController extends BaseController<TableTransactionMo
 
 	}
 
-	@Override
-	public void PageFistLoad(Object object, ViewMode mode) {
 
-	}
 
 	/**
 	 * untuk Load Data yang sudah ada dan otomatis menjadi View Mode

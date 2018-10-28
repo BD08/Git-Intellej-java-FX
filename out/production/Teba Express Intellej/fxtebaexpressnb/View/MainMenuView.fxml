@@ -6,6 +6,12 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="1006.0" styleClass="parent" stylesheets="@CSS/CSSMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.MainMenuController">
@@ -49,18 +55,54 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+            <JFXButton fx:id="btnTransaction" onAction="#btnTransactionOnclick" prefHeight="35.0" prefWidth="250.0" styleClass="ButtonMenuFlat" text="Transaction">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@IMG/icons8_Send_Hot_List_48px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
          </children>
       </VBox>
    </left>
    <center>
-      <JFXScrollPane prefHeight="447.0" prefWidth="294.0" BorderPane.alignment="CENTER">
-         <children>
+      <JFXScrollPane fx:id="scroll" prefHeight="447.0" prefWidth="294.0" BorderPane.alignment="CENTER">
+         <topBar styleClass="tss">
+            <children>
+               <JFXButton fx:id="backButton" styleClass="tss">
+                  <StackPane.alignment>CENTER_LEFT</StackPane.alignment>
+                  <StackPane.margin>
+                     <Insets>
+                        <left>
+                           20
+                        </left>
+                     </Insets>
+                  </StackPane.margin>
+               </JFXButton>
+            </children>
+         </topBar>
+         <bottomBar styleClass="tss">
+            <children>
+               <Label fx:id="titleLabel" style="-fx-text-fill:WHITE; -fx-font-size: 40;">
+                  Customer
+                  <StackPane.alignment>CENTER_LEFT</StackPane.alignment>
+                  <StackPane.margin>
+                     <Insets>
+                        <left>
+                           80
+                        </left>
+                     </Insets>
+                  </StackPane.margin>
+               </Label>
+            </children>
+         </bottomBar>
+         <content>
           <AnchorPane fx:id="centerPane" prefHeight="322.0" prefWidth="294.0" styleClass="parent">
-               <opaqueInsets>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-               </opaqueInsets>
+
             </AnchorPane>
-         </children>
+         </content>
       </JFXScrollPane>
    </center>
 </BorderPane>

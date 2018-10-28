@@ -7,10 +7,7 @@ package fxtebaexpressnb.View;
 
 import com.jfoenix.controls.*;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.TableUserManager;
-import fxtebaexpressnb.Utility.BaseController;
-import fxtebaexpressnb.Utility.FileFXML;
-import fxtebaexpressnb.Utility.STRING_COLLECTION;
-import fxtebaexpressnb.Utility.ViewMode;
+import fxtebaexpressnb.Utility.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +21,7 @@ import java.net.URL;
  *
  * @author AsusX450J
  */
-public class InsertUserAccountController extends BaseController<TableUserManager> {
+public class InsertUserAccountController extends BaseController<TableUserManager> implements IControllerViewInput<TableUserManager> {
 	
 
 	//region From FXML Controller Model
@@ -116,7 +113,7 @@ public class InsertUserAccountController extends BaseController<TableUserManager
     public void PageFistLoad() {
 	    setViewMode(ViewMode.NEW);
 	    curentModel = new TableUserManager();
-	    MappingData(curentModel);
+	    mappingData();
 //        labelInsetAwb.setText(getLoginData());
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -128,7 +125,7 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 			    setViewMode(ViewMode.EDIT);
 			    return;
 		    } else {
-			    curentModel = MappingData();
+			    curentModel = mappingData();
 			    if(viewMode == ViewMode.NEW) {
 				    curentModel = this.getDBContext().getUserManagers().addRow(curentModel);
 			    } else {
@@ -148,18 +145,19 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 
     @FXML
     private void btnCancelAction(ActionEvent event) {
-
+		if(viewMode==ViewMode.EDIT){
+			setViewMode(ViewMode.VIEW);
+		}else {
+			mappingView();
+		}
     }
 
     @FXML
     private void btnResetAction(ActionEvent event) {
-
+		this.setViewMode(viewMode);
     }
 
-    @Override
-    public void PageFistLoad(Object object, ViewMode mode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 	
 	/**
 	 * Page Fist Load Untuk Data yang sudah ada datanya
@@ -171,7 +169,7 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 		TableUserManager res = getDBContext()
 				                       .getUserManagers().getStream().filter(tableUserManager ->
 						                                                             tableUserManager.getId() == object.hashCode()).findFirst().get();
-		MappingData(res);
+		mappingData();
 	}
 	
 	@Override
@@ -191,13 +189,25 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 		btnCancel.setVisible(viewMode != ViewMode.VIEW);
 		setButtonActionViewMode(btnSave,btnCancel,btnReset);
 	}
-	
-	/**
-	 * Mengambil data Table user manajer yang telah di mapping dari fild yang telah di isi
-	 *
-	 * @return data yang sudah jadi
-	 */
-	private TableUserManager MappingData () {
+
+	@Override
+	protected void loadListView() {
+		UserAccountListController.LoadUserAccountList(this);
+	}
+
+	@Override
+	public void mappingView() {
+		txtFirstName.setText(curentModel.getFirstName());
+		txtLastName.setText(curentModel.getLastName());
+		txtUsername.setText(curentModel.getUsername());
+		txtPhoneNumber.setText(curentModel.getPhoneNumber());
+		txtPassword.setText(curentModel.getPassword());
+		txtAlamat.setText(curentModel.getAlamat());
+		txtEmail.setText(curentModel.getEmail());
+	}
+
+	@Override
+	public TableUserManager mappingData() {
 		TableUserManager res = new TableUserManager();
 		if(viewMode == ViewMode.EDIT) {
 			res.setId(curentModel.getId());
@@ -211,26 +221,4 @@ public class InsertUserAccountController extends BaseController<TableUserManager
 		res.setPassword(txtPassword.getText());
 		return res;
 	}
-	
-	/**
-	 * Mapping Data Untuk mengambil data yang sudah di berikan kepada model untuk menjadikan nya sebuah data yang sudah jadi
-	 *
-	 * @param model
-	 */
-	private void MappingData (TableUserManager model) {
-		txtFirstName.setText(model.getFirstName());
-		txtLastName.setText(model.getLastName());
-		txtUsername.setText(model.getUsername());
-		txtPhoneNumber.setText(model.getPhoneNumber());
-		txtPassword.setText(model.getPassword());
-		txtAlamat.setText(model.getAlamat());
-		txtEmail.setText(model.getEmail());
-		this.curentModel = model;
-	}
-
-	@Override
-	protected void loadListView() {
-		UserAccountListController.LoadUserAccountList(this);
-	}
-	
 }

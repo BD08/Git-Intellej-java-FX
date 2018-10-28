@@ -223,5 +223,6 @@ public class TableCustomer extends RecursiveTreeObject<TableCustomer> {
     public SimpleStringProperty getSimpleStringPropertyTypePerusahaan(){
         return new SimpleStringProperty(this.getTypePerusahaan());
     }
+
     //endregion
 }

@@ -14,6 +14,7 @@ import fxtebaexpressnb.Utility.ViewMode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -23,6 +24,9 @@ import java.net.URL;
 
 public class InsertCustomerController extends BaseController<TableCustomer> {
 
+	@FXML
+	private Label titleLabel;
+
 	public static void OpenInsertCustomer(BaseController baseControllerFromParent){
 		FXMLLoader fxmlLoader;
 		try {
@@ -30,6 +34,7 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 			InsertCustomerController controller=fxmlLoader.<InsertCustomerController>getController();
 			controller.setBaseControllerModel(baseControllerFromParent.getBaseControllerModel());
 			controller.PageFistLoad();
+
 		}catch (Exception ex){
 			System.err.print("Tidak Dapat Load "+ex.getMessage());
 		}
@@ -185,6 +190,7 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 	@Override
 	public void PageFistLoad() {
 		comboBoxPreparation();
+		titleLabel.setText("Coba Dari COntroller Customer");
 		setViewMode(ViewMode.NEW);
 		this.setButtonActionViewMode(btnSave,btnReset,btnCancel);
 		this.curentModel=TableCustomer.defaultTableCustomer();
@@ -195,11 +201,6 @@ public class InsertCustomerController extends BaseController<TableCustomer> {
 		this.comboBoxTypePerusahaan.getItems().add(TableKodeMaster.defaultTableKodeMaster());
 		this.comboBoxTypePerusahaan.getItems().addAll(this.getBaseControllerModel().getDBContext().getTypePerusahaan().getAllData());
 		this.setComboBoxKotaKecamatanAsyn(comboboxKota,comboboxKecamatan);
-	}
-
-	@Override
-	public void PageFistLoad(Object object, ViewMode mode) {
-
 	}
 
 	/**

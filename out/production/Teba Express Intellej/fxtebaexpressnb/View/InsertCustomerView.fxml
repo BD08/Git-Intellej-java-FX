@@ -31,7 +31,7 @@
          </topBar>
          <bottomBar styleClass="tss">
             <children>
-               <Label style="-fx-text-fill:WHITE; -fx-font-size: 40;">
+               <Label fx:id="titleLabel" style="-fx-text-fill:WHITE; -fx-font-size: 40;">
                   Customer
                   <StackPane.alignment>CENTER_LEFT</StackPane.alignment>
                      <StackPane.margin>

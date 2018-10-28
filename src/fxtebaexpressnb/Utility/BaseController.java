@@ -51,7 +51,6 @@ public abstract class BaseController<O> {
 
     public abstract void PageFistLoad();
     
-    public abstract void PageFistLoad(Object object,ViewMode mode);
     /**
      * untuk Load Data yang sudah ada dan otomatis menjadi View Mode
      * @param object 
@@ -128,8 +127,8 @@ public abstract class BaseController<O> {
         try {
             fXMLLoader=new FXMLLoader(getFileUrl(fileFXML));
             AnchorPane anchorPane= fXMLLoader.load();
-            //getCenterPane().getChildren().setAll(anchorPane);
-            getBorderPane().setCenter(anchorPane);
+            getCenterPane().getChildren().setAll(anchorPane);
+            //getBorderPane().setCenter(anchorPane);
         }catch (IOException ioEx){
             System.err.print("File Data Tidak ada "+ioEx.getMessage());
         }catch (Exception ioEx){
@@ -143,8 +142,8 @@ public abstract class BaseController<O> {
         try {
             fXMLLoader=new FXMLLoader(getFileUrl(fileFXML));
             AnchorPane anchorPane= fXMLLoader.load();
-            //getCenterPane().getChildren().setAll(anchorPane);
-            borderPane.setCenter(anchorPane);
+            getCenterPane().getChildren().setAll(anchorPane);
+            //borderPane.setCenter(anchorPane);
         }catch (IOException ioEx){
             System.out.print("File Data Tidak ada "+ioEx.getMessage());
         }catch (Exception ioEx){
@@ -359,9 +358,44 @@ public abstract class BaseController<O> {
         });
     }
 
+    protected enum selectedMenu{
+        Dashboard,
+        Pengirim,
+        Customer,
+        Tarif,
+        Transaction
+    }
+    protected List<buttonMainMenu> listMainMenu;
+    protected void disableMainMenu(selectedMenu m){
+        listMainMenu.stream().forEach(buttonMainMenu -> {
+            buttonMainMenu.getButtonMenu().setDisable(buttonMainMenu.getSelectedMenu()==m);
+        });
+    }
 
-    protected void isFormFalidation(){
+    protected class buttonMainMenu{
+        private JFXButton buttonMenu;
+        private selectedMenu selectedMenu;
 
+        public buttonMainMenu(JFXButton buttonMenu, BaseController.selectedMenu selectedMenu) {
+            this.buttonMenu = buttonMenu;
+            this.selectedMenu = selectedMenu;
+        }
+
+        public JFXButton getButtonMenu() {
+            return buttonMenu;
+        }
+
+        public void setButtonMenu(JFXButton buttonMenu) {
+            this.buttonMenu = buttonMenu;
+        }
+
+        public BaseController.selectedMenu getSelectedMenu() {
+            return selectedMenu;
+        }
+
+        public void setSelectedMenu(BaseController.selectedMenu selectedMenu) {
+            this.selectedMenu = selectedMenu;
+        }
     }
 
 }
