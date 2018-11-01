@@ -7,7 +7,7 @@ import fxtebaexpressnb.DatabaseManajement.TypeCheckPointClass;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class PengirimanTransactionModel extends RecursiveTreeObject<TableTarif> {
+public class PengirimanTransactionModel extends RecursiveTreeObject<PengirimanTransactionModel> {
 
 	public static String IDTRANSACTION_COLOUMN="idTransaction";
 	public static String NAMAPENGIRIM_COLOUMN="namaPengirim";
@@ -27,12 +27,11 @@ public class PengirimanTransactionModel extends RecursiveTreeObject<TableTarif> 
 	public String alamatPenerima;
 	public int idCheckPoint;
 	public int typeCheckPointInt;
-	public TypeCheckPoint typeCheckPoint;
 	public String tanggalKirim;
 	public String tanggalCheckIn;
-
 	public String namaPembawa;
 	public String NOAWB;
+	private TypeCheckPoint typeCheckPoint;
 
 	public SimpleIntegerProperty getSimpleStringIdTransaction(){
 		return new SimpleIntegerProperty(idTransaction);
@@ -75,6 +74,10 @@ public class PengirimanTransactionModel extends RecursiveTreeObject<TableTarif> 
 
 	public SimpleStringProperty getSimpleStringPropertyPembawa(){
 		return new SimpleStringProperty(namaPembawa);
+	}
+
+	public TypeCheckPoint getTypeCheckPoint(){
+		return TypeCheckPointClass.getCheckPointType(idCheckPoint);
 	}
 
 	//
