@@ -55,5 +55,11 @@ public enum FileFXML {
         public String toString() {
             return "InsertTransaction.fxml";
         }
+    },
+    VIEW_TRANSACTION_CHECPOINT{
+        @Override
+        public String toString() {
+            return "TransactionCheckpointModelView.fxml";
+        }
     }
 }

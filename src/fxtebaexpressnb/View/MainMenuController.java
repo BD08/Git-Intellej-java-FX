@@ -123,7 +123,8 @@ public class MainMenuController extends BaseController<BaseControllerModel> {
     @FXML
     void btnCustomer(ActionEvent event) {
         disableMainMenu(selectedMenu.Customer);
-        CustomerListController.LoadCustomerList(this);
+//        CustomerListController.LoadCustomerList(this);
+        TransactionCheckpointModelController.loadTransactionCheckpointModelController(this);
     }
 
     @FXML

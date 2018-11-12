@@ -1,5 +1,7 @@
 package fxtebaexpressnb.Utility;
 
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -33,13 +35,14 @@ public class BD08MappingDatabase {
 	public BD08MappingDatabase(){
 		this.errorMapping=new ArrayList<>();
 	}
+
 	public int getRowCount(String SQLParamet)throws Exception{
 		if(SQLParamet.isEmpty())
 			return 0;
-		SQLParamet="SELECT COUNT(*) FROM ("+SQLParamet+") A";
+		SQLParamet="SELECT COUNT(*) AS size FROM ("+SQLParamet+") A";
 		ResultSet resultSet=this.statement.executeQuery(SQLParamet);
 		if(resultSet.next())
-			return resultSet.getInt(0);
+			return resultSet.getInt("size");
 		return 0;
 	}
 
@@ -60,8 +63,13 @@ public class BD08MappingDatabase {
 		while (resultSet.next()){
 			T rowItem=classTable.getConstructor().newInstance();
 			for (Field coloumnField:fileds) {
-				Object data=objectConvert(resultSet,coloumnField.getName());//resultSet.getObject(coloumnField.getName());
-				coloumnField.set(rowItem,data);
+				try{
+					Object data=objectConvert(resultSet,coloumnField.getName());//resultSet.getObject(coloumnField.getName());
+					coloumnField.set(rowItem,data);
+				}catch (Exception ex){
+					System.err.println("Error Add To Fild "+ex+" ");
+				}
+
 			}
 			res.add(rowItem);
 		}
@@ -72,15 +80,30 @@ public class BD08MappingDatabase {
 		DataTableResult<T> result=new DataTableResult<T>();
 		result.setCurrentPage(Page);
 		result.setTotalDataRow(getRowCount(SQLParameter));
+		result.setSizePage(itemPage);
 		int size=result.getTotalDataRow();
-		int hasilModulus=size% StaticValue.bucketSize;
-		int hasilBagi=size/StaticValue.bucketSize;
+		int hasilBagi=size/result.getTotalDataRow();
 		result.setDataTotalPage(hasilBagi);
-
+		//	sql += string.Format(" OFFSET {0:N0} ROWS FETCH NEXT {1:N0} ROWS ONLY", input.SkipCount, input.MaxResultCount);
+		SQLParameter=SQLParameter+" LIMIT "+result.getLimitMIN()+" , "+result.getLimitMAX();
 		// TODO: 10/28/2018 Untuk menambahkan Page Di SINI Di String SQL nya
 		result.setDataResult(this.excuteSQLSelect(SQLParameter,tClass));
 		return result;
+	}
 
+	public <T> DataTableResult<T> getDataTableResult(String SQLParameter,Class<T> tClass,DataTableResult result) throws Exception{
+		return this.getDataTableResult(SQLParameter,tClass,result,false);
+	}
+
+	public <T> DataTableResult<T> getDataTableResult(String SQLParameter,Class<T> tClass,DataTableResult result, boolean isFilterd) throws Exception{
+		if(isFilterd){
+			result.setCurrentPage(0);
+			result.setTotalDataRow(getRowCount(SQLParameter));
+		}
+		SQLParameter=SQLParameter+" LIMIT "+result.getLimitMIN()+" , "+result.getLimitMAX();
+		// TODO: 10/28/2018 Untuk menambahkan Page Di SINI Di String SQL nya
+		result.setDataResult(this.excuteSQLSelect(SQLParameter,tClass));
+		return result;
 	}
 
 

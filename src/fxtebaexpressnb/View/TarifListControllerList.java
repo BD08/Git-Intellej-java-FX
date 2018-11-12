@@ -105,7 +105,7 @@ public class TarifListControllerList extends BaseController<TableTarif> implemen
 			if(event.getClickCount()==2){
 				TreeItem<TableTarif> tableTarifTreeItem=treeTableView.getSelectionModel().getSelectedItem();
 				TableTarif tmp=tableTarifTreeItem.getValue();
-				// TODO: 10/7/2018 Untuk Manggil View Edit
+				TarifInsertController.LoadNewTarifInsertController(this,tmp.getId());
 			}
 		});
 	}

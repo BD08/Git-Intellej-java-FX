@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="parentPanel" prefHeight="727.0" prefWidth="1869.0" stylesheets="@CSS/CSSMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.TransactionCheckpointModelController">
    <children>
-      <JFXTreeTableView fx:id="treeTableView" layoutX="20.0" layoutY="56.0" prefHeight="591.0" prefWidth="1869.0" styleClass="TableAnchorePane" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+      <JFXTreeTableView fx:id="treeTableView" layoutX="20.0" prefHeight="400.0" prefWidth="1431.0" styleClass="TableAnchorePane" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columns>
             <JFXTreeTableColumn fx:id="idColoumn" editable="false" minWidth="73.0" prefWidth="73.0" sortable="false" styleClass="RowPaneFirst" text="Id" />
             <JFXTreeTableColumn fx:id="coloumnAWB" minWidth="35.0" prefWidth="290.0" styleClass="RowPaneSecond" text="AWB" />
@@ -56,25 +56,5 @@
             </HBox>
          </children>
       </AnchorPane>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="965.0" spacing="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-         <children>
-            <JFXTextField fx:id="txtSearch" onKeyPressed="#onKeyPress" styleClass="SearchLabel" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </JFXTextField>
-            <JFXButton fx:id="btnSeach" onAction="#searchItemAction" prefHeight="52.0" prefWidth="126.0" styleClass="WarningButton" text="Search">
-               <opaqueInsets>
-                  <Insets bottom="10.0" top="10.0" />
-               </opaqueInsets>
-               <HBox.margin>
-                  <Insets right="15.0" />
-               </HBox.margin>
-            </JFXButton>
-         </children>
-         <padding>
-            <Insets left="12.0" />
-         </padding>
-      </HBox>
    </children>
 </AnchorPane>

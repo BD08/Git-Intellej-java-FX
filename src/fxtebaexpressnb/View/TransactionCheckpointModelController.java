@@ -4,22 +4,43 @@
 
 package fxtebaexpressnb.View;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.*;
+
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import fxtebaexpressnb.DatabaseManajement.TableEntity.RelationViewTransactionList.PengirimanTransactionModel;
-import fxtebaexpressnb.Utility.BaseController;
-import fxtebaexpressnb.Utility.FileFXML;
-import fxtebaexpressnb.Utility.ViewMode;
+import fxtebaexpressnb.Utility.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class TransactionCheckpointModelController extends BaseController<PengirimanTransactionModel> {
+
+	public static void loadTransactionCheckpointModelController(BaseController base){
+		FXMLLoader fxmlLoader;
+		try{
+			fxmlLoader=base.changeCenter(FileFXML.VIEW_TRANSACTION_CHECPOINT);
+			TransactionCheckpointModelController tarifListController=fxmlLoader.<TransactionCheckpointModelController>getController();
+//			tarifListController.disableMainMenu(selectedMenu.Tarif);
+			tarifListController.setBaseControllerModel(base.getBaseControllerModel());
+			tarifListController.PageFistLoad();
+		}catch (Exception ex){
+			System.err.print("Tidak Bisa Load"+ex);
+		}
+	}
+
+	private BD08MappingDatabase mappingDatabase;
+	private DataTableResult<PengirimanTransactionModel> dataTableResult;
+
+	@FXML
+	private JFXTextField txtSearch;
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
@@ -51,8 +72,8 @@ public class TransactionCheckpointModelController extends BaseController<Pengiri
 	@FXML // fx:id="coloumnLastSync"
 	private JFXTreeTableColumn<PengirimanTransactionModel, String> coloumnLastSync; // Value injected by FXMLLoader
 
-	@FXML // fx:id="coloumnLastSync1"
-	private JFXTreeTableColumn<PengirimanTransactionModel, String> coloumnLastSync1; // Value injected by FXMLLoader
+	@FXML // fx:id="coloumnNamaPembawa"
+	private JFXTreeTableColumn<PengirimanTransactionModel, String> coloumnNamaPembawa; // Value injected by FXMLLoader
 
 	@FXML // fx:id="btnFirst"
 	private JFXButton btnFirst; // Value injected by FXMLLoader
@@ -82,9 +103,59 @@ public class TransactionCheckpointModelController extends BaseController<Pengiri
 
 	@Override
 	public void PageFistLoad() {
+		try {
+			this.dataTableResult=new DataTableResult<PengirimanTransactionModel>();
+
+			this.mappingDatabase=new BD08MappingDatabase(this.getDBContext().getConnection());
+		}catch (Exception e){
+
+		}
 		idColoumn.setVisible(false);
 		setupCellValueFactory(idColoumn,(t) -> t.getSimpleIntegerPropertyIdCheckPoint().asObject());
 		setupCellValueFactory(coloumnAWB,pengirimanTransactionModel -> pengirimanTransactionModel.getSimpleStringPropertyAWB());
+		setupCellValueFactory(coloumnNamaPenerima,t->t.getSimpleStringPropertyNamaPenerima());
+		setupCellValueFactory(coloumnNamaPenerima,t->t.getSimpleStringPropertyNamaPengirim());
+		setupCellValueFactory(coloumnAlamatPenerima,pengirimanTransactionModel -> pengirimanTransactionModel.getSimpleStringPropertyAlamatPenerima());
+		setupCellValueFactory(coloumnAlamatPengirim,pengirimanTransactionModel -> pengirimanTransactionModel.getSimpleStringPropertyAlamatPengirim());
+		setupCellValueFactory(coloumnLastSync,t->t.getSimpleStringPropertyTanggalCheckIn());
+		setupCellValueFactory(coloumnNamaPembawa,t->t.getSimpleStringPropertyPembawa());
+		ChangePage("");
+	}
+
+	public void ChangePage(String condition){
+		try{
+			if(condition.isEmpty())
+				condition="";
+			else
+				condition=String.format("WHERE T.SendName LIKE '%%s%' AND " +
+						"T.ToNama LIKE '%%s%' AND " +
+						"T.SendAlamat LIKE '%%s%' AND " +
+						"T.ToAlamat LIKE '%%s%' AND " +
+						"T.Airwaybill LIKE '%%s%' AND " +
+						"U.FirstName LIKE '%%s%' ",condition);
+
+			String stringSql="SELECT " +
+					"T.Id AS idTransaction, " +
+					"T.SendNama AS namaPengirim, " +
+					"T.ToNama AS namaPenerima, " +
+					"T.SendAlamat AS alamatPengirim, " +
+					"T.ToAlamat AS alamatPenerima, " +
+					"C.Id AS idCheckPoint, " +
+					"C.TypeCheckPoint AS typeCheckPointInt, " +
+					"T.CreateDate AS tanggalKirim, " +
+					"C.CreateDate AS tanggalCheckIn, " +
+					"U.FirstName AS namaPembawa, " +
+					"T.Airwaybill AS NOAWB " +
+					"FROM Transaksi T " +
+					"INNER JOIN CheckPoint C ON T.Id=C.TransaksiId " +
+					"INNER JOIN UserManager U ON C.CreateBy=U.Id "+condition;
+			dataTableResult=this.mappingDatabase.getDataTableResult(stringSql,PengirimanTransactionModel.class,dataTableResult,true);
+			treeTableView.setRoot(new RecursiveTreeItem<>(dataTableResult.getObservableList(), RecursiveTreeObject::getChildren));
+			treeTableView.setShowRoot(false);
+			txtPage.setText((dataTableResult.getCurrentPage()+1)+"");
+		}catch (Exception ex){
+			System.err.print(ex);
+		}
 	}
 
 	/**
@@ -125,5 +196,40 @@ public class TransactionCheckpointModelController extends BaseController<Pengiri
 	@Override
 	protected void loadListView() {
 
+	}
+
+	@FXML
+	private void btnLastOnaction(ActionEvent actionEvent) {
+		this.dataTableResult.lastPage();
+		this.ChangePage(this.txtSearch.getText());
+	}
+
+	@FXML
+	private void btnNextOnAction(ActionEvent actionEvent) {
+		this.dataTableResult.nextPage();
+		this.ChangePage(this.txtSearch.getText());
+	}
+
+	@FXML
+	private void btnBeforeOnaction(ActionEvent actionEvent) {
+		this.dataTableResult.previousPage();
+		this.ChangePage(this.txtSearch.getText());
+	}
+
+	@FXML
+	private void btnFirstOnAction(ActionEvent actionEvent) {
+		this.dataTableResult.firstPage();
+		this.ChangePage(this.txtSearch.getText());
+	}
+
+	@FXML
+	private void searchItemAction(ActionEvent actionEvent) {
+	}
+
+	@FXML
+	private void onKeyPress(KeyEvent keyEvent) {
+		if(keyEvent.getCode()== KeyCode.ENTER){
+			this.ChangePage(this.txtSearch.getText());
+		}
 	}
 }

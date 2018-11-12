@@ -9,16 +9,16 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class PengirimanTransactionModel extends RecursiveTreeObject<PengirimanTransactionModel> {
 
-	public static String IDTRANSACTION_COLOUMN="idTransaction";
-	public static String NAMAPENGIRIM_COLOUMN="namaPengirim";
-	public static String NAMAPENERIMA_COLOUMN="namaPenerima";
-	public static String ALAMATPENGIRIM_COLOUMN="alamatPengirim";
-	public static String ALAMATPENERIMA_COLOUMN="alamatPenerima";
-	public static String IDCHECKPOINT_COLOUMN="idCheckPoint";
-	public static String TYPECHECKPOINT_COLOUMN="typeCheckPointInt";
-	public static String TANGGALKIRIM_COLOUMN="CreateDate";
-	public static String TANGGALCHECKIN_COLOUMN="CreateDate";
-	public static String CHECKPOINTNAME_CLOUMN="FirstName";
+//	public static String IDTRANSACTION_COLOUMN="idTransaction";
+//	public static String NAMAPENGIRIM_COLOUMN="namaPengirim";
+//	public static String NAMAPENERIMA_COLOUMN="namaPenerima";
+//	public static String ALAMATPENGIRIM_COLOUMN="alamatPengirim";
+//	public static String ALAMATPENERIMA_COLOUMN="alamatPenerima";
+//	public static String IDCHECKPOINT_COLOUMN="idCheckPoint";
+//	public static String TYPECHECKPOINT_COLOUMN="typeCheckPointInt";
+//	public static String TANGGALKIRIM_COLOUMN="CreateDate";
+//	public static String TANGGALCHECKIN_COLOUMN="CreateDate";
+//	public static String CHECKPOINTNAME_CLOUMN="FirstName";
 
 	public int idTransaction;
 	public String namaPengirim;
@@ -26,7 +26,7 @@ public class PengirimanTransactionModel extends RecursiveTreeObject<PengirimanTr
 	public String alamatPengirim;
 	public String alamatPenerima;
 	public int idCheckPoint;
-	public int typeCheckPointInt;
+	private int typeCheckPointInt;
 	public String tanggalKirim;
 	public String tanggalCheckIn;
 	public String namaPembawa;

@@ -19,19 +19,19 @@ public class PengirimanTransactionInfo extends BD08EntytyFrameWork<PengirimanTra
 		PengirimanTransactionModel item;
 		while(resultSet.next()){
 			item=new PengirimanTransactionModel();
-			item.setNamaPembawa(resultSet.getString(PengirimanTransactionModel.CHECKPOINTNAME_CLOUMN));
-			item.setNamaPengirim(resultSet.getString(PengirimanTransactionModel.NAMAPENGIRIM_COLOUMN));
-			item.setNamaPenerima(resultSet.getString(PengirimanTransactionModel.NAMAPENERIMA_COLOUMN));
-			item.setAlamatPengirim(resultSet.getString(PengirimanTransactionModel.ALAMATPENGIRIM_COLOUMN));
-			item.setAlamatPenerima(resultSet.getString(PengirimanTransactionModel.ALAMATPENERIMA_COLOUMN));
-			item.setIdCheckPoint(resultSet.getInt(PengirimanTransactionModel.IDCHECKPOINT_COLOUMN));
-			item.setIdTransaction(resultSet.getInt(PengirimanTransactionModel.IDTRANSACTION_COLOUMN));
+//			item.setNamaPembawa(resultSet.getString(PengirimanTransactionModel.CHECKPOINTNAME_CLOUMN));
+//			item.setNamaPengirim(resultSet.getString(PengirimanTransactionModel.NAMAPENGIRIM_COLOUMN));
+//			item.setNamaPenerima(resultSet.getString(PengirimanTransactionModel.NAMAPENERIMA_COLOUMN));
+//			item.setAlamatPengirim(resultSet.getString(PengirimanTransactionModel.ALAMATPENGIRIM_COLOUMN));
+//			item.setAlamatPenerima(resultSet.getString(PengirimanTransactionModel.ALAMATPENERIMA_COLOUMN));
+//			item.setIdCheckPoint(resultSet.getInt(PengirimanTransactionModel.IDCHECKPOINT_COLOUMN));
+//			item.setIdTransaction(resultSet.getInt(PengirimanTransactionModel.IDTRANSACTION_COLOUMN));
 		}
 	}
 
 	@Override
 	protected void newRowsIdPlot(PengirimanTransactionModel pengirimanTransactionModel, Object o) {
-		pengirimanTransactionModel.setIdCheckPoint(o.hashCode());
+//		pengirimanTransactionModel.setIdCheckPoint(o.hashCode());
 	}
 
 	/**
@@ -55,8 +55,10 @@ public class PengirimanTransactionInfo extends BD08EntytyFrameWork<PengirimanTra
 	public PengirimanTransactionModel getEntityItem(Object id) {
 		PengirimanTransactionModel res=null;
 		if(DataList!=null){
-			if(DataList.size()>0)
-				res= DataList.stream().filter(pengirimanTransactionModel -> pengirimanTransactionModel.getIdCheckPoint()==(int)id).findFirst().get();
+			if(DataList.size()>0){
+
+			}
+//				res= DataList.stream().filter(pengirimanTransactionModel -> pengirimanTransactionModel.getIdCheckPoint()==(int)id).findFirst().get();
 		}
 		if(res==null)
 			try {
