@@ -114,16 +114,17 @@ public class TransactionCheckpointModelController extends BaseController<Pengiri
 		setupCellValueFactory(idColoumn,(t) -> t.getSimpleIntegerPropertyIdCheckPoint().asObject());
 		setupCellValueFactory(coloumnAWB,pengirimanTransactionModel -> pengirimanTransactionModel.getSimpleStringPropertyAWB());
 		setupCellValueFactory(coloumnNamaPenerima,t->t.getSimpleStringPropertyNamaPenerima());
-		setupCellValueFactory(coloumnNamaPenerima,t->t.getSimpleStringPropertyNamaPengirim());
+		setupCellValueFactory(coloumnNamaPengirim,t->t.getSimpleStringPropertyNamaPengirim());
 		setupCellValueFactory(coloumnAlamatPenerima,pengirimanTransactionModel -> pengirimanTransactionModel.getSimpleStringPropertyAlamatPenerima());
 		setupCellValueFactory(coloumnAlamatPengirim,pengirimanTransactionModel -> pengirimanTransactionModel.getSimpleStringPropertyAlamatPengirim());
 		setupCellValueFactory(coloumnLastSync,t->t.getSimpleStringPropertyTanggalCheckIn());
 		setupCellValueFactory(coloumnNamaPembawa,t->t.getSimpleStringPropertyPembawa());
-		ChangePage("");
+		ChangePage();
 	}
 
-	public void ChangePage(String condition){
+	private void ChangePage(){
 		try{
+			String condition=txtSearch.getText();
 			if(condition.isEmpty())
 				condition="";
 			else
@@ -201,35 +202,36 @@ public class TransactionCheckpointModelController extends BaseController<Pengiri
 	@FXML
 	private void btnLastOnaction(ActionEvent actionEvent) {
 		this.dataTableResult.lastPage();
-		this.ChangePage(this.txtSearch.getText());
+		this.ChangePage();
 	}
 
 	@FXML
 	private void btnNextOnAction(ActionEvent actionEvent) {
 		this.dataTableResult.nextPage();
-		this.ChangePage(this.txtSearch.getText());
+		this.ChangePage();
 	}
 
 	@FXML
 	private void btnBeforeOnaction(ActionEvent actionEvent) {
 		this.dataTableResult.previousPage();
-		this.ChangePage(this.txtSearch.getText());
+		this.ChangePage();
 	}
 
 	@FXML
 	private void btnFirstOnAction(ActionEvent actionEvent) {
 		this.dataTableResult.firstPage();
-		this.ChangePage(this.txtSearch.getText());
+		this.ChangePage();
 	}
 
 	@FXML
 	private void searchItemAction(ActionEvent actionEvent) {
+
 	}
 
 	@FXML
 	private void onKeyPress(KeyEvent keyEvent) {
 		if(keyEvent.getCode()== KeyCode.ENTER){
-			this.ChangePage(this.txtSearch.getText());
+			this.ChangePage();
 		}
 	}
 }

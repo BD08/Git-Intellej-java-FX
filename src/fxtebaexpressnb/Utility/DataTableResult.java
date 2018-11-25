@@ -18,6 +18,15 @@ public class DataTableResult<E> {
 	private int dataTotalPage;
 	private int currentPage;
 	private int sizePage;
+	private boolean isNewData;
+
+	public void NewDataList(boolean isNew){
+		this.isNewData=isNew;
+	}
+
+	public boolean isNew(){
+		return this.isNewData;
+	}
 
 	/***
 	 * get Data Row Berbentuk List

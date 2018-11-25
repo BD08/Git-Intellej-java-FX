@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableColumn?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
@@ -39,6 +40,7 @@
                   </JFXButton>
                   <JFXTextField fx:id="txtPage" alignment="CENTER" prefHeight="46.0" prefWidth="73.0" styleClass="Paginnation" />
                   <Text fx:id="txtMaxPage" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="PaginnationMax" text="Text" />
+                  <JFXComboBox fx:id="cbDataGet" styleClass="Paginnation" />
                   <JFXButton fx:id="btnNext" onAction="#btnNextOnAction" prefHeight="46.0" prefWidth="57.0" styleClass="ButtonPaging" text="&gt;">
                      <padding>
                         <Insets left="10.0" right="10.0" />
