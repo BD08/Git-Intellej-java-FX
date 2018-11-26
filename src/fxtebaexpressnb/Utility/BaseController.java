@@ -127,6 +127,7 @@ public abstract class BaseController<O> {
         try {
             fXMLLoader=new FXMLLoader(getFileUrl(fileFXML));
             AnchorPane anchorPane= fXMLLoader.load();
+
             getCenterPane().getChildren().setAll(anchorPane);
             //getBorderPane().setCenter(anchorPane);
         }catch (IOException ioEx){

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parentPanel" prefHeight="727.0" prefWidth="1869.0" stylesheets="@CSS/CSSMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.TransactionCheckpointModelController">
+<AnchorPane fx:id="parentPanel" prefHeight="727.0" prefWidth="977.0" stylesheets="@CSS/CSSMain.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.TransactionCheckpointModelController">
    <children>
       <JFXTreeTableView fx:id="treeTableView" layoutX="20.0" layoutY="56.0" prefHeight="591.0" prefWidth="1869.0" styleClass="TableAnchorePane" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <columns>
@@ -24,7 +24,7 @@
             <JFXTreeTableColumn fx:id="coloumnNamaPembawa" minWidth="133" prefWidth="254.0" styleClass="RowPaneFirst" text="Nama Pembawa" />
          </columns>
       </JFXTreeTableView>
-      <AnchorPane prefHeight="75.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="paginnationPanel" prefHeight="75.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="65.0" prefWidth="823.0" spacing="10.0" styleClass="HeaderPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>

@@ -23,8 +23,11 @@ import javafx.scene.text.Text;
 
 public class TransactionCheckpointModelController extends BaseController<PengirimanTransactionModel> {
 
+	private BD08MappingDatabase mappingDatabase;
+	private DataTableResult<PengirimanTransactionModel> dataTableResult;
 	public static void loadTransactionCheckpointModelController(BaseController base){
 		FXMLLoader fxmlLoader;
+
 		try{
 			fxmlLoader=base.changeCenter(FileFXML.VIEW_TRANSACTION_CHECPOINT);
 			TransactionCheckpointModelController tarifListController=fxmlLoader.<TransactionCheckpointModelController>getController();
@@ -36,9 +39,9 @@ public class TransactionCheckpointModelController extends BaseController<Pengiri
 		}
 	}
 
-	private BD08MappingDatabase mappingDatabase;
-	private DataTableResult<PengirimanTransactionModel> dataTableResult;
 
+	@FXML
+	private AnchorPane paginnationPanel;
 	@FXML
 	private JFXTextField txtSearch;
 
