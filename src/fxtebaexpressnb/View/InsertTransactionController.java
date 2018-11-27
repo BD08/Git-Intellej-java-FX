@@ -4,10 +4,8 @@
 
 package fxtebaexpressnb.View;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,8 +21,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class InsertTransactionController extends BaseController<TableTransactionModel> implements IControllerViewInput<TableTransactionModel> {
+
+
 
 	public static void InsertTransactionControllerLoad(BaseController baseController){
 		FXMLLoader fxmlLoader;
@@ -55,12 +56,13 @@ public class InsertTransactionController extends BaseController<TableTransaction
 
 
 	//region FXML Load
-	@FXML // ResourceBundle that was given to the FXMLLoader
-	private ResourceBundle resources;
+	@FXML
+	private HBox savebuttonPanel;
 
-	@FXML // URL location of the FXML file that was given to the FXMLLoader
-	private URL location;
 
+	@FXML
+	private JFXTreeTableView treeTableView;
+	
 	@FXML // fx:id="ParentPane"
 	private AnchorPane ParentPane; // Value injected by FXMLLoader
 

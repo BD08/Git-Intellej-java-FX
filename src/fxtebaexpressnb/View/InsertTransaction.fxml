@@ -4,6 +4,8 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,21 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ParentPane" blendMode="MULTIPLY" prefHeight="706.0" prefWidth="1744.0" styleClass="parent" stylesheets="@CSS/CSSMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.InsertTransactionController">
+<AnchorPane fx:id="ParentPane" blendMode="MULTIPLY" prefHeight="1016.0" prefWidth="1764.0" styleClass="parent" stylesheets="@CSS/CSSMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxtebaexpressnb.View.InsertTransactionController">
    <children>
-      <BorderPane layoutX="6.0" layoutY="6.0" prefHeight="704.0" prefWidth="1736.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
-         <bottom>
-            <HBox alignment="CENTER" maxWidth="170.0" minWidth="170.0" prefWidth="170.0" spacing="10.0" BorderPane.alignment="BOTTOM_CENTER">
-               <children>
-                  <JFXButton fx:id="btnSave" alignment="CENTER" maxWidth="150.0" minWidth="150.0" onAction="#btnSaveAction" prefHeight="67.0" prefWidth="150.0" styleClass="ButtonActionCss" text="Save" />
-                  <JFXButton fx:id="btnCancel" alignment="CENTER" minWidth="150.0" onAction="#btnCancelAction" prefHeight="67.0" prefWidth="150.0" styleClass="ButtonCencelCSS" text="Cencel" />
-                  <JFXButton fx:id="btnReset" alignment="CENTER" minWidth="150.0" onAction="#btnResetAction" prefHeight="67.0" prefWidth="150.0" styleClass="WarningButton" text="Reset" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </HBox>
-         </bottom>
+      <BorderPane layoutX="8.0" layoutY="8.0" prefHeight="898.0" prefWidth="1732.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
          <center>
             <VBox alignment="TOP_CENTER" prefHeight="523.0" prefWidth="1595.0" spacing="2.0" styleClass="VBoxPadding" BorderPane.alignment="TOP_RIGHT">
                <children>
@@ -158,7 +148,6 @@
                                  </VBox.margin>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="LabelHeader" text="To (reciver)" />
-                                 </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="276.0">
                                  <VBox.margin>
@@ -362,6 +351,34 @@
          <padding>
             <Insets bottom="15.0" />
          </padding>
+         <bottom>
+            <VBox alignment="TOP_CENTER" prefHeight="275.0" prefWidth="1748.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox fx:id="savebuttonPanel" alignment="CENTER" maxWidth="170.0" minWidth="170.0" prefWidth="170.0" spacing="10.0">
+                     <children>
+                        <JFXButton fx:id="btnSave" alignment="CENTER" maxWidth="150.0" minWidth="150.0" onAction="#btnSaveAction" prefHeight="67.0" prefWidth="150.0" styleClass="ButtonActionCss" text="Save" />
+                        <JFXButton fx:id="btnCancel" alignment="CENTER" minWidth="150.0" onAction="#btnCancelAction" prefHeight="67.0" prefWidth="150.0" styleClass="ButtonCencelCSS" text="Cencel" />
+                        <JFXButton fx:id="btnReset" alignment="CENTER" minWidth="150.0" onAction="#btnResetAction" prefHeight="67.0" prefWidth="150.0" styleClass="WarningButton" text="Reset" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <JFXTreeTableView fx:id="treeTableView" prefHeight="209.0" prefWidth="1732.0" styleClass="TableAnchorePane">
+                     <columns>
+                        <JFXTreeTableColumn fx:id="idColoumn" editable="false" minWidth="73.0" prefWidth="73.0" sortable="false" styleClass="RowPaneFirst" text="Id" />
+                        <JFXTreeTableColumn fx:id="coloumnAWB" minWidth="35.0" prefWidth="290.0" styleClass="RowPaneSecond" text="AWB" />
+                        <JFXTreeTableColumn fx:id="coloumnNamaPengirim" minWidth="133" prefWidth="254.0" styleClass="RowPaneFirst" text="Nama Pengirim" />
+                        <JFXTreeTableColumn fx:id="coloumnAlamatPengirim" minWidth="133" prefWidth="254.0" styleClass="RowPaneFirst" text="Alamat Pengirim" />
+                        <JFXTreeTableColumn fx:id="coloumnNamaPenerima" minWidth="133" prefWidth="254.0" styleClass="RowPaneFirst" text="Nama Penerima" />
+                        <JFXTreeTableColumn fx:id="coloumnAlamatPenerima" minWidth="133" prefWidth="254.0" styleClass="RowPaneFirst" text="Alamat Penerima" />
+                        <JFXTreeTableColumn fx:id="coloumnLastSync" minWidth="133" prefWidth="254.0" styleClass="RowPaneFirst" text="Last Checkin" />
+                        <JFXTreeTableColumn fx:id="coloumnNamaPembawa" minWidth="133" prefWidth="254.0" styleClass="RowPaneFirst" text="Nama Pembawa" />
+                     </columns>
+                  </JFXTreeTableView>
+               </children>
+            </VBox>
+         </bottom>
       </BorderPane>
    </children>
    <padding>
